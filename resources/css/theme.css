@@ -1,0 +1,81 @@
+/*********** THEME CSS **********************/
+
+/** Header **/
+
+/* Show dropdown on hover */
+
+.navbar .dropdown-menu {
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  top: 100%; /* sits just below navbar */
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Keep dropdown aligned properly */
+.dropdown-menu {
+  margin-top: 0; 
+}
+
+
+
+
+
+
+
+/** Slider index page **/
+
+#bootstrap-touch-slider .carousel-item {
+    height: 70vh; /* 70% of viewport height */
+    min-height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.bs-slider-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4); /* semi-transparent overlay */
+    z-index: 1;
+}
+
+.slide-text {
+    position: relative;
+    z-index: 2; /* make sure text is above overlay */
+}
+
+
+
+/*** Product Slider **/
+
+.card-img-top {
+    width: 100% !important;
+    height: 350px !important;   /* set the uniform height you want */
+    object-fit: cover;          /* crop/scale to fill without distortion */
+    object-position: center;    /* keep subject centered */
+    display: block;
+  }
+
+  /* Optional: keep all cards equal height if titles/descriptions vary */
+.card.h-100 { 
+    display: flex;
+    flex-direction: column; 
+}
+
+
+
+
+/**** login and register page **/
+
+
+/* Smaller, lighter placeholder */
+::placeholder {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
