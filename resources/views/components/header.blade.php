@@ -47,7 +47,7 @@
                 </a>
             </li>
             <li class="list-inline-item">
-                <a href="cart.html" class="text-black text-decoration-none">
+                <a href="{{ route('cart') }}" class="text-black text-decoration-none">
                 <i class="fas fa-shopping-cart"></i> Cart (₱0.00)
                 </a>
             </li>

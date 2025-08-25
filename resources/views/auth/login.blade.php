@@ -36,7 +36,7 @@
 
                     <!-- Signup link -->
                     <div class="text-center">
-                    <span class="small">Don't have an account? <a href="#" class="text-decoration-none">Sign Up</a></span>
+                    <span class="small">Don't have an account? <a href="{{ route('register') }}" class="text-decoration-none">Sign Up</a></span>
                     </div>
                 </div>
                 </div>

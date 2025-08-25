@@ -72,7 +72,7 @@
                 <li class="nav-item"><a class="nav-link text-white" href="about.html">Kids</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="faq.html">Electronics</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="contact.html">Health and Household</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="about.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('aboutUs') }}">About Us</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('faq') }}">FAQ</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('contactUs') }}">Contact</a></li>
             </ul>

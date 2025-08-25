@@ -90,7 +90,7 @@
 
                 <!-- Login Redirect -->
                 <div class="text-center">
-                <span class="small">Already have an account? <a href="#" class="text-decoration-none">Login</a></span>
+                <span class="small">Already have an account? <a href="{{ route('login') }}" class="text-decoration-none">Login</a></span>
                 </div>
 
             </div>
