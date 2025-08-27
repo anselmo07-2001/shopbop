@@ -1,5 +1,5 @@
 <x-layout>
-    <x-home-carousel/>
+    <x-home-carousel :carousel="$carousel"/>
     
     <x-services :services="$services"/>
 
