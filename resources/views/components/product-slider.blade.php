@@ -28,9 +28,10 @@
                     </div>
                 @endforeach
                         
-            <!-- Navigation Buttons -->
-            <button class="prevBtn btn btn-dark position-absolute top-50 start-0 translate-middle-y" style="border-radius:0;">&#10094;</button>
-            <button class="nextBtn btn btn-dark position-absolute top-50 end-0 translate-middle-y" style="border-radius:0;">&#10095;</button>
+                <!-- Navigation Buttons -->
+                <button class="prevBtn btn btn-dark position-absolute top-50 start-0 translate-middle-y" style="border-radius:0;">&#10094;</button>
+                <button class="nextBtn btn btn-dark position-absolute top-50 end-0 translate-middle-y" style="border-radius:0;">&#10095;</button>
+            </div>
         </div>
     </div>
 </div>

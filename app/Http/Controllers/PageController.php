@@ -11,7 +11,7 @@ class PageController extends Controller
 
     public function index() {
         $services = Service::all();
-        $featured_products = Product::where("is_featured", 1)->get();
+        $featured_products = Product::where("is_featured", 1)->take(8)->get();
         $latest_products = Product::latest()->take(8)->get();
         $popular_products = Product::orderBy("total_views", "desc")->take(8)->get();
 
