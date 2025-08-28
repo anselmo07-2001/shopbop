@@ -31,3 +31,20 @@ document.querySelectorAll('.position-relative').forEach((sliderContainer) => {
         }
     }, 3000);
 });
+
+// product nav bar
+// Only the active tab has a border square
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.nav-link');
+    tabs.forEach(tab => {
+        tab.addEventListener('shown.bs.tab', (event) => {
+            tabs.forEach(t => {
+                t.classList.remove('border');
+                t.classList.add('border-0');
+            });
+            event.target.classList.add('border');
+            event.target.classList.remove('border-0');
+        });
+    });
+});
+

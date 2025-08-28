@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -22,3 +23,5 @@ Route::get("/cart", [CartController::class, "cart"])->name("cart");
 
 Route::get("/login", [LoginController::class, "login"])->name("login");
 Route::get("/register", [RegisterController::class, "register"])->name("register");
+
+Route::get("/products/{id}", [ProductController::class, "show"])->name("product.show");

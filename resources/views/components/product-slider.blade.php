@@ -23,7 +23,7 @@
                                 <span class="text-primary fs-5"><strong>{{ $product->current_price }}</strong></span>
                                 <span class="text-muted"><del>{{ $product->original_price }}</del></span>
                             </p>
-                            <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</a>
+                            <a href="{{ route('product.show', $product->id ) }}" class="btn btn-warning btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</a>
                         </div>
                     </div>
                 @endforeach
