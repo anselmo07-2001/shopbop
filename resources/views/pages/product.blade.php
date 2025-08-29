@@ -16,44 +16,44 @@
             <!-- Product Images -->
             <div class="col-md-6">
             <div class="mb-3">
-                <img id="mainProductImg" src="{{ asset('storage/products/product-featured-83.jpg') }}" class="img-fluid border rounded" alt="Amazfit GTS 3">
+                <img id="mainProductImg" src="{{ asset('storage/products/' . $product->featured_photo ) }}" class="img-fluid border rounded" alt="Amazfit GTS 3">
             </div>
             <div class="d-flex gap-2">
-                <img src="{{ asset('storage/products/product-featured-83.jpg') }}" class="img-thumbnail" style="width: 80px;" onclick="document.getElementById('mainProductImg').src=this.src">
-                <img src="{{ asset('storage/products/product-featured-83.jpg') }}" class="img-thumbnail" style="width: 80px;" onclick="document.getElementById('mainProductImg').src=this.src">
-                <img src="{{ asset('storage/products/product-featured-83.jpg') }}" class="img-thumbnail" style="width: 80px;" onclick="document.getElementById('mainProductImg').src=this.src">
+                @foreach ($product_galleries as $photo)
+                    <img src="{{ asset('storage/gallery/' . $photo->image_path) }}" class="img-thumbnail" style="width: 80px;" onclick="document.getElementById('mainProductImg').src=this.src">       
+                @endforeach
             </div>
             </div>
 
             <!-- Product Details -->
             <div class="col-md-6">
-            <h2>Amazfit GTS 3 Smart Watch</h2>
-            <p class="text-muted">High-performance smartwatch with multiple features and elegant design.</p>
+            <h2>{{ $product->name }}</h2>
+            <p class="text-muted">{!! $product->short_description !!}</p>
 
             <!-- Price -->
             <p class="fs-4">
-                <span class="text-primary fw-bold">$199</span>
-                <span class="text-muted text-decoration-line-through">$249</span>
-                <span class="badge bg-success">20% Off</span>
+                <span class="text-primary fw-bold">${{ $product->current_price }}</span>
+                <span class="text-muted text-decoration-line-through">${{ $product->original_price }}</span>
             </p>
 
             <!-- Size & Color -->
             <div class="mb-3">
                 <label for="sizeSelect" class="form-label">Size</label>
                 <select class="form-select w-50" id="sizeSelect">
-                <option selected>Choose Size</option>
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
+                    <option selected>Choose Size</option>
+                        @foreach ($product_sizes as $item)
+                            <option value={{ $item->size->id }} >{{ $item->size->name }}</option>
+                        @endforeach
                 </select>
             </div>
+
             <div class="mb-3">
                 <label for="colorSelect" class="form-label">Color</label>
                 <select class="form-select w-50" id="colorSelect">
-                <option selected>Choose Color</option>
-                <option>Black</option>
-                <option>Silver</option>
-                <option>Gold</option>
+                    <option selected>Choose Color</option>
+                        @foreach ($product_colors as $item)
+                            <option value={{ $item->color->id }} >{{ $item->color->name }}</option>
+                        @endforeach
                 </select>
             </div>
 
@@ -110,21 +110,16 @@
     <!-- Tab Content -->
         <div class="tab-content mt-3">
                 <div class="tab-pane fade show active" id="description" role="tabpanel">
-                    <p>This is the product description. It gives an overview of the product’s features and benefits.</p>
+                    {!! $product->description !!}
                 </div>
                 <div class="tab-pane fade" id="features" role="tabpanel">
-                    <ul>
-                        <li>High-resolution display</li>
-                        <li>Heart rate and sleep tracking</li>
-                        <li>Multiple sports modes</li>
-                        <li>Water resistant</li>
-                    </ul>
+                   {!! $product->features !!}
                 </div>
                 <div class="tab-pane fade" id="condition" role="tabpanel">
-                    <p>All products are brand new, sealed, and delivered in original packaging.</p>
+                    {!! $product->condition !!}
                 </div>
                 <div class="tab-pane fade" id="return" role="tabpanel">
-                    <p>30-day return policy. Items must be in original condition with tags and packaging intact.</p>
+                    {!! $product->return_policy !!}
                 </div>
                 </div>
             </div>
