@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        "id",
         "name",
         "original_price",
         "current_price",
@@ -20,4 +19,8 @@ class Product extends Model
         "is_active",
         "end_category_id"
     ];
+
+    public function endCategory() {
+        return $this->belongsTo(EndCategory::class, "end_category_id");
+    }
 }

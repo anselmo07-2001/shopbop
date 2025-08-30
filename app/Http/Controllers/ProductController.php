@@ -23,12 +23,16 @@ class ProductController extends Controller
         $product_colors = ProductColor::with("color")->where("product_id", $product->id)->get();
         $product_colors = $product_colors->map(fn($p_colors) => $p_colors);
 
+        //Build the breadcrumbs
+        $breadcrumbs = Product::with("endCategory.midCategory.topCategory")->find($product->id);
+
         
         return view("pages.product", [
             "product" => $product,
             "product_galleries" => $product_galleries,
             "product_sizes" => $product_sizes,
-            "product_colors" => $product_colors
+            "product_colors" => $product_colors,
+            "breadcrumbs" => $breadcrumbs
         ]);
     }
 }

@@ -1,12 +1,13 @@
 <x-layout>
+
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-light p-2 rounded">
-            <li class="breadcrumb-item"><a href="#" class="text-dark">Home</a></li>
-            <li class="breadcrumb-item"><a href="#" class="text-dark">Men</a></li>
-            <li class="breadcrumb-item"><a href="#" class="text-dark">Men Accessories</a></li>
-            <li class="breadcrumb-item"><a href="#" class="text-dark">Watches</a></li>
-            <li class="breadcrumb-item active text-dark"  aria-current="page">Amazfit GTS 3 Smart Watch</li>
+                <li class="breadcrumb-item"><a href="#" class="text-dark">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-dark">{{ $breadcrumbs->endCategory->midCategory->topCategory->name }}</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-dark">{{ $breadcrumbs->endCategory->midCategory->name }}</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-dark">{{ $breadcrumbs->endCategory->name }}</a></li>
+                <li class="breadcrumb-item active text-dark"  aria-current="page">{{ $product->name }}</li>
             </ol>
         </nav>
     </div>
