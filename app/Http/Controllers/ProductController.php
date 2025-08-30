@@ -30,9 +30,6 @@ class ProductController extends Controller
         $relatedProducts = Product::where("end_category_id", $product->end_category_id)
                             ->where("id", "!=" ,$product->id) ->get();
 
-       
-
-        
         return view("pages.product", [
             "product" => $product,
             "product_galleries" => $product_galleries,
