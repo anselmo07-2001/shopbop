@@ -26,13 +26,20 @@ class ProductController extends Controller
         //Build the breadcrumbs
         $breadcrumbs = Product::with("endCategory.midCategory.topCategory")->find($product->id);
 
+        //Related Products
+        $relatedProducts = Product::where("end_category_id", $product->end_category_id)
+                            ->where("id", "!=" ,$product->id) ->get();
+
+       
+
         
         return view("pages.product", [
             "product" => $product,
             "product_galleries" => $product_galleries,
             "product_sizes" => $product_sizes,
             "product_colors" => $product_colors,
-            "breadcrumbs" => $breadcrumbs
+            "breadcrumbs" => $breadcrumbs,
+            "relatedProducts" => $relatedProducts
         ]);
     }
 }

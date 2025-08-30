@@ -131,7 +131,7 @@
    
         <x-add-review/>
 
-        <x-related-products/>
+        <x-related-products :relatedProducts="$relatedProducts"/>
 
     </div>
 </x-layout>
