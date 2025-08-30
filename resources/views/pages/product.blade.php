@@ -3,10 +3,34 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-light p-2 rounded">
-                <li class="breadcrumb-item"><a href="#" class="text-dark">Home</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-dark">{{ $breadcrumbs->endCategory->midCategory->topCategory->name }}</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-dark">{{ $breadcrumbs->endCategory->midCategory->name }}</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-dark">{{ $breadcrumbs->endCategory->name }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-dark">Home</a></li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('category.index', 
+                             [  'level' => 'top_category', 
+                                'id' => $breadcrumbs->endCategory->midCategory->topCategory->id, 
+                                'value' => $breadcrumbs->endCategory->midCategory->topCategory->name] ) }}" 
+                       class="text-dark">
+                            {{ $breadcrumbs->endCategory->midCategory->topCategory->name }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('category.index', 
+                             [  'level' => 'mid_category', 
+                                'id' => $breadcrumbs->endCategory->midCategory->id, 
+                                'value' => $breadcrumbs->endCategory->midCategory->name] ) }}" 
+                       class="text-dark">
+                            {{ $breadcrumbs->endCategory->midCategory->name }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('category.index', 
+                             [  'level' => 'end_category', 
+                                'id' => $breadcrumbs->endCategory->id, 
+                                'value' => $breadcrumbs->endCategory->name] ) }}" 
+                       class="text-dark">
+                            {{ $breadcrumbs->endCategory->name }}
+                    </a>
+                </li>
                 <li class="breadcrumb-item active text-dark"  aria-current="page">{{ $product->name }}</li>
             </ol>
         </nav>

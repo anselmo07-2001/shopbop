@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LoginController;
@@ -23,5 +24,8 @@ Route::get("/cart", [CartController::class, "cart"])->name("cart");
 
 Route::get("/login", [LoginController::class, "login"])->name("login");
 Route::get("/register", [RegisterController::class, "register"])->name("register");
+
+
+Route::get("/level/{level}/category/{id}/value/{value}", [CategoryController::class, "index"])->name("category.index");
 
 Route::get("/products/{id}", [ProductController::class, "show"])->name("product.show");
