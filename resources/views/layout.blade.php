@@ -22,9 +22,11 @@
 
 
     </head>
-<body> 
+<body class="d-flex flex-column min-vh-100"> 
     <x-header/>
-        {{ $slot }}
+        <main class="flex-fill">
+            {{ $slot }}
+        </main>
     <x-footer/>
 
 

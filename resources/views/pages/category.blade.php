@@ -36,45 +36,59 @@
                 </div>
             </div>
 
-            <div class="col-md-9">
-                <h4 class="mb-4">Category: <span class="text-primary">{{ $value }}</span></h4>
+            @if ($category_products->count())
+                <div class="col-md-9">
+                    <h4 class="mb-4">Category: <span class="text-primary">{{ $value }}</span></h4>
 
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                
-                    @foreach ($category_products as $category_product)
-                        <div class="col">
-                            <div class="card text-center h-100">
-                                <img src="{{ asset('storage/products/' . $category_product->featured_photo ) }}" class="card-img-top" alt="Women's Casual V-Neck Blouse">
-                                <div class="card-body bg-light">
-                                    <p class="card-text">{{ $category_product->name }}</p>
-                                    <p class="mb-2">
-                                        <span class="text-primary fs-5"><strong>${{ $category_product->current_price }}</strong></span>
-                                        <span class="text-muted"><del>${{ $category_product->original_price }}</del></span>
-                                    </p>
-                                    <a href="{{ route('product.show', $category_product->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</a>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                    
+                        @foreach ($category_products as $category_product)
+                            <div class="col">
+                                <div class="card text-center h-100">
+                                    <img src="{{ asset('storage/products/' . $category_product->featured_photo ) }}" class="card-img-top" alt="Women's Casual V-Neck Blouse">
+                                    <div class="card-body bg-light">
+                                        <p class="card-text">{{ $category_product->name }}</p>
+                                        <p class="mb-2">
+                                            <span class="text-primary fs-5"><strong>${{ $category_product->current_price }}</strong></span>
+                                            <span class="text-muted"><del>${{ $category_product->original_price }}</del></span>
+                                        </p>
+                                        <a href="{{ route('product.show', $category_product->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>       
-                    @endforeach
+                            </div>       
+                        @endforeach
 
 
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation example" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-
-                <!-- Pagination -->
-                <nav aria-label="Page navigation example" class="mt-4">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            @else
+                <div class="col-md-9">
+                    <div class="text-center py-5 my-4 border rounded bg-light">
+                        <div class="mb-3">
+                            <i class="bi bi-box-seam text-muted" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="fw-bold text-muted">No Products Available</h5>
+                        <p class="text-muted mb-0">
+                            We couldn’t find any products for this section. Try exploring other categories.
+                        </p>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </x-layout>
