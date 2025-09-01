@@ -11,6 +11,16 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+    public function search(Request $request) {
+        $term = $request->input("search_text");
+        $products = Product::search($term)->paginate(9);
+        return view("pages.search", [
+             "products" => $products,
+             "term" => $term
+        ]); 
+    }
+
+
     public function show($id): View {
         $product = Product::findorFail($id);
         $product_galleries = ProductGallery::where("product_id", $product->id)->get();

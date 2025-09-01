@@ -29,3 +29,4 @@ Route::get("/register", [RegisterController::class, "register"])->name("register
 Route::get("/level/{level}/category/{id}/value/{value}", [CategoryController::class, "index"])->name("category.index");
 
 Route::get("/products/{id}", [ProductController::class, "show"])->name("product.show");
+Route::get("/search", [ProductController::class, "search"])->name("product.search");

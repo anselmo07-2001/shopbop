@@ -54,9 +54,9 @@
             </ul>
 
             <!-- Search -->
-            <form class="d-flex" role="search" action="search-result.html" method="get">
-            <input class="form-control me-2" type="search" placeholder="Search products..." name="search_text">
-            <button class="btn btn-danger" type="submit">Search</button>
+            <form class="d-flex" role="search" action="{{ route('product.search') }}" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search products..." name="search_text">
+                <button class="btn btn-danger" type="submit">Search</button>
             </form>
 
         </div>

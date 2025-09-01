@@ -3,9 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
+    use Searchable;
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'featured_photo' => $this->featured_photo,
+            'description' => $this->description,
+            'short_description' => $this->short_description,
+        ];
+    }
+
     protected $fillable = [
         "name",
         "original_price",

@@ -69,7 +69,7 @@
                     </div>
 
                     <!-- Pagination -->
-                    <nav aria-label="Page navigation example" class="mt-4">
+                    <nav aria-label="Page navigation" class="mt-4">
                           {{ $category_products->links('vendor.pagination.custom') }}
                     </nav>
                 </div>
