@@ -7,10 +7,15 @@ use App\Models\MidCategory;
 use App\Models\Product;
 use App\Models\TopCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
+
     public function index($level, $id, $value) {
+        $sideMenu = Cache::remember("sideMenu", 3600, function() { 
+                       return TopCategory::with("midCategories.endCategories.products")->where("show_on_menu", 1)->get();
+                    });
 
         $category_products = [];
 
@@ -41,7 +46,8 @@ class CategoryController extends Controller
 
         return view("pages.category", [
             "category_products" => $category_products,
-            "value" => $value
+            "value" => $value,
+            "sideMenu" => $sideMenu
         ]);
     }
 }

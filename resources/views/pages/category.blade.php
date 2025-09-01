@@ -1,40 +1,47 @@
 <x-layout>
+
     <div class="container my-5">
         <div class="row">
-            <!-- Left Sidebar: Categories -->
             <div class="col-md-3">
                 <h5>Categories</h5>
-                <div class="list-group ">
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#menSub" role="button" aria-expanded="false" aria-controls="menSub">
-                        Men
-                        <i class="bi bi-plus"></i>
-                    </a>
-                    <div class="collapse ps-3" id="menSub">
-                        <a href="#" class="list-group-item list-group-item-action">Men Shoes</a>
-                        <a href="#" class="list-group-item list-group-item-action">Men Accessories</a>
-                        <a href="#" class="list-group-item list-group-item-action">Men Shirts</a>
-                    </div>
+                <div class="list-group">
+                    @foreach ($sideMenu as $topCategories)
+                        <div class="d-flex align-items-center list-group-item">
+                            <a href="{{ route('category.index', ['top_category', $topCategories->id, $topCategories->name] )}}" 
+                               class="flex-grow-1 text-decoration-none text-dark">
+                                {{ $topCategories->name }}
+                            </a>
+                            <button class="btn btn-link p-0 ms-2 text-secondary" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#top-{{ $topCategories->id }}" aria-expanded="false" aria-controls="top-{{ $topCategories->id }}">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
 
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#womenSub" role="button" aria-expanded="false" aria-controls="womenSub">
-                        Women
-                        <i class="bi bi-plus"></i>
-                    </a>
-                    <div class="collapse ps-3" id="womenSub">
-                        <a href="#" class="list-group-item list-group-item-action">Women Shoes</a>
-                        <a href="#" class="list-group-item list-group-item-action">Women Accessories</a>
-                        <a href="#" class="list-group-item list-group-item-action">Women Blouses</a>
-                    </div>
-
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#kidsSub" role="button" aria-expanded="false" aria-controls="kidsSub">
-                        Kids
-                        <i class="bi bi-plus"></i>
-                    </a>
-                    <div class="collapse ps-3" id="kidsSub">
-                        <a href="#" class="list-group-item list-group-item-action">Kids Shoes</a>
-                        <a href="#" class="list-group-item list-group-item-action">Kids Clothing</a>
-                    </div>
+                        <div class="collapse ps-3" id="top-{{ $topCategories->id }}">
+                            @foreach ($topCategories->midCategories as $midCategories)
+                                <div class="d-flex align-items-center list-group-item">
+                                    <a href="{{ route('category.index', ['mid_category', $midCategories->id, $midCategories->name] )}}" 
+                                       class="flex-grow-1 text-decoration-none text-dark">{{ $midCategories->name }}</a>
+                                    <button class="btn btn-link p-0 ms-2 text-secondary" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#mid-{{ $midCategories->id }}" aria-expanded="false" aria-controls="mid-{{ $midCategories->id }}">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                </div>          
+                                <div class="collapse ps-3" id="mid-{{ $midCategories->id }}">
+                                    @foreach ($midCategories->endCategories as $endCategories)
+                                        <a href="{{ route('category.index', ['end_category', $endCategories->id, $endCategories->name] )}}" 
+                                           class="list-group-item list-group-item-action">{{ $endCategories->name }}</a>
+                                    @endforeach
+                                </div>                       
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
             </div>
+
+
+
+
 
             @if ($category_products->count())
                 <div class="col-md-9">
