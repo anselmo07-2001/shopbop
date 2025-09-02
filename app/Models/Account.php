@@ -19,7 +19,4 @@ class Account extends Model
         "remember_token"
     ];
 
-    public function customer() {
-        return $this->hasOne(Customer::class);
-    }
 }

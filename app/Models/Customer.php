@@ -46,8 +46,4 @@ class Customer extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    public function account() {
-        return $this->belongsTo(Account::class);
-    }
 }
