@@ -24,6 +24,8 @@ Route::get("/cart", [CartController::class, "cart"])->name("cart");
 
 Route::get("/login", [LoginController::class, "login"])->name("login");
 Route::get("/register", [RegisterController::class, "register"])->name("register");
+Route::post("/store", [RegisterController::class, "store"])->name("register.store");
+
 
 
 Route::get("/level/{level}/category/{id}/value/{value}", [CategoryController::class, "index"])->name("category.index");

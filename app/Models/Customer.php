@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Customer extends Model
+
+class Customer extends Authenticatable
 {
+    use Notifiable;
+    use HasFactory;
+
     protected $fillable = [
         "full_name",  
         "company_name",  
@@ -15,7 +21,9 @@ class Customer extends Model
         "address",  
         "city",  
         "state",  
-        "zip",  
+        "zip",
+        "password",
+        "status",
         "billing_name",  
         "billing_company_name",  
         "billing_phone_number",  
@@ -32,6 +40,11 @@ class Customer extends Model
         "shipping_city",  
         "shipping_state",  
         "shipping_zip",
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     public function account() {

@@ -1,4 +1,16 @@
 <x-layout>
+    @if(session('success'))
+        <div 
+            x-data="{ show: true }" 
+            x-show="show" 
+            x-init="setTimeout(() => show = false, 5000 )" 
+            class="alert alert-success text-center"
+            style="margin-bottom: 0"
+        >
+            {{ session('success') }}
+        </div>
+    @endif
+
     <x-home-carousel :carousel="$carousel"/>
     
     <x-services :services="$services"/>

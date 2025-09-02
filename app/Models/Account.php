@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
+    use HasFactory;
+
     protected $fillablen = [
         "full_name",
         "email",
@@ -13,9 +16,10 @@ class Account extends Model
         "password",
         "role",
         "status",
+        "remember_token"
     ];
 
-    public function customers() {
-        return $this->hasMany(Customer::class);
+    public function customer() {
+        return $this->hasOne(Customer::class);
     }
 }
