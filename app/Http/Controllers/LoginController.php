@@ -19,7 +19,7 @@ class LoginController extends Controller
             return redirect()->route('home')->with('success', 'Customer logged in!');
         }
         
-        return back()->withErrors(['email' => 'Invalid credentials']);
+        return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
     }
 
 

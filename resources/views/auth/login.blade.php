@@ -8,18 +8,34 @@
                     <h4 class="text-center mb-4 fw-semibold">Customer Login</h4>
                     <!-- Login Form -->
                     <form method="POST" action="{{ route('login.customer')}}">
+                        @if($errors->any())
+                            <div class="alert alert-danger mb-3">
+                                {{ $errors->first() }}
+                            </div>
+                        @endif
+
                         @csrf
                     <!-- Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
-                            <input style="font-size: 14px;" name="email" type="email" class="form-control form-control-lg" id="email" placeholder="Enter your email">
+                            <input style="font-size: 14px;" name="email" type="email" 
+                                   class="form-control form-control-lg" id="email" 
+                                   placeholder="Enter your email" value="{{ old('email') }}">
+                            @error('email')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Password -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input style="font-size: 14px;" name="password" type="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
+                            <input style="font-size: 14px;" name="password" type="password" class="form-control form-control-lg" 
+                                   id="password" placeholder="Enter your password">
+                            @error('password')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
+                        
 
                         <!-- Remember Me -->
                         <div class="mb-3 form-check">
