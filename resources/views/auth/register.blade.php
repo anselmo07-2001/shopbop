@@ -12,74 +12,104 @@
                     <div class="row g-4">
                         <!-- Full Name -->
                         <div class="col-md-6">
-                        <label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="text" name="full_name" class="form-control form-control-lg" id="fullname" placeholder="Enter your full name" required>
+                            <label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="text" name="full_name" class="form-control form-control-lg" id="fullname" placeholder="Enter your full name" value="{{ old('full_name') }}">
+                            @error("full_name")
+                                 <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Company Name -->
                         <div class="col-md-6">
-                        <label for="company" class="form-label">Company Name</label>
-                        <input style="font-size: 14px;" type="text" name="company_name" class="form-control form-control-lg" id="company" placeholder="Enter your company name">
+                            <label for="company" class="form-label">Company Name</label>
+                            <input style="font-size: 14px;" type="text" name="company_name" class="form-control form-control-lg" id="company" placeholder="Enter your company name" value="{{ old('company_name') }}">
                         </div>
 
                         <!-- Email -->
                         <div class="col-md-6">
-                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="email" name="email" class="form-control form-control-lg" id="email" placeholder="Enter your email" required>
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="email" name="email" class="form-control form-control-lg" id="email" placeholder="Enter your email" value="{{ old('email') }}" >
+                            @error("email")
+                                 <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Phone Number -->
                         <div class="col-md-6">
-                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="tel" name="phone_number" class="form-control form-control-lg" id="phone" placeholder="Enter your phone number" required>
+                            <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="tel" name="phone_number" class="form-control form-control-lg" id="phone" placeholder="Enter your phone number" value="{{ old('phone_number') }}" >
+                            @error("phone_number")
+                                 <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Address -->
                         <div class="col-12">
-                        <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="text" name="address" class="form-control form-control-lg" id="address" placeholder="Enter your address" required>
+                            <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="text" name="address" class="form-control form-control-lg" id="address" placeholder="Enter your address" value="{{ old('address') }}">
+                            @error("address")
+                                 <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Country -->
                         <div class="col-md-6">
                             <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
-                            <select name="country" id="country" class="form-control form-control-lg" required style="font-size: 14px; color:#212529;">
+                            <select required name="country" id="country" class="form-control form-control-lg"  style="font-size: 14px; color:#212529;">
                                 <option value="">-- Select Country --</option>
                                 @foreach ($countries as $country)
-                                    <option value="{{$country->id}}">{{$country->country_name}}</option>
+                                    <option value="{{$country->id}}"
+                                            {{ old('country') == $country->id ? 'selected' : '' }}
+                                        >{{$country->country_name}}
+                                    </option>
                                 @endforeach
                             </select>
+                            @error('country')
+                                <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
 
                         <!-- City -->
                         <div class="col-md-6">
-                        <label for="city" class="form-label">City <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="text" name="city" class="form-control form-control-lg" id="city" placeholder="Enter your city" required>
+                            <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="text" name="city" class="form-control form-control-lg" id="city" placeholder="Enter your city" value="{{ old('city') }}" >
+                            @error("city")
+                                 <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- State -->
                         <div class="col-md-6">
-                        <label for="state" class="form-label">State <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="text" name="state" class="form-control form-control-lg" id="state" placeholder="Enter your state" required>
+                            <label for="state" class="form-label">State <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="text" name="state" class="form-control form-control-lg" id="state" placeholder="Enter your state" value="{{ old('state') }}" >
+                            @error("state")
+                                 <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Zipcode -->
                         <div class="col-md-6">
-                        <label for="zipcode" class="form-label">Zipcode <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="text" name="zip" class="form-control form-control-lg" id="zipcode" placeholder="Enter your zipcode" required>
+                            <label for="zipcode" class="form-label">Zipcode <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="text" name="zip" class="form-control form-control-lg" id="zipcode" placeholder="Enter your zipcode" value="{{ old('zip') }}" >
+                            @error("zip")
+                                 <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Password -->
                         <div class="col-md-6">
-                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter password" required>
+                            <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter password" >
+                            @error("password")
+                                 <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Retype Password -->
                         <div class="col-md-6">
-                        <label for="confirmPassword" class="form-label">Retype Password <span class="text-danger">*</span></label>
-                        <input style="font-size: 14px;" type="password" name="password_confirmation" class="form-control form-control-lg" id="confirmPassword" placeholder="Confirm password" required>
+                            <label for="confirmPassword" class="form-label">Retype Password <span class="text-danger">*</span></label>
+                            <input required style="font-size: 14px;" type="password" name="password_confirmation" class="form-control form-control-lg" id="confirmPassword" placeholder="Confirm password"  >
                         </div>
 
                     </div>

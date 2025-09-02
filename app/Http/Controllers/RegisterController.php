@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -19,7 +20,7 @@ class RegisterController extends Controller
     public function store(Request $request) {
         $countries = Country::pluck("id")->toArray();
 
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             "full_name" => "required|string|max:255",
             "company_name" => "nullable|string|max:255",
             "email" => "required|email|unique:customers,email",
@@ -31,6 +32,12 @@ class RegisterController extends Controller
             "zip" => "required|string|max:20",
             "password" => "required|min:8|confirmed",
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $validated = $validator->validate();
 
         $customer = Customer::create([
             "full_name" => $validated["full_name"],
@@ -63,7 +70,7 @@ class RegisterController extends Controller
             "shipping_zip" => $validated["zip"],        
         ]);
 
-        Auth::login($customer);
+        Auth::guard('customer')->login($customer);
 
         return redirect()->route("home")->with("success", "Account created and logged in!");
      }
