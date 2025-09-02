@@ -36,21 +36,35 @@
 
             <!-- Links -->
             <ul class="list-inline mb-0 me-3">
-            <li class="list-inline-item">
-                <a href="{{ route('login') }}" class="text-black text-decoration-none">
-                <i class="fas fa-sign-in-alt"></i> Login
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a href="{{ route('register') }}" class="text-black text-decoration-none">
-                <i class="fas fa-user-plus"></i> Register
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a href="{{ route('cart') }}" class="text-black text-decoration-none">
-                <i class="fas fa-shopping-cart"></i> Cart (₱0.00)
-                </a>
-            </li>
+               @auth("customer")
+                   <li class="list-inline-item">
+                        <form method="POST" action="{{ route('logout.customer') }}" class="text-black text-decoration-none">
+                            @csrf
+                            <button type="submit" class="btn btn-link text-black text-decoration-none p-0 m-0 align-baseline">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+
+                   <li class="list-inline-item">
+                        <a href="{{ route('cart') }}" class="text-black text-decoration-none">
+                        <i class="fas fa-shopping-cart"></i> Cart (₱0.00)
+                        </a>
+                    </li>  
+               @endauth
+
+                @guest("customer")
+                    <li class="list-inline-item">
+                        <a href="{{ route('login') }}" class="text-black text-decoration-none">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('register') }}" class="text-black text-decoration-none">
+                        <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </li>        
+                @endguest
             </ul>
 
             <!-- Search -->

@@ -7,28 +7,35 @@
                 <div class="card-body p-4">
                     <h4 class="text-center mb-4 fw-semibold">Customer Login</h4>
                     <!-- Login Form -->
-                    <form>
+                    <form method="POST" action="{{ route('login.customer')}}">
+                        @csrf
                     <!-- Email -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control form-control-lg" id="email" placeholder="Enter your email">
-                    </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input style="font-size: 14px;" name="email" type="email" class="form-control form-control-lg" id="email" placeholder="Enter your email">
+                        </div>
 
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
-                    </div>
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input style="font-size: 14px;" name="password" type="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
+                        </div>
 
-                    <!-- Forgot password -->
-                    <div class="mb-3 text-end">
-                        <a href="#" class="text-decoration-none small">Forgot Password?</a>
-                    </div>
+                        <!-- Remember Me -->
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">Remember Me</label>
+                        </div>
 
-                    <!-- Submit button -->
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-dark btn-lg">Login</button>
-                    </div>
+                        <!-- Forgot password -->
+                        <div class="mb-3 text-end">
+                            <a href="#" class="text-decoration-none small">Forgot Password?</a>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-lg">Login</button>
+                        </div>
                     </form>
 
                     <!-- Divider -->
@@ -36,7 +43,7 @@
 
                     <!-- Signup link -->
                     <div class="text-center">
-                    <span class="small">Don't have an account? <a href="{{ route('register') }}" class="text-decoration-none">Sign Up</a></span>
+                        <span class="small">Don't have an account? <a href="{{ route('register') }}" class="text-decoration-none">Sign Up</a></span>
                     </div>
                 </div>
                 </div>
