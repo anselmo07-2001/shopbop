@@ -69,8 +69,8 @@
                     <select name="size" class="form-select w-50" id="sizeSelect">
                         <option selected value="">Choose Size</option>
                             @foreach ($product_sizes as $item)
-                                <option value={{ $item->size->id }} 
-                                        {{ old('size') == $item->size->id ? "selected" : ""  }}
+                                <option value={{ $item->size->name }} 
+                                        {{ old('size') == $item->size->name ? "selected" : ""  }}
                                     >{{ $item->size->name }}
                                 </option>
                             @endforeach
@@ -85,8 +85,8 @@
                     <select name="color" class="form-select w-50" id="colorSelect">
                         <option selected value="">Choose Color</option>
                             @foreach ($product_colors as $item)
-                                <option value={{ $item->color->id }} 
-                                        {{ old('color') == $item->color->id ? "selected" : "" }}>
+                                <option value={{ $item->color->name }} 
+                                        {{ old('color') == $item->color->name ? "selected" : "" }}>
                                     {{ $item->color->name }}
                                 </option>
                             @endforeach

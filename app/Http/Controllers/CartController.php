@@ -11,8 +11,29 @@ use function PHPUnit\Framework\isEmpty;
 
 class CartController extends Controller
 {
-    public function cart(): View {
-        return view("pages.cart");
+    public function index(): View {
+        $cart = json_decode(request()->cookie('cart', '[]'), true);
+
+        $ids = collect($cart)->pluck("id")->all();
+
+        $products = Product::whereIn("id", $ids)->get()->keyBy("id");
+
+        $items = collect($cart)->map(function($item) use ($products) {
+            $product = $products[$item['id']] ?? null;
+            $price = $product?->current_price ?? 0;
+
+            return [
+                'product' => $products[$item['id']] ?? null,
+                'size' => $item['size'],
+                'color' => $item['color'],
+                'quantity'=> $item['quantity'],
+                "sub_total" => $price * $item["quantity"],
+            ];
+        });
+
+        $total = $items->sum("sub_total");
+
+        return view("pages.cart", compact("items", "total"));
     }
 
 
@@ -35,7 +56,6 @@ class CartController extends Controller
 
         $cart[] = [
             "id" => $product->id,
-            "name" => $product->name,
             "price" => $product->current_price,
 
             "size" => $validated["size"],
