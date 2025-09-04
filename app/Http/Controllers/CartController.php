@@ -11,6 +11,27 @@ use function PHPUnit\Framework\isEmpty;
 
 class CartController extends Controller
 {
+    public function update(Request $request, $id) {
+        $validated = $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $cart = json_decode(request()->cookie('cart', '[]'), true);
+
+        $updated_cart = collect($cart)->map(function($item) use($id, $validated) {
+            if ($item["id"] == $id) {
+                $item["quantity"] = $validated["quantity"];
+            }
+
+            return $item;
+        })->values()->all();
+
+        return back()
+                ->with("success", "Cart updated successfully")
+                ->cookie("cart", json_encode($updated_cart), 60 * 24 * 30);
+    }
+
+
     public function destroy($id) {
         $cart = json_decode(request()->cookie('cart', '[]'), true);
 
