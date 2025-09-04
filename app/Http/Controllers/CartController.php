@@ -11,6 +11,18 @@ use function PHPUnit\Framework\isEmpty;
 
 class CartController extends Controller
 {
+    public function destroy($id) {
+        $cart = json_decode(request()->cookie('cart', '[]'), true);
+
+        $updated_cart = collect($cart)
+                    ->filter(fn($item) => $item["id"] != $id)
+                    ->values()
+                    ->all();
+
+        return back()->cookie("cart", json_encode($updated_cart), 60 * 24 * 30);
+    }
+
+
     public function index(): View {
         $cart = json_decode(request()->cookie('cart', '[]'), true);
 

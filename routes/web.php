@@ -41,3 +41,4 @@ Route::get("/search", [ProductController::class, "search"])->name("product.searc
 
 Route::get("/cart", [CartController::class, "index"])->name("cart.index");
 Route::post("/cart/product/{id}", [CartController::class, "add"])->name("cart.add");
+Route::delete("/cart/product{id}", [CartController::class, "destroy"])->name("cart.destroy");

@@ -31,7 +31,11 @@
                         </td>
                         <td>${{ $item["sub_total"] }}</td>
                         <td>
-                            <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            <form method="post" action="{{ route('cart.destroy', $item['product']->id) }}">
+                                @method("delete")
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
