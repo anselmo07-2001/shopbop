@@ -12,6 +12,7 @@ use App\Http\Controllers\RegisterController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,3 +37,6 @@ Route::get("/level/{level}/category/{id}/value/{value}", [CategoryController::cl
 
 Route::get("/products/{id}", [ProductController::class, "show"])->name("product.show");
 Route::get("/search", [ProductController::class, "search"])->name("product.search");
+
+
+Route::post("/cart/product/{id}", [CartController::class, "add"])->name("cart.add");

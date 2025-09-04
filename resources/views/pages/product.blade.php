@@ -62,31 +62,46 @@
             </p>
 
             <!-- Size & Color -->
-            <div class="mb-3">
-                <label for="sizeSelect" class="form-label">Size</label>
-                <select class="form-select w-50" id="sizeSelect">
-                    <option selected>Choose Size</option>
-                        @foreach ($product_sizes as $item)
-                            <option value={{ $item->size->id }} >{{ $item->size->name }}</option>
-                        @endforeach
-                </select>
-            </div>
+            <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                @csrf
+                <div class="mb-3">
+                    <label for="sizeSelect" class="form-label">Size</label>
+                    <select name="size" class="form-select w-50" id="sizeSelect">
+                        <option selected value="">Choose Size</option>
+                            @foreach ($product_sizes as $item)
+                                <option value={{ $item->size->id }} 
+                                        {{ old('size') == $item->size->id ? "selected" : ""  }}
+                                    >{{ $item->size->name }}
+                                </option>
+                            @endforeach
+                    </select>
+                    @error("size")
+                         <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                    @enderror
+                </div>
 
-            <div class="mb-3">
-                <label for="colorSelect" class="form-label">Color</label>
-                <select class="form-select w-50" id="colorSelect">
-                    <option selected>Choose Color</option>
-                        @foreach ($product_colors as $item)
-                            <option value={{ $item->color->id }} >{{ $item->color->name }}</option>
-                        @endforeach
-                </select>
-            </div>
-
-            <!-- Quantity & Add to Cart -->
-            <div class="mb-3 d-flex gap-2">
-                <input type="number" class="form-control w-auto" value="1" min="1">
-                <button class="btn btn-warning"><i class="bi bi-cart-plus"></i> Add to Cart</button>
-            </div>
+                <div class="mb-3">
+                    <label for="colorSelect" class="form-label">Color</label>
+                    <select name="color" class="form-select w-50" id="colorSelect">
+                        <option selected value="">Choose Color</option>
+                            @foreach ($product_colors as $item)
+                                <option value={{ $item->color->id }} 
+                                        {{ old('color') == $item->color->id ? "selected" : "" }}>
+                                    {{ $item->color->name }}
+                                </option>
+                            @endforeach
+                    </select>
+                    @error("color")
+                         <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                    @enderror
+                </div>
+    
+                <!-- Quantity & Add to Cart -->
+                <div class="mb-3 d-flex gap-2">
+                    <input name="quantity" type="number" class="form-control w-auto" value="{{ old('quantity', 1) }}" min="1">
+                    <button type="submit" class="btn btn-warning"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                </div>
+            </form>
 
             <!-- Social Share -->
             <div>

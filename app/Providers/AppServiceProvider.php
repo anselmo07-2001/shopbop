@@ -30,5 +30,16 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('subMenu', $subMenu);   
         });
+
+
+        View::composer("components.header", function($view) {
+            $cart = json_decode(request()->cookie("cart", "[]"), true);
+
+            $total = collect($cart)->reduce(function ($carry, $item) {
+                return $carry + ($item['quantity'] * ($item['price'] ?? 0));
+            }, 0);
+
+            $view->with('cartTotal', $total);
+        });
     }
 }

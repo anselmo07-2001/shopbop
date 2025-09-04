@@ -41,16 +41,10 @@
                         <form method="POST" action="{{ route('logout.customer') }}" class="text-black text-decoration-none">
                             @csrf
                             <button type="submit" class="btn btn-link text-black text-decoration-none p-0 m-0 align-baseline">
-                                <i class="fas fa-sign-out-alt"></i> Logout
+                                <i class="fas fa-sign-out-alt"></i  > Logout
                             </button>
                         </form>
                     </li>
-
-                   <li class="list-inline-item">
-                        <a href="{{ route('cart') }}" class="text-black text-decoration-none">
-                        <i class="fas fa-shopping-cart"></i> Cart (₱0.00)
-                        </a>
-                    </li>  
                @endauth
 
                 @guest("customer")
@@ -65,6 +59,12 @@
                         </a>
                     </li>        
                 @endguest
+
+                <li class="list-inline-item">
+                    <a href="{{ route('cart') }}" class="text-black text-decoration-none">
+                        <i class="fas fa-shopping-cart"></i> Cart (${{ number_format($cartTotal, 2) }})
+                    </a>
+                </li>  
             </ul>
 
             <!-- Search -->
