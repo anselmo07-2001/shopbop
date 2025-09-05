@@ -1,4 +1,29 @@
 <x-layout>
+    @if(session('failed'))
+        <div 
+            x-data="{ show: true }" 
+            x-show="show" 
+            x-init="setTimeout(() => show = false, 5000 )" 
+            class="alert alert-danger text-center"
+            style="margin-bottom: 0"
+        >
+            {{ session('failed') }}
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div 
+            x-data="{ show: true }" 
+            x-show="show" 
+            x-init="setTimeout(() => show = false, 5000 )" 
+            class="alert alert-success text-center"
+            style="margin-bottom: 0"
+        >
+            {{ session('success') }}
+        </div>
+    @endif
+
+
 
     <div class="container">
         <nav aria-label="breadcrumb">

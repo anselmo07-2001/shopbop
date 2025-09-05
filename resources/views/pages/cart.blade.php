@@ -40,7 +40,7 @@
                             <td>${{ $item["product"]->current_price }}</td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <form method="POST" action="{{ route('cart.update', $item['product']->id) }}" class="d-flex gap-1">
+                                    <form method="POST" action="{{ route('cart.update', $item['cart_item_id']) }}" class="d-flex gap-1">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $item['product']->id }}">
                                         <input type="number" name="quantity" class="form-control form-control-sm" value="{{ $item['quantity'] }}" min="1" style="width:70px;">
@@ -49,7 +49,7 @@
                                         </button>
                                     </form>
 
-                                    <form method="POST" action="{{ route('cart.destroy', $item['product']->id) }}">
+                                    <form method="POST" action="{{ route('cart.destroy', $item['cart_item_id']) }}">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-danger">

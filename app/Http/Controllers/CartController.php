@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -19,7 +20,7 @@ class CartController extends Controller
         $cart = json_decode(request()->cookie('cart', '[]'), true);
 
         $updated_cart = collect($cart)->map(function($item) use($id, $validated) {
-            if ($item["id"] == $id) {
+            if ($item['cart_item_id'] == $id) {
                 $item["quantity"] = $validated["quantity"];
             }
 
@@ -36,11 +37,13 @@ class CartController extends Controller
         $cart = json_decode(request()->cookie('cart', '[]'), true);
 
         $updated_cart = collect($cart)
-                    ->filter(fn($item) => $item["id"] != $id)
+                    ->filter(fn($item) => $item["cart_item_id"] != $id)
                     ->values()
                     ->all();
 
-        return back()->cookie("cart", json_encode($updated_cart), 60 * 24 * 30);
+        return back()
+                ->with("success", "Cart item deleted successfully")
+                ->cookie("cart", json_encode($updated_cart), 60 * 24 * 30);
     }
 
 
@@ -57,6 +60,7 @@ class CartController extends Controller
 
             return [
                 'product' => $products[$item['id']] ?? null,
+                "cart_item_id" => $item["cart_item_id"],
                 'size' => $item['size'],
                 'color' => $item['color'],
                 'quantity'=> $item['quantity'],
@@ -87,15 +91,34 @@ class CartController extends Controller
     
         $cart = json_decode(request()->cookie("cart", "[]"), true);
 
-        $cart[] = [
-            "id" => $product->id,
-            "price" => $product->current_price,
+        //Check if the item is already exist in the cart
+        // cart_items hold only 1 product but has different size and product
+        $cart_items = collect($cart)->filter(fn($item) => $item["id"] == $product->id)->all();
 
-            "size" => $validated["size"],
-            "color" => $validated["color"],
-            "quantity" => $validated["quantity"],
-        ];
+        if (!empty($cart_items)) {
+            
+            $exists = collect($cart_items)
+                ->contains(fn($item) => $item["size"] == $validated["size"] && $item["color"] == $validated["color"]);
 
-        return back()->cookie("cart", json_encode($cart), 60 * 24 * 30);
+            if ($exists) {
+                return back()->with("failed", "You’ve already added this item to the cart.");
+            }
+
+        }
+
+         $cart[] = [
+                "id" => $product->id,
+                "price" => $product->current_price,
+
+                "cart_item_id" => (string) Str::uuid(),
+                "size" => $validated["size"],
+                "color" => $validated["color"],
+                "quantity" => $validated["quantity"],
+            ];
+
+        return back()
+                ->with("success", "Item added successfully.")
+                ->cookie("cart", json_encode($cart), 60 * 24 * 30);
+
     }
 }
