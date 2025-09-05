@@ -63,40 +63,23 @@
                             </td>
                         </tr>
                     @endforeach
+                    <tr class="table-light">
+                        <td colspan="6" class="text-end fw-bold">Total:</td>
+                        <td class="fw-bold text-success">
+                            ${{ collect($items)->sum('sub_total') }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </form>
 
         <!-- Cart total -->
-        <div class="row justify-content-end">
+        <div class="row justify-content-end mt-2">
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-dark text-white">
-                        <h5 class="mb-0">Order Summary</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Subtotal</span>
-                            <strong>${{ $total }}</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Shipping</span>
-                            <strong>$15</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Tax</span>
-                            <strong>$0</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center fs-5">
-                            <span>Total</span>
-                            <strong class="text-success">$542</strong>
-                        </li>
-                        </ul>
-
+                <div class="card border-0 shadow-sm">  
                         <div class="d-grid gap-2">
-                            <a href="#" class="btn btn-secondary">Continue Shopping</a>
+                            <a href="{{ url()->previous() }}" class="btn btn-secondary">Continue Shopping</a>
                             <a href="#" class="btn btn-success">Proceed to Checkout</a>
                         </div>
                     </div>
