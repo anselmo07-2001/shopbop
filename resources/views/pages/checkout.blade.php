@@ -79,35 +79,35 @@
                 <div class="card-header bg-secondary text-white">Billing Address</div>
                 <div class="card-body">
                 <table class="table table-sm mb-0">
-                    <tr><td><strong>Full Name</strong></td><td>Jun Rivera</td></tr>
-                    <tr><td><strong>Company Name</strong></td><td>NA</td></tr>
-                    <tr><td><strong>Phone Number</strong></td><td>09569608390</td></tr>
-                    <tr><td><strong>Country</strong></td><td>Philippines</td></tr>
-                    <tr><td><strong>Address</strong></td><td>666 Apple St Orange City</td></tr>
-                    <tr><td><strong>City</strong></td><td>Orange City</td></tr>
-                    <tr><td><strong>State</strong></td><td>SA</td></tr>
-                    <tr><td><strong>Zip Code</strong></td><td>2009</td></tr>
+                    <tr><td><strong>Full Name</strong></td><td>{{ $user->billing_name ?? '-' }}</td></tr>
+                    <tr><td><strong>Company Name</strong></td><td>{{ $user->billing_company_name ?? '-' }}</td></tr>
+                    <tr><td><strong>Phone Number</strong></td><td>{{ $user->billing_phone_number ?? '-' }}</td></tr>
+                    <tr><td><strong>Country</strong></td><td>{{ $user->billing_country ?? '-' }}</td></tr>
+                    <tr><td><strong>Address</strong></td><td>{{ $user->billing_address ?? '-' }}</td></tr>
+                    <tr><td><strong>City</strong></td><td>{{ $user->billing_city ?? '-' }}</td></tr>
+                    <tr><td><strong>State</strong></td><td>{{ $user->billing_state ?? '-' }}</td></tr>
+                    <tr><td><strong>Zip Code</strong></td><td>{{ $user->billing_zip ?? '-' }}</td></tr>
                 </table>
                 </div>
             </div>
         </div>
 
         <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-header bg-secondary text-white">Shipping Address</div>
-            <div class="card-body">
-            <table class="table table-sm mb-0">
-                <tr><td><strong>Full Name</strong></td><td>Jun Rivera</td></tr>
-                <tr><td><strong>Company Name</strong></td><td>NA</td></tr>
-                <tr><td><strong>Phone Number</strong></td><td>09569608390</td></tr>
-                <tr><td><strong>Country</strong></td><td>Philippines</td></tr>
-                <tr><td><strong>Address</strong></td><td>666 Apple St Orange City</td></tr>
-                <tr><td><strong>City</strong></td><td>Orange City</td></tr>
-                <tr><td><strong>State</strong></td><td>SA</td></tr>
-                <tr><td><strong>Zip Code</strong></td><td>2009</td></tr>
-            </table>
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">Shipping Address</div>
+                <div class="card-body">
+                <table class="table table-sm mb-0">
+                    <tr><td><strong>Full Name</strong></td><td>{{ $user->shipping_name ?? '-' }}</td></tr>
+                    <tr><td><strong>Company Name</strong></td><td>{{ $user->shipping_company_name ?? '-' }}</td></tr>
+                    <tr><td><strong>Phone Number</strong></td><td>{{ $user->shipping_phone_number  ?? '-'}}</td></tr>
+                    <tr><td><strong>Country</strong></td><td>{{ $user->shipping_country ?? '-' }}</td></tr>
+                    <tr><td><strong>Address</strong></td><td>{{ $user->shipping_address ?? '-' }}</td></tr>
+                    <tr><td><strong>City</strong></td><td>{{ $user->shipping_city ?? '-' }}</td></tr>
+                    <tr><td><strong>State</strong></td><td>{{ $user->shipping_state ?? '-' }}</td></tr>
+                    <tr><td><strong>Zip Code</strong></td><td>{{ $user->shipping_zip ?? '-' }}</td></tr>
+                </table>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -126,10 +126,10 @@
 
         <div class="mb-3">
             <p><strong>Send to this Details</strong></p>
-            <p class="mb-1">Bank Name: WestView Bank</p>
-            <p class="mb-1">Account Number: CA100270589600</p>
-            <p class="mb-1">Branch Name: CA Branch</p>
-            <p class="mb-1">Country: USA</p>
+            <p class="mb-1">Bank Name: Pacific Union Bank</p>
+            <p class="mb-1">Account Number: PU-0098123476</p>
+            <p class="mb-1">Branch Name: Cebu City Branch</p>
+            <p class="mb-1">Country: Philippines</p>
         </div>
 
         <div class="mb-3">

@@ -19,10 +19,9 @@ class CheckoutController extends Controller
 
 
     public function checkout() {
-        $user = auth()->user(); 
-
+        $user = auth()->user();
         $shipping_cost = ShippingCost::where("country_id", $user->country)->value("amount");
-
+        
         $cart = json_decode(request()->cookie("cart", "[]"), true);
         
         $ids = collect($cart)->pluck("id")->all();
@@ -45,7 +44,8 @@ class CheckoutController extends Controller
    
         return view("pages.checkout", [
             "checkout_items" => $checkout_items,
-            "shipping_cost" => $shipping_cost
+            "shipping_cost" => $shipping_cost,
+            "user" => $user
         ]);
     }
 }
