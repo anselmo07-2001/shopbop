@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LoginController;
@@ -43,3 +44,6 @@ Route::get("/cart", [CartController::class, "index"])->name("cart.index");
 Route::post("/cart/product/add/{id}", [CartController::class, "add"])->name("cart.add");
 Route::delete("/cart/product/destroy/{id}", [CartController::class, "destroy"])->name("cart.destroy");
 Route::post("/cart/product/update{id}", [CartController::class, "update"])->name("cart.update");
+
+Route::get("/checkout", [CheckoutController::class, "checkout"])->middleware("auth:customer")->name("checkout.index");
+Route::delete("/checkout/{id}", [CheckoutController::class, "destroy"])->middleware("auth:customer")->name("checkout.destroy");

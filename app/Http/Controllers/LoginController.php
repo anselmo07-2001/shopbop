@@ -16,7 +16,7 @@ class LoginController extends Controller
 
         if (Auth::guard("customer")->attempt($cred, $request->filled("remember"))) {
             $request->session()->regenerate();
-            return redirect()->route('home')->with('success', 'Customer logged in!');
+            return redirect()->intended(route('home'))->with('success', 'Customer logged in!');
         }
         
         return back()->withErrors(['email' => 'Invalid credentials'])->withInput();

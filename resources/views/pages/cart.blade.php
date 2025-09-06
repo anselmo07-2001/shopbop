@@ -13,7 +13,7 @@
 
 
     <div class="container my-5">
-        <h4 class="mb-4 text-secondary">Shopping Cart</h4>
+        <h4 class="mb-4 text-secondary text-center">Shopping Cart</h4>
 
         <div class="table-responsive">
             <table class="table align-middle">
@@ -78,10 +78,9 @@
         <div class="row justify-content-end mt-2">
             <div class="col-md-4">
                 <div class="card border-0 shadow-sm">  
-                        <div class="d-grid gap-2">
-                            <a href="{{ url()->previous() }}" class="btn btn-secondary">Continue Shopping</a>
-                            <a href="#" class="btn btn-success">Proceed to Checkout</a>
-                        </div>
+                    <div class="d-grid gap-2">
+                        <a href="{{ url()->previous() }}" class="btn btn-secondary">Continue Shopping</a>
+                        <a href="{{ route('checkout.index') }}" class="btn btn-success">Proceed to Checkout</a>
                     </div>
                 </div>
             </div>
