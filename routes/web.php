@@ -48,3 +48,4 @@ Route::post("/cart/product/update{id}", [CartController::class, "update"])->name
 Route::get("/checkout", [CheckoutController::class, "checkout"])->middleware("auth:customer")->name("checkout.index");
 Route::delete("/checkout/{id}", [CheckoutController::class, "destroy"])->middleware("auth:customer")->name("checkout.destroy");
 Route::post("/checkout/place-order", [CheckoutController::class, "placeOrder"])->middleware("auth:customer")->name("checkout.placeOrder");
+
