@@ -64,7 +64,15 @@
                     <a href="{{ route('cart.index') }}" class="text-black text-decoration-none">
                         <i class="fas fa-shopping-cart"></i> Cart (${{ number_format($cartTotal, 2) }})
                     </a>
-                </li>  
+                </li> 
+                
+                @auth("customer")
+                    <li class="list-inline-item">
+                        <a href="{{ route('cart.index') }}" class="text-black text-decoration-none">
+                            <i class="fas fa-home"></i> Dashboard
+                        </a>
+                    </li> 
+                @endauth
             </ul>
 
             <!-- Search -->
