@@ -112,33 +112,31 @@
     </div>
 
     <!-- Payment Section -->
-    <div class="card shadow-sm">
-        <div class="card-header bg-secondary text-white">Payment Section</div>
-        <div class="card-body">
-        <div class="mb-3">
-            <label for="paymentMethod" class="form-label">Select Payment Method *</label>
-            <select id="paymentMethod" class="form-select">
-            <option>Bank Deposit</option>
-            <option>Credit Card</option>
-            <option>PayPal</option>
-            </select>
-        </div>
+    <form method="POST" action="{{ route('checkout.placeOrder') }}">
+        @csrf
+        <div class="card shadow-sm">
+            <div class="card-header bg-secondary text-white">Payment Section</div>
+            <div class="card-body">
+            <div class="mb-3">
+                <label for="paymentMethod" class="form-label">Select Payment Method *</label>
+                <select name="payment_method" id="paymentMethod" class="form-select">
+                    <option selected></option>
+                    <option value="bank_deposit">Bank Deposit</option>
+                </select>
+            </div>
 
-        <div class="mb-3">
-            <p><strong>Send to this Details</strong></p>
-            <p class="mb-1">Bank Name: Pacific Union Bank</p>
-            <p class="mb-1">Account Number: PU-0098123476</p>
-            <p class="mb-1">Branch Name: Cebu City Branch</p>
-            <p class="mb-1">Country: Philippines</p>
-        </div>
+            <div class="mb-3">
+                <p><strong>Send to this Details</strong></p>
+                <div>{!! nl2br(e($bank_detail)) !!}</div>
+            </div>
+ 
+            <div class="mb-3">       
+                    <label for="transactionInfo" class="form-label">Transaction Information</label>
+                    <textarea name="transactionInfo" id="transactionInfo" class="form-control" rows="3" 
+                        placeholder="Include transaction ID and other information correctly"></textarea> 
+            </div>
 
-        <div class="mb-3">
-            <label for="transactionInfo" class="form-label">Transaction Information</label>
-            <textarea id="transactionInfo" class="form-control" rows="3" placeholder="Include transaction ID and other information correctly"></textarea>
+            <button class="btn btn-primary">Pay Now</button>   
         </div>
-
-        <button class="btn btn-primary">Pay Now</button>
-        </div>
-    </div>
-    </div>
+    </form> 
 </x-layout>
