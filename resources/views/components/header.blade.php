@@ -68,7 +68,7 @@
                 
                 @auth("customer")
                     <li class="list-inline-item">
-                        <a href="#" class="text-black text-decoration-none">
+                        <a href="{{ route('dashboard.index') }}" class="text-black text-decoration-none">
                             <i class="fas fa-home"></i> Dashboard
                         </a>
                     </li> 

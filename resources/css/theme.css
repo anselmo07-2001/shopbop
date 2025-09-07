@@ -79,3 +79,11 @@
     font-size: 0.9rem;
     opacity: 0.7;
 }
+
+
+
+/**** Dashboard ***/
+.nav-pills .nav-link.active {
+    background-color: #6c757d !important; /* Bootstrap secondary */
+    color: #fff !important;
+}

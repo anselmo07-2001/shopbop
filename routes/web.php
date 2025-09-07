@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
@@ -49,3 +50,4 @@ Route::get("/checkout", [CheckoutController::class, "checkout"])->middleware("au
 Route::delete("/checkout/{id}", [CheckoutController::class, "destroy"])->middleware("auth:customer")->name("checkout.destroy");
 Route::post("/checkout/place-order", [CheckoutController::class, "placeOrder"])->middleware("auth:customer")->name("checkout.placeOrder");
 
+Route::get("/dashboard", [Dashboard::class, "index"])->middleware("auth:customer")->name("dashboard.index");
