@@ -1,4 +1,7 @@
 <x-layout>
+    <x-flash-message session_name="success" />
+    <x-flash-message session_name="error" />
+
     <div class="container my-5">
         <div class="row">
             <!-- Sidebar Navigation -->
@@ -18,46 +21,79 @@
                 <!-- Update Profile -->
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel">
                     <h4 class="mb-3">Update Profile</h4>
-                    <form class="row g-3">
+                    <form class="row g-3" method="POST" action="{{ route('dashboard.update-profile') }}">
+                        @csrf
                         <div class="col-md-6">
                             <label class="form-label">Full Name</label>
-                            <input type="text" class="form-control" value="{{ $user->full_name }}">
+                            <input name="full_name" type="text" class="form-control" value="{{ $user->full_name }}">
+                            @error('full_name')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Company Name</label>
-                            <input type="text" class="form-control" value="{{ $user->company_name }}">
+                            <input name="company_name" type="text" class="form-control" value="{{ $user->company_name }}">
+                            @error('company_name')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control" value="{{ $user->company_name }}">
+                            <input name="email" type="email" class="form-control" value="{{ $user->email }}">
+                            @error('email')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" value="{{ $user->email }}">
+                            <input name="phone_number" type="text" class="form-control" value="{{ $user->phone_number }}">
+                            @error('phone_number')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Address</label>
-                            <input type="text" class="form-control" value="{{ $user->address }}">
+                            <input name="address" type="text" class="form-control" value="{{ $user->address }}">
+                            @error('address')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">City</label>
-                            <input type="text" class="form-control" value="{{ $user->city }}">
+                            <input name="city" type="text" class="form-control" value="{{ $user->city }}">
+                            @error('city')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Country</label>
-                            <select name="country" class="form-select">
+                            <select name="country_id" class="form-select">
                                  @foreach ($countries as $country)
-                                     <option {{ $user->country_id == $country["id"] ? "selected" : "" }} > {{ $country["country_name"] }} </option>
+                                    <option 
+                                        {{ $user->country_id == $country["id"] ? "selected" : "" }} 
+                                        value={{ $country["id"] }}
+                                        > 
+                                             {{ $country["country_name"] }}
+                                    </option>
                                  @endforeach
                             </select>
+                            @error('country_id')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-3">
                             <label class="form-label">Zip Code</label>
-                            <input type="text" class="form-control" value="{{ $user->zip }}">
+                            <input name="zip" type="text" class="form-control" value="{{ $user->zip }}">
+                            @error('zip')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-3">
                             <label class="form-label">State</label>
-                            <input type="text" class="form-control" value="{{ $user->state }}">
+                            <input name="state" type="text" class="form-control" value="{{ $user->state }}">
+                            @error('full_name')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-12">

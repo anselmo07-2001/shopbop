@@ -51,3 +51,4 @@ Route::delete("/checkout/{id}", [CheckoutController::class, "destroy"])->middlew
 Route::post("/checkout/place-order", [CheckoutController::class, "placeOrder"])->middleware("auth:customer")->name("checkout.placeOrder");
 
 Route::get("/dashboard", [Dashboard::class, "index"])->middleware("auth:customer")->name("dashboard.index");
+Route::post("/dashboard/update-profile", [Dashboard::class, "updateProfile"])->middleware("auth:customer")->name("dashboard.update-profile");

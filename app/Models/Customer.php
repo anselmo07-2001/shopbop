@@ -18,7 +18,7 @@ class Customer extends Authenticatable
         "company_name",  
         "email",  
         "phone_number",  
-        "country",  
+        "country_id",  
         "address",  
         "city",  
         "state",  

@@ -46,7 +46,7 @@ class RegisterController extends Controller
             "phone_number" => $validated["phone_number"],
             "address" => $validated["address"],
             "city" => $validated["city"],
-            "country" => $validated["country"],
+            "country_id" => $validated["country"],
             "state" => $validated["state"],
             "zip" => $validated["zip"],
             "password" => bcrypt($validated["password"]),
