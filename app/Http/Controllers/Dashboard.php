@@ -11,6 +11,12 @@ use Illuminate\Validation\Rule;
 
 class Dashboard extends Controller
 {
+
+    public function updateAddress(Request $request) {
+  
+    }
+
+
     public function updateProfile(Request $request) {
         $user = auth()->user();
         $countries = Country::all()->pluck("id")->toArray();

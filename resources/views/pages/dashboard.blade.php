@@ -91,96 +91,104 @@
                         <div class="col-md-3">
                             <label class="form-label">State</label>
                             <input name="state" type="text" class="form-control" value="{{ $user->state }}">
-                            @error('full_name')
+                            @error('state')
                                 <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="col-12">
-                            <button type="submit" class="btn btn-dark">Save Changes</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
                 </div>
 
                 <!-- Billing & Shipping -->
                 <div class="tab-pane fade" id="v-pills-billing" role="tabpanel">
-                <h4 class="mb-3">Billing Address</h4>
-                <form class="row g-3 mb-4">
-                    <div class="col-md-6">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Company Name</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Phone Number</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Country</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Address</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">City</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">State</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Zip Code</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-12">
-                    <button type="submit" class="btn btn-dark">Save Billing Info</button>
-                    </div>
-                </form>
+                    <form method="POST" action="{{ route('dashboard.update-address') }}"  class="row g-3 mb-4">
+                        @csrf
+                        <h4 class="mb-3">Billing Address</h4>      
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name</label>
+                            <input name="billing_name" type="text" class="form-control" value="{{ $user->billing_name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Company Name</label>
+                            <input name="billing_company_name" type="text" class="form-control" value="{{ $user->billing_company_name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone Number</label>
+                            <input name="billing_phone_number" type="text" class="form-control" value="{{ $user->billing_phone_number }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Country</label>
+                            <select name="country_id" class="form-select">
+                                @foreach ($countries as $country)
+                                    <option {{ $user->country_id == $country["id"] ? "selected" : ""}}>
+                                        {{ $country["country_name"] }}
+                                    </option>
+                                @endforeach
+                            <select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Address</label>
+                            <input name="billing_address" type="text" class="form-control" value="{{ $user->billing_address }}" >
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">City</label>
+                            <input name="billing_city" type="text" class="form-control" value="{{ $user->billing_city }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">State</label>
+                            <input name="billing_state" type="text" class="form-control" value="{{ $user->billing_state }}">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Zip Code</label>
+                            <input name="billing_zip" type="text" class="form-control" value="{{ $user->billing_zip }}">
+                        </div>
 
-                <h4 class="mb-3">Shipping Address</h4>
-                <form class="row g-3">
-                    <div class="col-md-6">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Company Name</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Phone Number</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Country</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Address</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">City</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">State</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Zip Code</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-12">
-                    <button type="submit" class="btn btn-dark">Save Shipping Info</button>
-                    </div>
-                </form>
+                        <h4 class="mb-2">Shipping Address</h4>
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name</label>
+                            <input name="shipping_name" type="text" class="form-control" value="{{ $user->billing_name }}" >
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Company Name</label>
+                            <input name="shipping_company_name" type="text" class="form-control" value="{{ $user->billing_company_name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone Number</label>
+                            <input name="shipping_phone_number" type="text" class="form-control" value="{{ $user->shipping_phone_number }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Country</label>
+                            <select name="country_id" class="form-select">
+                                @foreach ($countries as $country)
+                                    <option {{ $user->country_id == $country["id"] ? "selected" : ""}}>
+                                        {{ $country["country_name"] }}
+                                    </option>
+                                @endforeach
+                            <select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Address</label>
+                            <input name="shipping_address" type="text" class="form-control" value="{{ $user->shipping_address }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">City</label>
+                            <input name="shipping_city" type="text" class="form-control" value="{{ $user->shipping_city }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">State</label>
+                            <input name="shipping_state" type="text" class="form-control" value="{{ $user->shipping_state }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Zip Code</label>
+                            <input name="shipping_zip" type="text" class="form-control" value="{{ $user->shipping_zip }}">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
 
                 <!-- Update Password -->
