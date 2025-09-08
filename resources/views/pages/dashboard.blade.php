@@ -110,80 +110,128 @@
                         <div class="col-md-6">
                             <label class="form-label">Full Name</label>
                             <input name="billing_name" type="text" class="form-control" value="{{ $user->billing_name }}">
+                            @error('billing_name')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Company Name</label>
                             <input name="billing_company_name" type="text" class="form-control" value="{{ $user->billing_company_name }}">
+                            @error('billing_company_name')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Phone Number</label>
                             <input name="billing_phone_number" type="text" class="form-control" value="{{ $user->billing_phone_number }}">
+                            @error('billing_phone_number')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Country</label>
-                            <select name="country_id" class="form-select">
+                            <select name="billing_country" class="form-select">
                                 @foreach ($countries as $country)
-                                    <option {{ $user->country_id == $country["id"] ? "selected" : ""}}>
+                                    <option {{ $user->country_id == $country["id"] ? "selected" : ""}} value="{{ $country['id'] }}">
                                         {{ $country["country_name"] }}
                                     </option>
                                 @endforeach
                             <select>
+                            @error('billing_country')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Address</label>
-                            <input name="billing_address" type="text" class="form-control" value="{{ $user->billing_address }}" >
+                            <input name="billing_address" type="text" class="form-control" value="{{ $user->billing_address }}">
+                            @error('billing_address')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">City</label>
                             <input name="billing_city" type="text" class="form-control" value="{{ $user->billing_city }}">
+                            @error('billing_city')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">State</label>
                             <input name="billing_state" type="text" class="form-control" value="{{ $user->billing_state }}">
+                            @error('billing_state')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6 mb-4">
                             <label class="form-label">Zip Code</label>
                             <input name="billing_zip" type="text" class="form-control" value="{{ $user->billing_zip }}">
+                            @error('billing_zip')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <h4 class="mb-2">Shipping Address</h4>
                         <div class="col-md-6">
                             <label class="form-label">Full Name</label>
-                            <input name="shipping_name" type="text" class="form-control" value="{{ $user->billing_name }}" >
+                            <input name="shipping_name" type="text" class="form-control" value="{{ $user->shipping_name }}" >
+                            @error('shipping_name')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Company Name</label>
-                            <input name="shipping_company_name" type="text" class="form-control" value="{{ $user->billing_company_name }}">
+                            <input name="shipping_company_name" type="text" class="form-control" value="{{ $user->shipping_company_name }}">
+                            @error('shipping_company_name')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Phone Number</label>
                             <input name="shipping_phone_number" type="text" class="form-control" value="{{ $user->shipping_phone_number }}">
+                            @error('shipping_phone_number')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Country</label>
-                            <select name="country_id" class="form-select">
+                            <select name="shipping_country" class="form-select">
                                 @foreach ($countries as $country)
-                                    <option {{ $user->country_id == $country["id"] ? "selected" : ""}}>
+                                    <option {{ $user->country_id == $country["id"] ? "selected" : ""}} value="{{ $country['id'] }}">
                                         {{ $country["country_name"] }}
                                     </option>
                                 @endforeach
+                                @error('shipping_country')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
                             <select>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Address</label>
                             <input name="shipping_address" type="text" class="form-control" value="{{ $user->shipping_address }}">
+                            @error('shipping_address')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">City</label>
                             <input name="shipping_city" type="text" class="form-control" value="{{ $user->shipping_city }}">
+                            @error('shipping_city')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">State</label>
                             <input name="shipping_state" type="text" class="form-control" value="{{ $user->shipping_state }}">
+                            @error('shipping_state')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Zip Code</label>
                             <input name="shipping_zip" type="text" class="form-control" value="{{ $user->shipping_zip }}">
+                            @error('shipping_zip')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Save Changes</button>

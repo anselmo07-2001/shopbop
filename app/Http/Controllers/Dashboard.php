@@ -13,12 +13,56 @@ class Dashboard extends Controller
 {
 
     public function updateAddress(Request $request) {
-  
+        $user = auth()->user(); 
+        $countries = Country::all()->pluck("id")->toArray();
+
+        $validatedData = $request->validate([
+            "shipping_name" => "required|string|max:255",
+            "shipping_company_name" => "nullable|string|max:255",
+            "shipping_phone_number" => "required|regex:/^\+?[0-9\s\-\(\)]{10,20}$/",
+            "shipping_address" => "required|string",
+            "shipping_country" => ["required", Rule::in($countries) ],
+            "shipping_city" => "required|string|max:255",
+            "shipping_state" => "required|string|max:255",
+            "shipping_zip" => "required|string|max:20",
+
+            "billing_name" => "required|string|max:255",
+            "billing_company_name" => "nullable|string|max:255",
+            "billing_phone_number" => "required|regex:/^\+?[0-9\s\-\(\)]{10,20}$/",
+            "billing_address" => "required|string",
+            "billing_country" => ["required", Rule::in($countries) ],
+            "billing_city" => "required|string|max:255",
+            "billing_state" => "required|string|max:255",
+            "billing_zip" => "required|string|max:20",
+        ]);
+
+        $fieldsToUpdate = [
+            'shipping_name' => $validatedData['shipping_name'],
+            'shipping_company_name' => $validatedData['shipping_company_name'] ?? null,
+            'shipping_phone_number' => $validatedData['shipping_phone_number'],
+            'shipping_address' => $validatedData['shipping_address'],
+            'shipping_country' => $validatedData['shipping_country'],
+            'shipping_city' => $validatedData['shipping_city'],
+            'shipping_state' => $validatedData['shipping_state'],
+            'shipping_zip' => $validatedData['shipping_zip'],
+
+            'billing_name' => $validatedData['billing_name'],
+            'billing_company_name' => $validatedData['billing_company_name'] ?? null,
+            'billing_phone_number' => $validatedData['billing_phone_number'],
+            'billing_address' => $validatedData['billing_address'],
+            'billing_country' => $validatedData['billing_country'],
+            'billing_city' => $validatedData['billing_city'],
+            'billing_state' => $validatedData['billing_state'],
+            'billing_zip' => $validatedData['billing_zip'],
+        ];
+
+        $user->update($fieldsToUpdate);
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
 
     public function updateProfile(Request $request) {
-        $user = auth()->user();
+        $user = auth()->user(); 
         $countries = Country::all()->pluck("id")->toArray();
 
         $validatedData = $request->validate([
