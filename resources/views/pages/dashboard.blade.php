@@ -17,48 +17,53 @@
 
                 <!-- Update Profile -->
                 <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel">
-                <h4 class="mb-3">Update Profile</h4>
-                <form class="row g-3">
-                    <div class="col-md-6">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Company Name</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Phone Number</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Address</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">City</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                    <label class="form-label">Country</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-3">
-                    <label class="form-label">Zip Code</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-3">
-                    <label class="form-label">State</label>
-                    <input type="text" class="form-control">
-                    </div>
-                    <div class="col-12">
-                    <button type="submit" class="btn btn-dark">Save Changes</button>
-                    </div>
-                </form>
+                    <h4 class="mb-3">Update Profile</h4>
+                    <form class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" value="{{ $user->full_name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-control" value="{{ $user->company_name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" value="{{ $user->company_name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" value="{{ $user->email }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" value="{{ $user->address }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-control" value="{{ $user->city }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Country</label>
+                            <select name="country" class="form-select">
+                                 @foreach ($countries as $country)
+                                     <option {{ $user->country_id == $country["id"] ? "selected" : "" }} > {{ $country["country_name"] }} </option>
+                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Zip Code</label>
+                            <input type="text" class="form-control" value="{{ $user->zip }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">State</label>
+                            <input type="text" class="form-control" value="{{ $user->state }}">
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-dark">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
 
                 <!-- Billing & Shipping -->
