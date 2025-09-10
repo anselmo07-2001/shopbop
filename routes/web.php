@@ -53,3 +53,4 @@ Route::post("/checkout/place-order", [CheckoutController::class, "placeOrder"])-
 Route::get("/dashboard", [Dashboard::class, "index"])->middleware("auth:customer")->name("dashboard.index");
 Route::post("/dashboard/update-profile", [Dashboard::class, "updateProfile"])->middleware("auth:customer")->name("dashboard.update-profile");
 Route::post("/dashboard/update-address", [Dashboard::class, "updateAddress"])->middleware("auth:customer")->name("dashboard.update-address");
+Route::post("/dashboard/update-password", [Dashboard::class, "updatePassword"])->middleware("auth:customer")->name("dashboard.update-password");

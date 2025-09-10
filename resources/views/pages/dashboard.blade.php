@@ -242,21 +242,31 @@
                 <!-- Update Password -->
                 <div class="tab-pane fade" id="v-pills-password" role="tabpanel">
                     <h4 class="mb-3">Update Password</h4>
-                    <form class="row g-3">
+                    <form method="POST" action="{{ route('dashboard.update-password') }}" class="row g-3">
+                        @csrf
                         <div class="col-12">
-                        <label class="form-label">Current Password</label>
-                        <input type="password" class="form-control">
+                            <label class="form-label">Current Password</label>
+                            <input name="current_password" type="password" class="form-control">
+                            @error('current_password')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12">
-                        <label class="form-label">New Password</label>
-                        <input type="password" class="form-control">
+                            <label class="form-label">New Password</label>
+                            <input name="password" type="password" class="form-control">
+                            @error('password')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12">
-                        <label class="form-label">Retype New Password</label>
-                        <input type="password" class="form-control">
+                            <label class="form-label">Retype New Password</label>
+                            <input name="password_confirmation" type="password" class="form-control">
+                            @error('password_confirmation')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12">
-                        <button type="submit" class="btn btn-dark">Update Password</button>
+                            <button type="submit" class="btn btn-dark">Update Password</button>
                         </div>
                     </form>
                 </div>

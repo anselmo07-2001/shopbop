@@ -7,11 +7,33 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class Dashboard extends Controller
 {
+    public function updatePassword(Request $request) {
+        $request->validate([
+            "current_password" => "required",
+            "password" => "required|string|min:8|confirmed",
+        ]);
+
+        $user = auth()->user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors([
+                "current_password" => "Your current password does not match in our records."
+            ]);
+        }
+
+        $user->update([
+            "password" => Hash::make($request->password)
+        ]);
+
+        return back()->with("success", "Password updated successfully");
+    }
+
 
     public function updateAddress(Request $request) {
         $user = auth()->user(); 
