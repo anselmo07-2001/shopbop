@@ -14,15 +14,24 @@ use Illuminate\Validation\Rule;
 class Dashboard extends Controller
 {
     public function updatePassword(Request $request) {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             "current_password" => "required",
             "password" => "required|string|min:8|confirmed",
         ]);
 
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput()
+                    ->with("tab", "v-pills-password");
+        }
+
+
         $user = auth()->user();
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors([
+            return back()->with("tab", "v-pills-password")->withErrors([
                 "current_password" => "Your current password does not match in our records."
             ]);
         }
@@ -31,7 +40,7 @@ class Dashboard extends Controller
             "password" => Hash::make($request->password)
         ]);
 
-        return back()->with("success", "Password updated successfully");
+        return back()->with("tab", "v-pills-password")->with("success", "Password updated successfully");
     }
 
 
@@ -39,7 +48,7 @@ class Dashboard extends Controller
         $user = auth()->user(); 
         $countries = Country::all()->pluck("id")->toArray();
 
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             "shipping_name" => "required|string|max:255",
             "shipping_company_name" => "nullable|string|max:255",
             "shipping_phone_number" => "required|regex:/^\+?[0-9\s\-\(\)]{10,20}$/",
@@ -58,6 +67,15 @@ class Dashboard extends Controller
             "billing_state" => "required|string|max:255",
             "billing_zip" => "required|string|max:20",
         ]);
+
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput()
+                    ->with("tab", "v-pills-billing");
+        }
+
+        $validatedData = $validator->validated();
 
         $fieldsToUpdate = [
             'shipping_name' => $validatedData['shipping_name'],
@@ -80,7 +98,7 @@ class Dashboard extends Controller
         ];
 
         $user->update($fieldsToUpdate);
-        return redirect()->back()->with('success', 'Profile updated successfully!');
+        return redirect()->back()->with("tab", "v-pills-billing")->with('success', 'Profile updated successfully!');
     }
 
 
@@ -88,7 +106,7 @@ class Dashboard extends Controller
         $user = auth()->user(); 
         $countries = Country::all()->pluck("id")->toArray();
 
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             "full_name" => "required|string|max:255",
             "company_name" => "nullable|string|max:255",
             'email' => ['required', 'email', Rule::unique('customers', 'email')->ignore($user->id)],
@@ -100,7 +118,16 @@ class Dashboard extends Controller
             "zip" => "required|string|max:20",
         ]);
 
-        
+        if ($validator->fails()) {
+            return back()
+                     ->withErrors($validator)
+                     ->withInput()
+                     ->with("tab", "v-pills-profile");
+        }
+
+
+        $validatedData = $validator->validated();
+       
         $fieldsToUpdate = [
             'full_name' => $validatedData['full_name'],
             'company_name' => $validatedData['company_name'] ?? null,
@@ -114,7 +141,7 @@ class Dashboard extends Controller
         ];
 
         $user->update($fieldsToUpdate);
-        return redirect()->back()->with('success', 'Profile updated successfully!');
+        return redirect()->back()->with("tab", "v-pills-profile")->with('success', 'Profile updated successfully!');
     }
 
 
