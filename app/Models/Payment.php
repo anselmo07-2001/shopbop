@@ -19,4 +19,8 @@ class Payment extends Model
         "customer_id",
         "order_number"
     ];
+
+    public function order() {
+        return $this->belongsTo(Order::class, "order_number". "order_number");
+    }
 }

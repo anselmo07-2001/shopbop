@@ -15,4 +15,16 @@ class Order extends Model
         "product_id",
         "customer_id"
     ];
+
+    public function customer() {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function payments() {
+        return $this->hasMany(Payment::class,  "order_number", "order_number");
+    }
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 }

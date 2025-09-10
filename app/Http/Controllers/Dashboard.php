@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use App\Models\Customer;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -98,10 +99,16 @@ class Dashboard extends Controller
     public function index() {
         $user = auth()->user();
         $countries = Country::all()->toArray();
+        $customer_orders = Customer::with(["orders.payments", "orders.product"])
+                    ->where("id", $user->id)
+                    ->first();
 
+        $ordersByOrderNumber = $customer_orders->orders->groupBy("order_number");
+    
         return view("pages.dashboard", [
             "user" => $user,   
-            "countries" => $countries
+            "countries" => $countries,
+            "orders" => $ordersByOrderNumber
         ]);
     }
 }

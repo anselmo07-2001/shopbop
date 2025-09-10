@@ -37,4 +37,8 @@ class Product extends Model
     public function endCategory() {
         return $this->belongsTo(EndCategory::class, "end_category_id");
     }
+
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
 }

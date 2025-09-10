@@ -51,4 +51,8 @@ class Customer extends Authenticatable
     public function country() {
         return $this->belongsTo(Country::class);
     }
+
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
 }
