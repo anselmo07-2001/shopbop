@@ -92,7 +92,7 @@ class CheckoutController extends Controller
 
     public function checkout() {
         $user = auth()->user();
-        $shipping_cost = ShippingCost::where("country_id", $user->country)->value("amount");
+        $shipping_cost = ShippingCost::where("country_id", $user->country_id)->value("amount");
         $bank_detail = PageSetting::where('id', 1)->value('bank_detail');
         
         $cart = json_decode(request()->cookie("cart", "[]"), true);
