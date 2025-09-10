@@ -153,7 +153,7 @@ class Dashboard extends Controller
                     ->first();
 
         $ordersByOrderNumber = $customer_orders->orders->groupBy("order_number");
-    
+
         return view("pages.dashboard", [
             "user" => $user,   
             "countries" => $countries,

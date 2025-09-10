@@ -19,7 +19,7 @@ class CheckoutController extends Controller
         $user = auth()->user();
         //$100 is the default if user country is not on the list
     
-        $shipping_cost = ShippingCost::where("country_id", $user->country)->value("amount") ?? 100;
+        $shipping_cost = ShippingCost::where("country_id", $user->country_id)->value("amount") ?? 100;
         $payment_method = $request->input("payment_method");
         $transaction_info = $request->input("transactionInfo");
         $order_number = (string) Str::uuid();
