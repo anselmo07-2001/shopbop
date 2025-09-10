@@ -300,7 +300,11 @@
                                             <td>{{ $payment->payment_date }}</td>   
                                             <td>{{ $payment->txn_id }}</td>
                                             <td>${{ $payment->paid_amount }}</td>
-                                            <td><span class="badge bg-success">{{ $payment->payment_status }}</span></td>
+                                            <td>
+                                                <span class="badge {{ $payment->payment_status == "completed" ? 'bg-success' : 'bg-warning' }} ">
+                                                    {{ $payment->payment_status }}
+                                                </span>
+                                            </td>
                                             <td>
                                                 {{ $payment->payment_method == "bank_deposit" ? "Bank Deposit" : "" }}
                                             </td>
