@@ -289,7 +289,7 @@
                                 <th>Paid Amount</th>
                                 <th>Status</th>
                                 <th>Method</th>
-                                <th>Payment ID</th>
+                                <th>Order Number</th>
                                 </tr>
                             </thead>
 
