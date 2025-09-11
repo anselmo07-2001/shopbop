@@ -1,7 +1,3 @@
-@php
-    $activeTab = session("tab", "v-pills-profile");
-@endphp
-
 <x-layout>
     <x-flash-message session_name="success" />
     <x-flash-message session_name="error" />
@@ -11,10 +7,26 @@
             <!-- Sidebar Navigation -->
             <div class="col-md-3 mb-4">
                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link {{ $activeTab === 'v-pills-profile' ? 'active' : ""  }}" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab">Update Profile</button>
-                    <button class="nav-link {{ $activeTab === 'v-pills-billing' ? 'active' : ""  }}" id="v-pills-billing-tab" data-bs-toggle="pill" data-bs-target="#v-pills-billing" type="button" role="tab">Billing & Shipping</button>
-                    <button class="nav-link {{ $activeTab === 'v-pills-password' ? 'active' : ""  }}" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" type="button" role="tab">Update Password</button>
-                    <button class="nav-link {{ $activeTab === 'v-pills-orders' ? 'active' : ""  }}" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab">Orders History</button>
+                    <a class="nav-link {{ $activeTab === 'v-pills-profile' ? 'active' : ""  }}" id="v-pills-profile-tab"
+                            href="{{ request()->fullUrlWithQuery(['tab' => 'v-pills-profile', 'page' => 1]) }}"
+                            role="tab"
+                                >Update Profile
+                    </a>
+                    <a class="nav-link {{ $activeTab === 'v-pills-billing' ? 'active' : ""  }}" id="v-pills-billing-tab"
+                            href="{{ request()->fullUrlWithQuery(['tab' => 'v-pills-billing', 'page' => 1]) }}"
+                           role="tab"
+                                >Billing & Shipping
+                    </a>
+                    <a class="nav-link {{ $activeTab === 'v-pills-password' ? 'active' : ""  }}" id="v-pills-password-tab" 
+                            href="{{ request()->fullUrlWithQuery(['tab' => 'v-pills-password', 'page' => 1]) }}"
+                            role="tab"
+                                >Update Password
+                    </a>
+                    <a class="nav-link {{ $activeTab === 'v-pills-orders' ? 'active' : ""  }}" id="v-pills-orders-tab"
+                            href="{{ request()->fullUrlWithQuery(['tab' => 'v-pills-orders', 'page' => 1]) }}" 
+                            role="tab"
+                             >Orders History
+                    </a>
                 </div>
             </div>
 
@@ -280,60 +292,66 @@
                         <h4 class="mb-3">Orders History</h4>
                         <div class="table-responsive">
                             <table class="table table-bordered align-middle">
-                            <thead class="table-dark">
-                                <tr>
-                                <th>#</th>
-                                <th>Product Details</th>
-                                <th>Payment Date</th>
-                                <th>Transaction ID</th>
-                                <th>Paid Amount</th>
-                                <th>Status</th>
-                                <th>Method</th>
-                                <th>Order Number</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach ($orders as $order)
+                                <thead class="table-dark">
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-
-                                        <td>
-                                            @foreach ($order as $item)
-                                                <div class="mb-3">
-                                                    Product Name: {{ $item->product->name }}
-                                                    Size: {{ $item->size }}
-                                                    Color: {{ $item->color }}
-                                                    Quantity:  {{ $item->quantity }}
-                                                    Unit Price:  {{ $item->unit_price }}
-                                                </div>
-                                            @endforeach
-                                        </td>
-
-                                        @foreach ($order->first()->payments as $payment)
-                                                <td>{{ $payment->payment_date }}</td>   
-                                                <td>{{ $payment->txn_id }}</td>
-                                                <td>${{ $payment->paid_amount }}</td>
-                                                <td>
-                                                    <span class="badge {{ $payment->payment_status == "completed" ? 'bg-success' : 'bg-warning' }} ">
-                                                        {{ $payment->payment_status }}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    {{ ucfirst(str_replace('_', ' ', $payment->payment_method)) }}
-                                                </td>
-                                                <td>{{ $payment->order_number }}</td>           
-                                        @endforeach   
+                                    <th>#</th>
+                                    <th>Product Details</th>
+                                    <th>Payment Date</th>
+                                    <th>Transaction ID</th>
+                                    <th>Paid Amount</th>
+                                    <th>Status</th>
+                                    <th>Method</th>
+                                    <th>Order Number</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($orders as $order)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+
+                                            <td>
+                                                @foreach ($order as $item)
+                                                    <div class="mb-3">
+                                                        Product Name: {{ $item->product->name }}
+                                                        Size: {{ $item->size }}
+                                                        Color: {{ $item->color }}
+                                                        Quantity:  {{ $item->quantity }}
+                                                        Unit Price:  {{ $item->unit_price }}
+                                                    </div>
+                                                @endforeach
+                                            </td>
+
+                                            @foreach ($order->first()->payments as $payment)
+                                                    <td>{{ $payment->payment_date }}</td>   
+                                                    <td>{{ $payment->txn_id }}</td>
+                                                    <td>${{ $payment->paid_amount }}</td>
+                                                    <td>
+                                                        <span class="badge {{ $payment->payment_status == "completed" ? 'bg-success' : 'bg-warning' }} ">
+                                                            {{ $payment->payment_status }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst(str_replace('_', ' ', $payment->payment_method)) }}
+                                                    </td>
+                                                    <td>{{ $payment->order_number }}</td>     
+                                            @endforeach          
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
+
+                        <nav aria-label="Page navigation" class="mt-4">
+                            {{ $orders->links('vendor.pagination.custom') }}
+                        </nav>
                     </div>
 
                 </div>
             </div>
         </div>
+
+        
     </div>
 </x-layout>
 

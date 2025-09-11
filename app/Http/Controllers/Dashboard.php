@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -21,26 +22,25 @@ class Dashboard extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()
+            return redirect()
+                    ->route("dashboard.index", ["tab" => "v-pills-password"])
                     ->withErrors($validator)
-                    ->withInput()
-                    ->with("tab", "v-pills-password");
+                    ->withInput();  
         }
-
 
         $user = auth()->user();
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return back()->with("tab", "v-pills-password")->withErrors([
+            return redirect()->route("dashboard.index", ["tab" => "v-pills-password"])->withErrors([
                 "current_password" => "Your current password does not match in our records."
-            ]);
+            ])->withInput();
         }
 
         $user->update([
             "password" => Hash::make($request->password)
         ]);
 
-        return back()->with("tab", "v-pills-password")->with("success", "Password updated successfully");
+        return redirect()->route("dashboard.index", ["tab" => "v-pills-password"])->with("success", "Password updated successfully");
     }
 
 
@@ -69,10 +69,10 @@ class Dashboard extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()
+            return redirect()
+                    ->route("dashboard.index", ["tab" => "v-pills-billing"])
                     ->withErrors($validator)
-                    ->withInput()
-                    ->with("tab", "v-pills-billing");
+                    ->withInput();             
         }
 
         $validatedData = $validator->validated();
@@ -98,7 +98,7 @@ class Dashboard extends Controller
         ];
 
         $user->update($fieldsToUpdate);
-        return redirect()->back()->with("tab", "v-pills-billing")->with('success', 'Profile updated successfully!');
+        return redirect()->route("dashboard.index", ["tab" => "v-pills-billing"])->with('success', 'Profile updated successfully!');
     }
 
 
@@ -119,10 +119,10 @@ class Dashboard extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()
-                     ->withErrors($validator)
-                     ->withInput()
-                     ->with("tab", "v-pills-profile");
+           return redirect()
+                    ->route("dashboard.index", ["tab" => "v-pills-profile"])
+                    ->withErrors($validator)
+                    ->withInput();  
         }
 
 
@@ -141,23 +141,43 @@ class Dashboard extends Controller
         ];
 
         $user->update($fieldsToUpdate);
-        return redirect()->back()->with("tab", "v-pills-profile")->with('success', 'Profile updated successfully!');
+        return redirect()->route("dashboard.index", ["tab" => "v-pills-profile"])->with('success', 'Profile updated successfully!');
     }
 
 
-    public function index() {
+    public function index(Request $request) {
+        $activeTab = $request->query('tab', "v-pills-profile");
+        
         $user = auth()->user();
         $countries = Country::all()->toArray();
         $customer_orders = Customer::with(["orders.payments", "orders.product"])
                     ->where("id", $user->id)
                     ->first();
 
-        $ordersByOrderNumber = $customer_orders->orders->groupBy("order_number");
+        $grouped = $customer_orders->orders->groupBy('order_number');
+
+        // manual pagination on groups
+        $page = request('page', 1);
+        $perPage = 3;
+
+        $pagedGroups = $grouped->slice(($page - 1) * $perPage, $perPage);
+
+        $ordersByOrderNumber = new \Illuminate\Pagination\LengthAwarePaginator(
+            $pagedGroups,
+            $grouped->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url() ]
+        );
+
+        // extra safety: append tab so ->links() also has it
+        $ordersByOrderNumber->appends(['tab' => $activeTab]);
 
         return view("pages.dashboard", [
             "user" => $user,   
             "countries" => $countries,
-            "orders" => $ordersByOrderNumber
+            "orders" => $ordersByOrderNumber,
+            "activeTab" => $activeTab
         ]);
     }
 }
