@@ -10,9 +10,11 @@
         </div>
         <div class="col-md-6 text-md-end mt-2 mt-md-0">
             <ul class="list-inline mb-0">
-                <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f text-white"></i></a></li>
-                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter text-white"></i></a></li>
-                <li class="list-inline-item"><a href="#"><i class="fab fa-instagram text-white"></i></a></li>
+                @foreach ($socials as $social)
+                    @if (in_array($social->name, ["Facebook", "X", "YouTube", "Instagram", "WhatsApp"] ))
+                        <li class="list-inline-item"><a href="{{ $social->url }}"><i class="fab {{ $social->icon }} text-white"></i></a></li>       
+                    @endif
+                @endforeach         
             </ul>
         </div>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\PageSetting;
+use App\Models\Social;
 use App\Models\TopCategory;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
@@ -50,7 +51,12 @@ class AppServiceProvider extends ServiceProvider
                 "contact_phone"
             )->first();
 
-            $view->with("global_page_settings", $global_page_settings);
+            $socials = Social::all();
+
+            $view->with([
+                "global_page_settings" => $global_page_settings,
+                "socials" => $socials
+            ]);
         });
     }
 }
