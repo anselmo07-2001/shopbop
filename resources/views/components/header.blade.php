@@ -4,8 +4,8 @@
         <div class="row align-items-center">
         <div class="col-md-6">
             <ul class="list-inline mb-0">
-                <li class="list-inline-item text-white"><i class="fas fa-phone"></i> +6395689287 </li>
-                <li class="list-inline-item text-white"><i class="fas fa-envelope"></i> support@shopbop.com</li>
+                <li class="list-inline-item text-white"><i class="fas fa-phone"></i> {{ $global_page_settings->contact_phone }} </li>
+                <li class="list-inline-item text-white"><i class="fas fa-envelope"></i> {{ $global_page_settings->contact_email }} </li>
             </ul>
         </div>
         <div class="col-md-6 text-md-end mt-2 mt-md-0">

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\PageSetting;
 use App\Models\TopCategory;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
@@ -40,6 +41,16 @@ class AppServiceProvider extends ServiceProvider
             }, 0);
 
             $view->with('cartTotal', $total);
+        });
+
+        View::composer("*", function($view) {
+            $global_page_settings = PageSetting::select(
+                "footer_copyright",
+                "contact_email",
+                "contact_phone"
+            )->first();
+
+            $view->with("global_page_settings", $global_page_settings);
         });
     }
 }
