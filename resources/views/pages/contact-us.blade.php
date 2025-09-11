@@ -46,18 +46,18 @@
                 <!-- Office Info -->
                 <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
                 <h4 class="fw-bold mb-3">Our Office</h4>
-                <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger me-2"></i> 123 Main Street, Cityville, Country</p>
-                <p class="mb-2"><i class="bi bi-telephone-fill text-danger me-2"></i> +1 234 567 890</p>
-                <p class="mb-0"><i class="bi bi-envelope-fill text-danger me-2"></i> support@ecommercephp.com</p>
+                <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger me-2"></i>{{ $page_settings->contact_address }}</p>
+                <p class="mb-2"><i class="bi bi-telephone-fill text-danger me-2"></i>{{ $page_settings->contact_phone }}</p>
+                <p class="mb-0"><i class="bi bi-envelope-fill text-danger me-2"></i>{{ $page_settings->contact_email }}</p>
                 </div>
 
                 <!-- Map Placeholder -->
                 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-                <h4 class="fw-bold mb-3">Find Us on Map</h4>
-                <div class="bg-light d-flex align-items-center justify-content-center rounded-3" 
-                    style="height: 250px;">
-                    <span class="text-muted">[ Map Placeholder ]</span>
-                </div>
+                    <h4 class="fw-bold mb-3">Find Us on Map</h4>
+                   <div class="bg-light d-flex align-items-center justify-content-center rounded-3" 
+                        style="height: 250px; overflow: hidden;">     
+                            {!! $page_settings->contact_map_iframe !!}
+                    </div>
                 </div>
             </div>
             </div>
