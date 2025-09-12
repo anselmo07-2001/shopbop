@@ -2,7 +2,10 @@
     
     @foreach ($comments as $comment)
         <div class="d-flex mb-4">
-            <img src="assets/uploads/avatar1.jpg" class="rounded-circle me-3" style="width:60px;height:60px;" alt="User Avatar">
+            <img src="{{ $comment->customer->avatar }}" 
+                class="rounded-circle me-3" 
+                style="width:40px;height:40px;" 
+                alt="User Avatar">
             <div class="flex-grow-1">
                 <div class="d-flex justify-content-between align-items-center mb-1">
                 <h6 class="mb-0">{{ $comment->customer->full_name }}</h6>

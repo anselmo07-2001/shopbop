@@ -15,6 +15,7 @@ class Customer extends Authenticatable
 
     protected $fillable = [
         "full_name",  
+        "avatar",
         "company_name",  
         "email",  
         "phone_number",  
@@ -47,6 +48,10 @@ class Customer extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function getAvatarAttribute() {
+        return $this->attributes['avatar'] ? asset("storage/". $this->attributes['avatar']) : asset("photo/default-avatar.png");
+    }
 
     public function country() {
         return $this->belongsTo(Country::class);
