@@ -70,35 +70,23 @@
 
     <div id="reviewList">
             <!-- Single Review -->
-            <div class="d-flex mb-4">
-                <img src="assets/uploads/avatar1.jpg" class="rounded-circle me-3" style="width:60px;height:60px;" alt="User Avatar">
-                <div class="flex-grow-1">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                    <h6 class="mb-0">John Doe</h6>
-                    <small class="text-muted">Aug 23, 2025</small>
-                    </div>
-                    <div class="mb-2">
-                    <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                    </div>
-                    <p>Great smartwatch! The display is crisp and tracking features are very accurate.</p>
-                    <button class="btn btn-sm btn-outline-secondary">Reply</button>
-                </div>
-            </div>
 
-            <div class="d-flex mb-4">
-                <img src="assets/uploads/avatar2.jpg" class="rounded-circle me-3" style="width:60px;height:60px;" alt="User Avatar">
-                <div class="flex-grow-1">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                    <h6 class="mb-0">Jane Smith</h6>
-                    <small class="text-muted">Aug 21, 2025</small>
+           
+            @foreach ($ratings as $rating)
+                <div class="d-flex mb-4">
+                    <img src="assets/uploads/avatar1.jpg" class="rounded-circle me-3" style="width:60px;height:60px;" alt="User Avatar">
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                        <h6 class="mb-0">{{ $rating->customer->full_name }}</h6>
+                        <small class="text-muted">{{ $rating->updated_at->format('M d, Y') }}</small>
+                        </div>
+                        <div class="mb-2">
+                        <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                        </div>
+                        <p>{{ $rating->comment }}</p>
                     </div>
-                    <div class="mb-2">
-                    <span class="text-warning">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
-                    </div>
-                    <p>Good value for the price, but battery life could be better. Overall happy.</p>
-                    <button class="btn btn-sm btn-outline-secondary">Reply</button>
-                </div>
-            </div>
+                </div>              
+            @endforeach
 
             <!-- Pagination -->
             <nav aria-label="Review pagination">
