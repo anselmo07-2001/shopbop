@@ -24,7 +24,9 @@ class ProductController extends Controller
     public function show($id): View {
         $product = Product::findorFail($id);
         $product_galleries = ProductGallery::where("product_id", $product->id)->get();
-        
+
+        $ratings = $product->ratings()->get();
+     
         //Get the sizes of this specific product
         $product_sizes = ProductSize::with("size")->where("product_id", $product->id)->get();
         $product_sizes = $product_sizes->map(fn($p_sizes) => $p_sizes);
@@ -46,7 +48,8 @@ class ProductController extends Controller
             "product_sizes" => $product_sizes,
             "product_colors" => $product_colors,
             "breadcrumbs" => $breadcrumbs,
-            "relatedProducts" => $relatedProducts
+            "relatedProducts" => $relatedProducts,
+            "ratings" => $ratings
         ]);
     }
 }
