@@ -55,4 +55,8 @@ class Customer extends Authenticatable
     public function orders() {
         return $this->hasMany(Order::class)->orderBy("created_at", "desc");
     }
+
+    public function ratings() {
+        return $this->hasMany(Rating::class);
+    }
 }
