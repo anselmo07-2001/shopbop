@@ -191,7 +191,7 @@
         </div>
     </div>
 
-        <x-customer-review :ratings="$ratings" :reviews="$reviews"/>
+        <x-customer-review :ratings="$ratings" :product="$product"/>
    
         <x-add-review/>
 

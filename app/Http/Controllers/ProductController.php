@@ -26,8 +26,7 @@ class ProductController extends Controller
         $product_galleries = ProductGallery::where("product_id", $product->id)->get();
 
         $ratings = $product->ratings()->get();
-        $reviews =  $product->ratings()->paginate(4);
-
+       
         //Get the sizes of this specific product
         $product_sizes = ProductSize::with("size")->where("product_id", $product->id)->get();
         $product_sizes = $product_sizes->map(fn($p_sizes) => $p_sizes);
@@ -51,7 +50,6 @@ class ProductController extends Controller
             "breadcrumbs" => $breadcrumbs,
             "relatedProducts" => $relatedProducts,
             "ratings" => $ratings,
-            "reviews" => $reviews
         ]);
     }
 }

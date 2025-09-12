@@ -1,4 +1,4 @@
-@props(["ratings" => null, "reviews" => null])
+@props(["ratings" => null, "product" => null])
 
 <div class="container my-5">
     <div class="mb-4">
@@ -67,30 +67,7 @@
         </div>
     </div>
 
-
-    <div id="reviewList">
-            <!-- Single Review -->
-            @foreach ($reviews as $review)
-                <div class="d-flex mb-4">
-                    <img src="assets/uploads/avatar1.jpg" class="rounded-circle me-3" style="width:60px;height:60px;" alt="User Avatar">
-                    <div class="flex-grow-1">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                        <h6 class="mb-0">{{ $review->customer->full_name }}</h6>
-                        <small class="text-muted">{{ $review->updated_at->format('M d, Y') }}</small>
-                        </div>
-                        <div class="mb-2">
-                        <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                        </div>
-                        <p>{{ $review->comment }}</p>
-                    </div>
-                </div>              
-            @endforeach
-
-
-             <!-- Pagination -->
-            <nav aria-label="Page navigation" class="mt-4">
-                    {{ $reviews->links('vendor.pagination.custom') }}
-            </nav>
-    </div>
+    <livewire:customer-comments :productId="$product->id"/>
+        
 </div>
 
