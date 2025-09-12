@@ -1,4 +1,4 @@
-@props(["ratings" => null])
+@props(["ratings" => null, "reviews" => null])
 
 <div class="container my-5">
     <div class="mb-4">
@@ -70,39 +70,26 @@
 
     <div id="reviewList">
             <!-- Single Review -->
-
-           
-            @foreach ($ratings as $rating)
+            @foreach ($reviews as $review)
                 <div class="d-flex mb-4">
                     <img src="assets/uploads/avatar1.jpg" class="rounded-circle me-3" style="width:60px;height:60px;" alt="User Avatar">
                     <div class="flex-grow-1">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                        <h6 class="mb-0">{{ $rating->customer->full_name }}</h6>
-                        <small class="text-muted">{{ $rating->updated_at->format('M d, Y') }}</small>
+                        <h6 class="mb-0">{{ $review->customer->full_name }}</h6>
+                        <small class="text-muted">{{ $review->updated_at->format('M d, Y') }}</small>
                         </div>
                         <div class="mb-2">
                         <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
                         </div>
-                        <p>{{ $rating->comment }}</p>
+                        <p>{{ $review->comment }}</p>
                     </div>
                 </div>              
             @endforeach
 
-            <!-- Pagination -->
-            <nav aria-label="Review pagination">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item active">
-                    <a class="page-link bg-light text-dark border-dark" href="#">1</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
+
+             <!-- Pagination -->
+            <nav aria-label="Page navigation" class="mt-4">
+                    {{ $reviews->links('vendor.pagination.custom') }}
             </nav>
     </div>
 </div>
