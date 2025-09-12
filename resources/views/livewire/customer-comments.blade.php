@@ -9,7 +9,20 @@
                 <small class="text-muted">{{ $comment->updated_at->format('M d, Y') }}</small>
                 </div>
                 <div class="mb-2">
-                <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <span class="text-warning">
+                    @php
+                        $full_star = $comment->rating;
+                        $empty_star = 5 - $full_star;
+                    @endphp
+
+                    @for ($i = 0; $i < $full_star; $i++)
+                        &#9733;
+                    @endfor
+
+                    @for ($i = 0; $i < $empty_star; $i++)
+                        &#9734;
+                    @endfor
+                </span>
                 </div>
                 <p>{{ $comment->comment }}</p>
             </div>
@@ -19,6 +32,6 @@
 
     <!-- Pagination -->
     <nav aria-label="Page navigation" class="mt-4">
-            {{ $comments->links('vendor.pagination.livewire-bootstrap') }}
+        {{ $comments->links('vendor.pagination.livewire-bootstrap') }}
     </nav>
 </div>
