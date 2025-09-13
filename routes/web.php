@@ -34,7 +34,6 @@ Route::post("/logout", [LoginController::class, "logoutCustomer"])->name("logout
 Route::get("/register", [RegisterController::class, "register"])->name("register");
 Route::post("/store", [RegisterController::class, "store"])->name("register.store");
 
-
 Route::get("/level/{level}/category/{id}/value/{value}", [CategoryController::class, "index"])->name("category.index");
 
 Route::get("/products/{id}", [ProductController::class, "show"])->name("product.show");

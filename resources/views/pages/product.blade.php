@@ -193,9 +193,9 @@
 
         <x-customer-review :ratings="$ratings" :product="$product"/>
    
-        <x-add-review/>
+        <x-add-review/> 
 
-        <x-related-products :relatedProducts="$relatedProducts"/>
+        <x-related-products :relatedProducts="$relatedProducts" :endCategory="$breadcrumbs->endCategory"/>
 
     </div>
 </x-layout>

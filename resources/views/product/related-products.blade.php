@@ -1,11 +1,14 @@
-@props(["relatedProducts" => []])
-
+@props(["relatedProducts" => [], "endCategory" => [] ])
 
 <div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0">Related Products</h5>
-        <a href="#" class="text-decoration-none">See All</a>
-    </div>
+
+    @if (!empty($relatedProducts) && count($relatedProducts) > 0)
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Related Products</h5>
+            <a href="{{ route('category.index', ['level' => 'end_category', 'id' => $endCategory->id, 'value' => $endCategory->name] ) }}"
+            class="text-decoration-none">See All</a>
+        </div>
+    @endif
 
     <div class="d-flex overflow-auto py-2">    
         @if (!empty($relatedProducts) && count($relatedProducts) > 0)
