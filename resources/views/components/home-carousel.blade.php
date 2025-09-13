@@ -12,8 +12,8 @@
 
     <div class="carousel-inner">
         <!-- Slide 1 -->
-        @foreach ($carousel as $item)
-            <div class="carousel-item active" 
+        @foreach ($carousel as $index => $item)
+            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" 
                 style="background-image:url('{{ asset('storage/carousel/' . $item->image_path ) }}'); 
                     background-size:cover; 
                     background-position:center;">
@@ -27,15 +27,17 @@
                 </div>
             </div>
         @endforeach
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#bootstrap-touch-slider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bootstrap-touch-slider" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
-    <!-- Controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#bootstrap-touch-slider" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#bootstrap-touch-slider" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+   
 </div>
