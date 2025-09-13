@@ -49,8 +49,10 @@ class Customer extends Authenticatable
         'remember_token',
     ];
 
-    public function getAvatarAttribute() {
-        return $this->attributes['avatar'] ? asset("storage/". $this->attributes['avatar']) : asset("photo/default-avatar.png");
+    public function getAvatarAttribute($value) {
+        return $value 
+            ? asset("storage/" . $value) 
+            : asset("photo/default-avatar.png");
     }
 
     public function country() {

@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -116,6 +117,7 @@ class Dashboard extends Controller
             "city" => "required|string|max:255",
             "state" => "required|string|max:255",
             "zip" => "required|string|max:20",
+            "avatar" => "nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048",
         ]);
 
         if ($validator->fails()) {
@@ -125,8 +127,16 @@ class Dashboard extends Controller
                     ->withInput();  
         }
 
-
         $validatedData = $validator->validated();
+
+        if ($request->hasFile("avatar")) {
+           if ($user->getRawOriginal('avatar') && Storage::disk("public")->exists($user->getRawOriginal('avatar'))) {
+                Storage::disk("public")->delete($user->getRawOriginal('avatar'));
+            }
+
+            $path = $request->file("avatar")->store("avatars", "public");
+            $validatedData["avatar"] = $path;
+        }
        
         $fieldsToUpdate = [
             'full_name' => $validatedData['full_name'],
@@ -139,6 +149,10 @@ class Dashboard extends Controller
             'state' => $validatedData['state'],
             'zip' => $validatedData['zip'],
         ];
+
+        if (isset($validatedData["avatar"])) {
+            $fieldsToUpdate["avatar"] = $validatedData["avatar"];
+        }
 
         $user->update($fieldsToUpdate);
         return redirect()->route("dashboard.index", ["tab" => "v-pills-profile"])->with('success', 'Profile updated successfully!');

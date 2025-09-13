@@ -37,8 +37,25 @@
                     <!-- Update Profile -->
                     <div class="tab-pane fade {{ $activeTab === 'v-pills-profile' ? 'show active' : ""  }}" id="v-pills-profile" role="tabpanel">
                         <h4 class="mb-3">Update Profile</h4>
-                        <form class="row g-3" method="POST" action="{{ route('dashboard.update-profile') }}">
+                        <form class="row g-3" method="POST" action="{{ route('dashboard.update-profile') }}" enctype="multipart/form-data">
                             @csrf
+
+                            <div class="col-md-12 d-flex align-items-center mb-2">
+                                <div class="me-3">
+                                    <img src="{{ $user->avatar }}" 
+                                        class="rounded-circle border" 
+                                        style="width:80px; height:80px; object-fit:cover;" 
+                                        alt="User Avatar">
+                                </div>
+                                <div>
+                                    <label class="form-label">Change Profile Picture</label>
+                                    <input type="file" name="avatar" class="form-control">
+                                    @error('avatar')
+                                        <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="col-md-6">
                                 <label class="form-label">Full Name</label>
                                 <input name="full_name" type="text" class="form-control" value="{{ $user->full_name }}">
