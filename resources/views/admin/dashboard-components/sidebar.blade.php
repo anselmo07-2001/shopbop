@@ -38,8 +38,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white mb-2" 
-             href="admin-manageSliders.html">
+          <a class="nav-link text-white mb-2 {{ request()->is('admin/manage-sliders') ? 'active bg-primary rounded' : '' }}" 
+             href="{{ route('admin.manageSliders') }}">
                 <i class="fa fa-star me-2"></i>Manage Sliders
           </a>
         </li>

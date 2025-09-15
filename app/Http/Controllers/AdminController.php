@@ -21,4 +21,8 @@ class AdminController extends Controller
     public function orderManagement() {
         return view("admin.panels.order-management");
     }
+
+    public function manageSliders() {
+        return view("admin.panels.manage-sliders");
+    }
 }
