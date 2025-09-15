@@ -32,8 +32,8 @@
 
 
         <li class="nav-item">
-          <a class="nav-link text-white mb-2" 
-             href="admin-orderManagement.html">
+          <a class="nav-link text-white mb-2 {{ request()->is('admin/order-management') ? 'active bg-primary rounded' : '' }}" 
+             href="{{ route('admin.orderManagement') }}">
                 <i class="fa fa-tags me-2"></i>Order Management
           </a>
         </li>
