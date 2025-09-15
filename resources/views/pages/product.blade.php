@@ -62,80 +62,86 @@
     </div>
 
     <div class="container my-5">
-        <div class="row">
+        <div class="row d-flex align-items-start">
             <!-- Product Images -->
-            <div class="col-md-6">
-            <div class="mb-3">
-                <img id="mainProductImg" src="{{ asset('storage/products/' . $product->featured_photo ) }}" class="img-fluid border rounded" alt="Amazfit GTS 3">
-            </div>
-            <div class="d-flex gap-2">
-                @foreach ($product_galleries as $photo)
-                    <img src="{{ asset('storage/gallery/' . $photo->image_path) }}" class="img-thumbnail" style="width: 80px;" onclick="document.getElementById('mainProductImg').src=this.src">       
-                @endforeach
-            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-start ml-3">
+                <div class="mb-3" style="width: 450px; height: 450px;">
+                    <img 
+                        id="mainProductImg" 
+                        src="{{ asset('storage/products/' . $product->featured_photo ) }}" 
+                        class="img-fluid border rounded" 
+                        alt="{{ $product->name }}"
+                        style="width:100%; height:100%; object-fit:cover;"
+                    >
+                </div>
+                <div class="d-flex gap-2">
+                    @foreach ($product_galleries as $photo)
+                        <img src="{{ asset('storage/gallery/' . $photo->image_path) }}" class="img-thumbnail" style="width: 80px;" onclick="document.getElementById('mainProductImg').src=this.src">       
+                    @endforeach
+                </div>
             </div>
 
             <!-- Product Details -->
             <div class="col-md-6">
-            <h2>{{ $product->name }}</h2>
-            <p class="text-muted">{!! $product->short_description !!}</p>
+                <h2>{{ $product->name }}</h2>
+                <p class="text-muted">{!! $product->short_description !!}</p>
 
-            <!-- Price -->
-            <p class="fs-4">
-                <span class="text-primary fw-bold">${{ $product->current_price }}</span>
-                <span class="text-muted text-decoration-line-through">${{ $product->original_price }}</span>
-            </p>
+                <!-- Price -->
+                <p class="fs-4">
+                    <span class="text-primary fw-bold">${{ $product->current_price }}</span>
+                    <span class="text-muted text-decoration-line-through">${{ $product->original_price }}</span>
+                </p>
 
-            <!-- Size & Color -->
-            <form method="POST" action="{{ route('cart.add', $product->id) }}">
-                @csrf
-                <div class="mb-3">
-                    <label for="sizeSelect" class="form-label">Size</label>
-                    <select name="size" class="form-select w-50" id="sizeSelect">
-                        <option selected value="">Choose Size</option>
-                            @foreach ($product_sizes as $item)
-                                <option value={{ $item->size->name }} 
-                                        {{ old('size') == $item->size->name ? "selected" : ""  }}
-                                    >{{ $item->size->name }}
-                                </option>
-                            @endforeach
-                    </select>
-                    @error("size")
-                         <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
-                    @enderror
-                </div>
+                <!-- Size & Color -->
+                <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="sizeSelect" class="form-label">Size</label>
+                        <select name="size" class="form-select w-50" id="sizeSelect">
+                            <option selected value="">Choose Size</option>
+                                @foreach ($product_sizes as $item)
+                                    <option value={{ $item->size->name }} 
+                                            {{ old('size') == $item->size->name ? "selected" : ""  }}
+                                        >{{ $item->size->name }}
+                                    </option>
+                                @endforeach
+                        </select>
+                        @error("size")
+                            <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="mb-3">
-                    <label for="colorSelect" class="form-label">Color</label>
-                    <select name="color" class="form-select w-50" id="colorSelect">
-                        <option selected value="">Choose Color</option>
-                            @foreach ($product_colors as $item)
-                                <option value={{ $item->color->name }} 
-                                        {{ old('color') == $item->color->name ? "selected" : "" }}>
-                                    {{ $item->color->name }}
-                                </option>
-                            @endforeach
-                    </select>
-                    @error("color")
-                         <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="mb-3">
+                        <label for="colorSelect" class="form-label">Color</label>
+                        <select name="color" class="form-select w-50" id="colorSelect">
+                            <option selected value="">Choose Color</option>
+                                @foreach ($product_colors as $item)
+                                    <option value={{ $item->color->name }} 
+                                            {{ old('color') == $item->color->name ? "selected" : "" }}>
+                                        {{ $item->color->name }}
+                                    </option>
+                                @endforeach
+                        </select>
+                        @error("color")
+                            <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
+                        @enderror
+                    </div>
     
-                <!-- Quantity & Add to Cart -->
-                <div class="mb-3 d-flex gap-2">
-                    <input name="quantity" type="number" class="form-control w-auto" value="{{ old('quantity', 1) }}" min="1">
-                    <button type="submit" class="btn btn-warning"><i class="bi bi-cart-plus"></i> Add to Cart</button>
-                </div>
-            </form>
+                    <!-- Quantity & Add to Cart -->
+                    <div class="mb-3 d-flex gap-2">
+                        <input name="quantity" type="number" class="form-control w-auto" value="{{ old('quantity', 1) }}" min="1">
+                        <button type="submit" class="btn btn-warning"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                    </div>
+                </form>
 
-            <!-- Social Share -->
-            <div>
-                <span>Share: </span>
-                <a href="#" class="text-primary me-2"><i class="bi bi-facebook fs-4"></i></a>
-                <a href="#" class="text-info me-2"><i class="bi bi-twitter fs-4"></i></a>
-                <a href="#" class="text-danger me-2"><i class="bi bi-pinterest fs-4"></i></a>
-                <a href="#" class="text-secondary"><i class="bi bi-envelope fs-4"></i></a>
-            </div>
+                <!-- Social Share -->
+                <div>
+                    <span>Share: </span>
+                    <a href="#" class="text-primary me-2"><i class="bi bi-facebook fs-4"></i></a>
+                    <a href="#" class="text-info me-2"><i class="bi bi-twitter fs-4"></i></a>
+                    <a href="#" class="text-danger me-2"><i class="bi bi-pinterest fs-4"></i></a>
+                    <a href="#" class="text-secondary"><i class="bi bi-envelope fs-4"></i></a>
+                </div>
             </div>
         </div>
     </div>
