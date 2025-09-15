@@ -8,6 +8,11 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
+    public function handleLoginAdmin() {
+        
+    }
+
+
     public function loginCustomer(Request $request) {
         $cred = $request->validate([
             "email" => "required|email",
@@ -32,5 +37,9 @@ class LoginController extends Controller
 
     public function login(): View {
         return view("auth.login");
+    }
+
+    public function loginAdmin() {
+        return view("admin.auth.login");
     }
 }

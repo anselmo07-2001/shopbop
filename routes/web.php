@@ -44,7 +44,6 @@ Route::post("/cart/product/add/{id}", [CartController::class, "add"])->name("car
 Route::delete("/cart/product/destroy/{id}", [CartController::class, "destroy"])->name("cart.destroy");
 Route::post("/cart/product/update{id}", [CartController::class, "update"])->name("cart.update");
 
-
 Route::middleware("auth:customer")->group(function() {
     Route::get("/checkout", [CheckoutController::class, "checkout"])->name("checkout.index");
     Route::delete("/checkout/{id}", [CheckoutController::class, "destroy"])->name("checkout.destroy");
@@ -55,3 +54,9 @@ Route::middleware("auth:customer")->group(function() {
     Route::post("/dashboard/update-address", [Dashboard::class, "updateAddress"])->name("dashboard.update-address");
     Route::post("/dashboard/update-password", [Dashboard::class, "updatePassword"])->name("dashboard.update-password");
 });
+
+
+
+Route::get("/admin", [LoginController::class, "loginAdmin"])->name("login.admin");
+Route::post("/admin", [LoginController::class, "handleLoginAdmin"])->name("handle.login.admin");
+
