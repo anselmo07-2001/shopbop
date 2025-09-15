@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -59,4 +60,8 @@ Route::middleware("auth:customer")->group(function() {
 
 Route::get("/admin", [LoginController::class, "loginAdmin"])->name("login.admin");
 Route::post("/admin", [LoginController::class, "handleLoginAdmin"])->name("handle.login.admin");
+
+Route::get("/admin/dashboard", [AdminController::class, "dashboard"])->name("admin.dashboard");
+Route::get("/admin/website-setting", [AdminController::class, "websiteSetting"])->name("admin.websiteSetting");
+Route::get("/admin/product-management", [AdminController::class, "productManagement"])->name("admin.productManagement");
 
