@@ -15,11 +15,9 @@
           </a>
         </li>
 
-        
         @php
           $shopActive = request()->is('admin/shop-setting/*');
         @endphp
-
         <li class="nav-item">
           <a class="nav-link text-white mb-2 sidebar-link d-flex justify-content-between align-items-center 
              {{ $shopActive ? 'active bg-primary rounded' : '' }}" data-bs-toggle="collapse" href="#shopSettingsMenu" 
@@ -78,13 +76,6 @@
         </li>
 
 
-
-
-
-
-
-
-
         <!-- Products -->
         <li class="nav-item">
           <a class="nav-link text-white mb-2 {{ request()->is('admin/product-management') ? 'active bg-primary rounded' : '' }}" 
@@ -109,42 +100,42 @@
 
         <!-- Orders -->
         <li class="nav-item">
-          <a class="nav-link text-white mb-2" 
-             href="admin-services.html">
+          <a class="nav-link text-white mb-2 {{ request()->is('admin/services') ? 'active bg-primary rounded' : '' }}" 
+             href="{{ route('admin.services') }}">
                 <i class="fa fa-shopping-cart me-2"></i>Services
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white mb-2" 
-             href="admin-faq.html">
+          <a class="nav-link text-white mb-2 {{ request()->is('admin/faq') ? 'active bg-primary rounded' : '' }}" 
+             href="{{ route('admin.faq') }}">
                 <i class="fa fa-truck me-2"></i>FAQ
           </a>
         </li>
 
         <!-- CMS -->
         <li class="nav-item">
-          <a class="nav-link text-white mb-2" 
-             href="admin-registeredCustomer.html">
+          <a class="nav-link text-white mb-2 {{ request()->is('admin/registered-customers') ? 'active bg-primary rounded' : '' }}" 
+             href="{{ route('admin.registeredCustomers') }}">
                 <i class="fa fa-sliders-h me-2"></i>Registered Customers
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white mb-2" 
-             href="admin-pageSetting.html">
+          <a class="nav-link text-white mb-2 {{ request()->is('admin/page-settings') ? 'active bg-primary rounded' : '' }}" 
+             href="{{ route('admin.pageSettings') }}">
                 <i class="fa fa-file-alt me-2"></i>Page Settings
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white mb-2" 
-             href="admin-socialMedia.html">
+          <a class="nav-link text-white mb-2 {{ request()->is('admin/social-media') ? 'active bg-primary rounded' : '' }}" 
+             href="{{ route('admin.socialMedia') }}">
                 <i class="bi bi-share me-2"></i>Social Media
           </a>
         </li>
 
         <!-- Users -->
         <li class="nav-item">
-          <a class="nav-link text-white mb-2" 
-             href="admin-subscriber.html">
+          <a class="nav-link text-white mb-2 {{ request()->is('admin/subscriber') ? 'active bg-primary rounded' : '' }}" 
+             href="{{ route('admin.subscriber') }}">
                <i class="fa fa-users me-2"></i>Subscriber
           </a>
         </li>

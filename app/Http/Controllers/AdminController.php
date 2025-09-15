@@ -53,4 +53,28 @@ class AdminController extends Controller
     public function manageSliders() {
         return view("admin.panels.manage-sliders");
     }
+
+    public function services() {
+        return view("admin.panels.services");
+    }
+
+    public function faq() {
+        return view("admin.panels.faq");
+    }
+
+    public function registeredCustomers() {
+        return view("admin.panels.registered-customers");
+    }
+
+    public function pageSettings() {
+         return view("admin.panels.page-settings");
+    }
+
+    public function socialMedia() {
+         return view("admin.panels.social-media");
+    }
+
+    public function subscriber() {
+         return view("admin.panels.subscriber");
+    }
 }

@@ -75,4 +75,11 @@ Route::get("/admin/shop-setting/end-level-category", [AdminController::class, "e
 Route::get("/admin/product-management", [AdminController::class, "productManagement"])->name("admin.productManagement");
 Route::get("/admin/order-management", [AdminController::class, "orderManagement"])->name("admin.orderManagement");
 Route::get("/admin/manage-sliders", [AdminController::class, "manageSliders"])->name("admin.manageSliders");
+Route::get("/admin/services", [AdminController::class, "services"])->name("admin.services");
+Route::get("/admin/faq", [AdminController::class, "faq"])->name("admin.faq");
+Route::get("/admin/registered-customers", [AdminController::class, "registeredCustomers"])->name("admin.registeredCustomers");
+Route::get("/admin/page-settings", [AdminController::class, "pageSettings"])->name("admin.pageSettings");
+Route::get("/admin/social-media", [AdminController::class, "socialMedia"])->name("admin.socialMedia");
+Route::get("/admin/subscriber", [AdminController::class, "subscriber"])->name("admin.subscriber");
+
 
