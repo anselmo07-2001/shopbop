@@ -63,6 +63,15 @@ Route::post("/admin", [LoginController::class, "handleLoginAdmin"])->name("handl
 
 Route::get("/admin/dashboard", [AdminController::class, "dashboard"])->name("admin.dashboard");
 Route::get("/admin/website-setting", [AdminController::class, "websiteSetting"])->name("admin.websiteSetting");
+
+Route::get("/admin/shop-setting/size", [AdminController::class, "size"])->name("admin.shopSetting.size");
+Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
+Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
+Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");
+Route::get("/admin/shop-setting/top-level-category", [AdminController::class, "topLevelCategory"])->name("admin.shopSetting.topLevelCategory");
+Route::get("/admin/shop-setting/mid-level-category", [AdminController::class, "midLevelCategory"])->name("admin.shopSetting.midLevelCategory");
+Route::get("/admin/shop-setting/end-level-category", [AdminController::class, "endLevelCategory"])->name("admin.shopSetting.endLevelCategory");
+
 Route::get("/admin/product-management", [AdminController::class, "productManagement"])->name("admin.productManagement");
 Route::get("/admin/order-management", [AdminController::class, "orderManagement"])->name("admin.orderManagement");
 Route::get("/admin/manage-sliders", [AdminController::class, "manageSliders"])->name("admin.manageSliders");

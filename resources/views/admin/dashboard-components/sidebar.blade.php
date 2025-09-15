@@ -1,5 +1,5 @@
 <nav class="col-md-2 col-lg-2 d-md-block bg-dark text-white p-3 min-vh-100">
-    <h4 class="text-white mb-4">eCommerce PHP</h4>
+    <h4 class="text-white mb-4">ShopBop</h4>
     <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link text-white mb-2 {{ request()->is('admin/dashboard') ? 'active bg-primary rounded' : '' }}" 
@@ -15,12 +15,75 @@
           </a>
         </li>
 
+        
+        @php
+          $shopActive = request()->is('admin/shop-setting/*');
+        @endphp
+
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/shop-setting') ? 'active bg-primary rounded' : '' }}" 
-             href="admin-shopSettings.html">
-                <i class="fa fa-store me-2"></i> Shop Settings
+          <a class="nav-link text-white mb-2 sidebar-link d-flex justify-content-between align-items-center 
+             {{ $shopActive ? 'active bg-primary rounded' : '' }}" data-bs-toggle="collapse" href="#shopSettingsMenu" 
+              role="button" aria-expanded="{{ $shopActive ? 'true' : 'false' }}" aria-controls="shopSettingsMenu">
+            
+              <span><i class="fa fa-store me-2"></i> Shop Settings</span>
+              <i class="fa fa-chevron-down small text-white chevron-icon"></i>
           </a>
+
+          <div class="collapse ps-3 {{ $shopActive ? 'show' : '' }}" id="shopSettingsMenu">
+              <ul class="nav flex-column small">
+                  <li class="nav-item">
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/size') ? 'active bg-primary rounded' : '' }}" 
+                         href="{{ route('admin.shopSetting.size') }}">
+                          <i class="fa fa-ruler me-2"></i> Size
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/color') ? 'active bg-primary rounded' : '' }}" 
+                       href="{{ route('admin.shopSetting.color') }}">
+                      <i class="fa fa-palette me-2"></i> Color
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/country') ? 'active bg-primary rounded' : '' }}" 
+                         href="{{ route('admin.shopSetting.country') }}">
+                        <i class="fa fa-flag me-2"></i> Country
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/shipping-cost') ? 'active bg-primary rounded' : '' }}" 
+                         href="{{ route('admin.shopSetting.shippingCost') }}">
+                        <i class="fa fa-shipping-fast me-2"></i> Shipping Cost
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/top-level-category') ? 'active bg-primary rounded' : '' }}" 
+                        href="{{ route('admin.shopSetting.topLevelCategory') }}">
+                        <i class="fa fa-sitemap me-2"></i> Top Level Category
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/mid-level-category') ? 'active bg-primary rounded' : '' }}" 
+                      href="{{ route('admin.shopSetting.midLevelCategory') }}">
+                        <i class="fa fa-list-ul me-2"></i> Mid Level Category
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/end-level-category') ? 'active bg-primary rounded' : '' }}"
+                       href="{{ route('admin.shopSetting.endLevelCategory') }}">
+                      <i class="fa fa-list me-2"></i> End Level Category
+                    </a>
+                  </li>
+              </ul>
+          </div>
         </li>
+
+
+
+
+
+
+
+
 
         <!-- Products -->
         <li class="nav-item">

@@ -91,3 +91,17 @@
 .nav-pills .nav-link {
   color: #575757 !important;
 }
+
+
+
+
+
+/*** Admin Panel ***/
+.chevron-icon {
+  transition: transform 0.3s ease;
+}
+
+/* when expanded → rotate 180deg */
+[aria-expanded="true"] .chevron-icon {
+  transform: rotate(180deg);
+}
