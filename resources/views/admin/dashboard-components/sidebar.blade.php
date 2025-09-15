@@ -1,5 +1,5 @@
 <nav class="col-md-2 col-lg-2 d-md-block bg-dark text-white p-3 min-vh-100">
-    <h4 class="text-white mb-4">ShopBop</h4>
+    <h4 class="text-white mb-4" style="margin-left: 0.5rem">ShopBop</h4>
     <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link text-white mb-2 {{ request()->is('admin/dashboard') ? 'active bg-primary rounded' : '' }}" 

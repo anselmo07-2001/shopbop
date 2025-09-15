@@ -9,7 +9,7 @@
                 <span>Admin</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="admin-editProfile.html"><i class="fa fa-user-edit me-2"></i> Edit Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.editProfile') }}"><i class="fa fa-user-edit me-2"></i> Edit Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" href="#"><i class="fa fa-sign-out-alt me-2"></i> Logout</a></li>
               </ul>

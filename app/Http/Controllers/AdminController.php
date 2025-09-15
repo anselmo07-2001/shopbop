@@ -10,6 +10,10 @@ class AdminController extends Controller
         return view("admin.panels.dashboard");
     }
 
+    public function editProfile() {
+        return view("admin.panels.edit-profile");
+    }
+
     public function websiteSetting() {
         return view("admin.panels.website-setting");
     }
