@@ -114,6 +114,22 @@ class AdminController extends Controller
                   ->with('success', 'Footer updated successfully');
     }
 
+    public function updateMessageSettings(Request $request) {
+        $page_settings = PageSetting::first();
+
+        $validatedData = $request->validate([
+            "contact_email" => "required|email",
+            "email_subject" => "required|string|max:255",
+            "email_thankyou_message" => "required|string",
+            "forgot_password_message" => "required|string"
+        ]);
+
+        $page_settings->update($validatedData);
+
+        return redirect()->route("admin.websiteSetting", ["tab" => $request->query("tab", "message-settings")])
+                    ->with('success', 'Message Settings updated successfully');
+    }
+
 
     public function size() {
         return view("admin.panels.shop-settings.size");

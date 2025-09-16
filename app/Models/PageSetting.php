@@ -20,6 +20,9 @@ class PageSetting extends Model
         "contact_map_iframe",
         "logo",
         "favicon",
-        "show_newsletter"
+        "show_newsletter",
+        "email_subject",
+        "email_thankyou_message",
+        "forgot_password_message"
     ];
 }

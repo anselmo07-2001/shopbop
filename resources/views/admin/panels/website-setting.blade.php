@@ -2,7 +2,7 @@
     <div class="container-fluid"> 
         <x-flash-message session_name="success" />
         <x-flash-message session_name="error" />    
-                 
+
         <main class="p-4">
             <h3 class="mb-4">Website Settings</h3>
                 
@@ -16,7 +16,8 @@
                         data-bs-toggle="tab" data-bs-target="#footer" type="button" role="tab">Footer</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="message-tab" data-bs-toggle="tab" data-bs-target="#message" type="button" role="tab">Message Settings</button>
+                    <button class="nav-link text-dark {{ $active_tab === 'message-settings' ? 'active' : '' }}" 
+                        id="message-tab" data-bs-toggle="tab" data-bs-target="#message" type="button" role="tab">Message Settings</button>
                 </li>
                 <li class="nav-item" role="presentation">
                 <button class="nav-link text-dark" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">Products</button>
@@ -122,24 +123,39 @@
                 </div>
 
                 <!-- Message Settings -->
-                <div class="tab-pane fade" id="message" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Contact Email Address</label>
-                    <input type="email" class="form-control" value="support@shopbop.com">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contact Email Subject</label>
-                    <input type="text" class="form-control" value="Thank you for contacting us">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contact Email Thank You Message</label>
-                    <textarea class="form-control" rows="3">We appreciate your message. Our team will get back to you soon.</textarea>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Forgot Password Message</label>
-                    <textarea class="form-control" rows="3">Please use the link below to reset your password.</textarea>
-                </div>
-                <button class="btn btn-primary">Update</button>
+                <div class="tab-pane fade {{ $active_tab === 'message-settings' ? 'show active' : '' }}" id="message" role="tabpanel">
+                    <form action="{{ route('admin.messageSettings.update') }}?tab=message-settings" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Contact Email Address</label>
+                            <input name="contact_email" type="email" class="form-control" value="{{ $page_settings->contact_email }}">
+                            @error('contact_email')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contact Email Subject</label>
+                            <input name="email_subject" type="text" class="form-control" value="{{ $page_settings->email_subject }}">
+                            @error('email_subject')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contact Email Thank You Message</label>
+                            <textarea name="email_thankyou_message" class="form-control" rows="3">{{ $page_settings->email_thankyou_message }}</textarea>
+                            @error('email_thankyou_message')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Forgot Password Message</label>
+                            <textarea name="forgot_password_message" class="form-control" rows="3">{{ $page_settings->forgot_password_message }}</textarea>
+                            @error('forgot_password_message')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
                 </div>
 
                 <!-- Products -->
