@@ -1,14 +1,19 @@
 <x-layout-admin-panel>
-    <div class="container-fluid">              
+    <div class="container-fluid"> 
+        <x-flash-message session_name="success" />
+        <x-flash-message session_name="error" />    
+                 
         <main class="p-4">
             <h3 class="mb-4">Website Settings</h3>
                 
             <ul class="nav nav-tabs" id="settingsTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                <button class="nav-link active text-dark" id="logo-tab" data-bs-toggle="tab" data-bs-target="#logo" type="button" role="tab">Logo & Favicon</button>
+                    <button class="nav-link text-dark {{ $active_tab === 'branding' ? 'active' : '' }} " id="logo-tab" 
+                        data-bs-toggle="tab" data-bs-target="#logo" type="button" role="tab">Logo & Favicon</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="footer-tab" data-bs-toggle="tab" data-bs-target="#footer" type="button" role="tab">Footer</button>
+                    <button class="nav-link text-dark {{ $active_tab === 'footer' ? 'active' : '' }}" id="footer-tab" 
+                        data-bs-toggle="tab" data-bs-target="#footer" type="button" role="tab">Footer</button>
                 </li>
                 <li class="nav-item" role="presentation">
                 <button class="nav-link text-dark" id="message-tab" data-bs-toggle="tab" data-bs-target="#message" type="button" role="tab">Message Settings</button>
@@ -33,8 +38,8 @@
             <div class="tab-content border border-top-0 p-4 bg-white" id="settingsTabContent">
 
                 <!-- Logo & Favicon -->
-                <div class="tab-pane fade show active" id="logo" role="tabpanel">
-                    <form action="{{ route('admin.branding.update') }}" method="POST" enctype="multipart/form-data">
+                <div class="tab-pane fade {{ $active_tab === 'branding' ? 'show active' : '' }}" id="logo" role="tabpanel">
+                    <form action="{{ route('admin.branding.update') }}?tab=branding" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Current Logo</label><br>
@@ -53,40 +58,67 @@
                                 <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
-                        <button class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>
 
                 <!-- Footer -->
-                <div class="tab-pane fade" id="footer" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Newsletter Section</label>
-                    <select class="form-select">
-                    <option>On</option>
-                    <option>Off</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Copyright</label>
-                    <input type="text" class="form-control" value="© 2025 ShopBop. All rights reserved.">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contact Address</label>
-                    <input type="text" class="form-control" value="123 Main St, City, Country">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contact Email</label>
-                    <input type="email" class="form-control" value="support@shopbop.com">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contact Phone</label>
-                    <input type="text" class="form-control" value="+1 234 567 890">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contact Map (iframe)</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <button class="btn btn-primary">Update</button>
+                <div class="tab-pane fade {{ $active_tab === 'footer' ? 'show active' : '' }}" id="footer" role="tabpanel">
+                    <form action="{{ route('admin.footer.update') }}?tab=footer" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Newsletter Section</label>
+                            <select name="show_newsletter" class="form-select">
+                                <option {{ $page_settings->show_newsletter == 1 ? "selected" : "" }} value="1">On</option>
+                                <option {{ $page_settings->show_newsletter == 0 ? "selected" : "" }} value="0">Off</option>
+                            </select>
+                            @error('show_newsletter')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Copyright</label>
+                            <input name="footer_copyright" type="text" class="form-control" value="{{ $page_settings->footer_copyright }}">
+                            @error('footer_copyright')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contact Address</label>
+                            <input name="contact_address" type="text" class="form-control" value="{{ $page_settings->contact_address }}">
+                            @error('contact_address')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contact Email</label>
+                            <input name="contact_email" type="email" class="form-control" value="{{ $page_settings->contact_email }}">
+                            @error('contact_email')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contact Phone</label>
+                            <input name="contact_phone" type="text" class="form-control" value="{{$page_settings->contact_phone}}">
+                            @error('contact_phone')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contact Map (iframe)</label>
+                            <textarea name="contact_map_iframe" class="form-control" rows="3">{{ $page_settings->contact_map_iframe }}</textarea>
+                            @error('contact_map_iframe')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
                 </div>
 
                 <!-- Message Settings -->

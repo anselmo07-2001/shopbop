@@ -45,8 +45,14 @@ class AdminController extends Controller
         return view("admin.panels.edit-profile");
     }
 
-    public function websiteSetting() {
-        return view("admin.panels.website-setting");
+    public function websiteSetting(Request $request) {
+        $page_settings = PageSetting::first();
+        $active_tab = request("tab", "logo");
+
+        return view("admin.panels.website-setting", [
+            "page_settings" => $page_settings,
+            "active_tab" => $active_tab
+        ]);
     }
 
     public function updateBranding(Request $request) {
@@ -87,8 +93,27 @@ class AdminController extends Controller
 
         $page_settings->save();
 
-        return back()->with("success", "Branding updated successfully");
+        return redirect()->route("admin.websiteSetting", ["tab" => $request->query("tab", "branding")])
+                  ->with('success', 'Branding updated successfully');
     }
+
+    public function updateFooter(Request $request) {
+        $page_settings = PageSetting::first();
+
+        $validatedData = $request->validate([
+            "show_newsletter" => "boolean",
+            "footer_copyright" => "required|string|max:255",
+            "contact_address" => "required|string|max:255",
+            "contact_email" => "required|email",
+            "contact_phone" => "required|string|max:20",
+            "contact_map_iframe" => "required|string"
+        ]);
+      
+        $page_settings->update($validatedData);   
+        return redirect()->route("admin.websiteSetting", ["tab" => $request->query("tab", "footer")])
+                  ->with('success', 'Footer updated successfully');
+    }
+
 
     public function size() {
         return view("admin.panels.shop-settings.size");

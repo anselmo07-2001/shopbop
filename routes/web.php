@@ -67,6 +67,7 @@ Route::get("/admin/edit-profile", [AdminController::class, "editProfile"])->name
 
 Route::get("/admin/website-setting", [AdminController::class, "websiteSetting"])->name("admin.websiteSetting");
 Route::post("/admin/website-setting/branding-update", [AdminController::class, "updateBranding"])->name("admin.branding.update");
+Route::post("/admin/website-setting/footer-update", [AdminController::class, "updateFooter"])->name("admin.footer.update");
 
 
 Route::get("/admin/shop-setting/size", [AdminController::class, "size"])->name("admin.shopSetting.size");
