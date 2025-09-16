@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\EndCategory;
 use App\Models\MidCategory;
+use App\Models\PageSetting;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\TopCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -48,11 +50,44 @@ class AdminController extends Controller
     }
 
     public function updateBranding(Request $request) {
+        $page_settings = PageSetting::first();
+
         $validatedData = $request->validate([
             "logo" => "nullable|image|mimes:png,jpg,jpeg,svg|max:2048",
             'favicon' => 'nullable|image|mimes:png,ico|max:1024', 
         ]);
 
+        if ($request->hasFile("logo")) {
+
+            // Delete old logo
+            if ($page_settings->logo && Storage::disk("public")->exists("branding/" . $page_settings->logo)) {
+                Storage::disk("public")->delete("branding/" . $page_settings->logo);
+            } 
+
+            // Save new logo
+            $logo_name = time() . "." . $request->file("logo")->getClientOriginalExtension();
+            $request->file("logo")->storeAs("branding", $logo_name, "public");
+
+            $page_settings->logo = $logo_name;
+        }
+
+         if ($request->hasFile("favicon")) {
+
+            // Delete old favicon
+            if ($page_settings->favicon && Storage::disk("public")->exists("branding/" . $page_settings->favicon)) {
+                Storage::disk("public")->delete("branding/" .  $page_settings->favicon);
+            } 
+
+            // Save new favicon
+            $favicon_name = time() . "." . $request->file("favicon")->getClientOriginalExtension();
+            $request->file("favicon")->storeAs("branding", $favicon_name, "public");
+
+            $page_settings->favicon = $favicon_name;
+        }
+
+        $page_settings->save();
+
+        return back()->with("success", "Branding updated successfully");
     }
 
     public function size() {

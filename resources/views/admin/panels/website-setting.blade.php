@@ -38,7 +38,7 @@
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Current Logo</label><br>
-                            <img src="{{ asset('photo/logo.png') }}" alt="Logo" class="img-thumbnail mb-2" style="max-width:150px;">
+                            <img src="{{ asset('storage/branding/' . $global_page_settings->logo ) }}" alt="Logo" class="img-thumbnail mb-2" style="max-width:150px;">
                             <input name="logo" type="file" class="form-control">
                             @error('logo')
                                 <div class="text-danger mt-1">{{ $message }}</div>
@@ -47,7 +47,7 @@
     
                         <div class="mb-3">
                             <label class="form-label">Current Favicon</label><br>
-                            <img src="{{ asset('photo/favicon.ico') }}" alt="Favicon" class="img-thumbnail mb-2" style="max-width:50px;">
+                            <img src="{{ asset('storage/branding/' . $global_page_settings->favicon ) }}" alt="Favicon" class="img-thumbnail mb-2" style="max-width:50px;">
                             <input name="favicon" type="file" class="form-control">
                             @error('favicon')
                                 <div class="text-danger mt-1">{{ $message }}</div>

@@ -48,7 +48,9 @@ class AppServiceProvider extends ServiceProvider
             $global_page_settings = PageSetting::select(
                 "footer_copyright",
                 "contact_email",
-                "contact_phone"
+                "contact_phone",
+                "logo",
+                "favicon"
             )->first();
 
             $socials = Social::all();
