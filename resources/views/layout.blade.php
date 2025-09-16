@@ -8,7 +8,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/uploads/favicon.png">
+    <link rel="icon" type="image/png" href="{{ asset('photo/favicon.ico') }}">
 
     {{-- Load compiled CSS & JS via Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])

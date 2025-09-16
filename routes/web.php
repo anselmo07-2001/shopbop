@@ -63,7 +63,11 @@ Route::post("/admin", [LoginController::class, "handleLoginAdmin"])->name("handl
 
 Route::get("/admin/dashboard", [AdminController::class, "dashboard"])->name("admin.dashboard");
 Route::get("/admin/edit-profile", [AdminController::class, "editProfile"])->name("admin.editProfile");
+
+
 Route::get("/admin/website-setting", [AdminController::class, "websiteSetting"])->name("admin.websiteSetting");
+Route::post("/admin/website-setting/branding-update", [AdminController::class, "updateBranding"])->name("admin.branding.update");
+
 
 Route::get("/admin/shop-setting/size", [AdminController::class, "size"])->name("admin.shopSetting.size");
 Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");

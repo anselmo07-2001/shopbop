@@ -34,17 +34,27 @@
 
                 <!-- Logo & Favicon -->
                 <div class="tab-pane fade show active" id="logo" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Current Logo</label><br>
-                    <img src="assets/uploads/logo.png" alt="Logo" class="img-thumbnail mb-2" style="max-width:150px;">
-                    <input type="file" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Current Favicon</label><br>
-                    <img src="assets/uploads/favicon.png" alt="Favicon" class="img-thumbnail mb-2" style="max-width:50px;">
-                    <input type="file" class="form-control">
-                </div>
-                <button class="btn btn-primary">Update</button>
+                    <form action="{{ route('admin.branding.update') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Current Logo</label><br>
+                            <img src="{{ asset('photo/logo.png') }}" alt="Logo" class="img-thumbnail mb-2" style="max-width:150px;">
+                            <input name="logo" type="file" class="form-control">
+                            @error('logo')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label">Current Favicon</label><br>
+                            <img src="{{ asset('photo/favicon.ico') }}" alt="Favicon" class="img-thumbnail mb-2" style="max-width:50px;">
+                            <input name="favicon" type="file" class="form-control">
+                            @error('favicon')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button class="btn btn-primary">Update</button>
+                    </form>
                 </div>
 
                 <!-- Footer -->

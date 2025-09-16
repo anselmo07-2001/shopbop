@@ -47,6 +47,14 @@ class AdminController extends Controller
         return view("admin.panels.website-setting");
     }
 
+    public function updateBranding(Request $request) {
+        $validatedData = $request->validate([
+            "logo" => "nullable|image|mimes:png,jpg,jpeg,svg|max:2048",
+            'favicon' => 'nullable|image|mimes:png,ico|max:1024', 
+        ]);
+
+    }
+
     public function size() {
         return view("admin.panels.shop-settings.size");
     }

@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>  
-    <link rel="icon" type="image/png" href="assets/uploads/favicon.png">
+    <link rel="icon" type="image/png" href="{{ asset('photo/favicon.ico') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $metaTitle ?? 'ShopBop - Home' }}</title>
     <meta name="keywords" content="{{ $metaKeywords ?? 'content' }}">

@@ -29,7 +29,7 @@
         <!-- Logo -->
         <div class="logo">
             <a href="{{ route('home') }}" class="d-inline-block">
-                <img src="{{ asset('storage/uploads/logo2.png') }}" alt="logo image" class="img-fluid" style="max-width: 150px;">           
+                <img src="{{ asset('photo/logo.png') }}" alt="logo image" class="img-fluid" style="max-width: 150px;">           
             </a>
         </div>
 
