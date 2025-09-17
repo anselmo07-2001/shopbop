@@ -8,28 +8,34 @@
                 
             <ul class="nav nav-tabs" id="settingsTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link text-dark {{ $active_tab === 'branding' ? 'active' : '' }} " id="logo-tab" 
-                        data-bs-toggle="tab" data-bs-target="#logo" type="button" role="tab">Logo & Favicon</button>
+                    <a href="{{ route('admin.websiteSetting', ['tab' => 'branding']) }}"
+                       class="nav-link text-dark {{ $active_tab === 'branding' ? 'active' : '' }}"
+                       id="logo-tab" role="tab">Logo & Favicon</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link text-dark {{ $active_tab === 'footer' ? 'active' : '' }}" id="footer-tab" 
-                        data-bs-toggle="tab" data-bs-target="#footer" type="button" role="tab">Footer</button>
+                    <a href="{{ route('admin.websiteSetting', ['tab' => 'footer']) }}"
+                       class="nav-link text-dark {{ $active_tab === 'footer' ? 'active' : '' }}"
+                       id="footer-tab" role="tab">Footer</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link text-dark {{ $active_tab === 'message-settings' ? 'active' : '' }}" 
-                        id="message-tab" data-bs-toggle="tab" data-bs-target="#message" type="button" role="tab">Message Settings</button>
+                    <a href="{{ route('admin.websiteSetting', ['tab' => 'message-settings']) }}"
+                       class="nav-link text-dark {{ $active_tab === 'message-settings' ? 'active' : '' }}"
+                       id="message-tab" role="tab">Message Settings</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link text-dark {{ $active_tab === 'products-display-limit' ? 'active' : '' }}" 
-                        id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">Products</button>
+                    <a href="{{ route('admin.websiteSetting', ['tab' => 'products-display-limit']) }}"
+                       class="nav-link text-dark {{ $active_tab === 'products-display-limit' ? 'active' : '' }}"
+                       id="products-tab" role="tab">Products</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark {{ $active_tab === 'home-settings' ? 'active' : '' }}" 
-                        id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Home Settings</button>
+                    <a href="{{ route('admin.websiteSetting', ['tab' => 'home-settings']) }}"
+                       class="nav-link text-dark {{ $active_tab === 'home-settings' ? 'active' : '' }}"
+                       id="home-tab" role="tab">Home Settings</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link text-dark {{ $active_tab === 'payments' ? 'active' : '' }}" 
-                        id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">Payment</button>
+                    <a href="{{ route('admin.websiteSetting', ['tab' => 'payments']) }}"
+                       class="nav-link text-dark {{ $active_tab === 'payments' ? 'active' : '' }}"
+                       id="payment-tab" role="tab">Payment</a>
                 </li>
             </ul>
    
