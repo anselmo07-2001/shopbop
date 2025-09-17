@@ -47,7 +47,7 @@ class AdminController extends Controller
 
     public function websiteSetting(Request $request) {
         $page_settings = PageSetting::first();
-        $active_tab = request("tab", "logo");
+        $active_tab = request("tab", "branding");
 
         return view("admin.panels.website-setting", [
             "page_settings" => $page_settings,
