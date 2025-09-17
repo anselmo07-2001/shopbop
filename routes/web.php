@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -65,13 +66,13 @@ Route::get("/admin/dashboard", [AdminController::class, "dashboard"])->name("adm
 Route::get("/admin/edit-profile", [AdminController::class, "editProfile"])->name("admin.editProfile");
 
 
-Route::get("/admin/website-setting", [AdminController::class, "websiteSetting"])->name("admin.websiteSetting");
-Route::post("/admin/website-setting/branding-update", [AdminController::class, "updateBranding"])->name("admin.branding.update");
-Route::post("/admin/website-setting/footer-update", [AdminController::class, "updateFooter"])->name("admin.footer.update");
-Route::post("/admin/website-setting/message-settings-update", [AdminController::class, "updateMessageSettings"])->name("admin.messageSettings.update");
-Route::post("/admin/website-setting/products-display-limit", [AdminController::class, "updateProductsDisplayLimit"])->name("admin.productsDisplayLimit.update");
-Route::post("/admin/website-setting/home-settings", [AdminController::class, "updateHomeSettings"])->name("admin.homeSettings.update");
-Route::post("/admin/website-setting/payment", [AdminController::class, "updatePayment"])->name("admin.payment.update");
+Route::get("/admin/website-setting", [WebsiteSettingsController::class, "websiteSetting"])->name("admin.websiteSetting");
+Route::post("/admin/website-setting/branding-update", [WebsiteSettingsController::class, "updateBranding"])->name("admin.branding.update");
+Route::post("/admin/website-setting/footer-update", [WebsiteSettingsController::class, "updateFooter"])->name("admin.footer.update");
+Route::post("/admin/website-setting/message-settings-update", [WebsiteSettingsController::class, "updateMessageSettings"])->name("admin.messageSettings.update");
+Route::post("/admin/website-setting/products-display-limit", [WebsiteSettingsController::class, "updateProductsDisplayLimit"])->name("admin.productsDisplayLimit.update");
+Route::post("/admin/website-setting/home-settings", [WebsiteSettingsController::class, "updateHomeSettings"])->name("admin.homeSettings.update");
+Route::post("/admin/website-setting/payment", [WebsiteSettingsController::class, "updatePayment"])->name("admin.payment.update");
 
 
 Route::get("/admin/shop-setting/size", [AdminController::class, "size"])->name("admin.shopSetting.size");
