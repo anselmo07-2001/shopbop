@@ -183,6 +183,24 @@ class AdminController extends Controller
                     ->with("success", "Home settings updated successfully");       
     }
 
+    public function updatePayment(Request $request) {
+        $page_settings = PageSetting::first();
+
+        if (!$page_settings) {
+            return back()->withErrors("Page settings not found.");
+        }
+
+        $validatedData = $request->validate([
+            "business_email" => "required|email|max:255",
+            "bank_detail" => "required|string"
+        ]);
+
+        $page_settings->update($validatedData);
+
+        return redirect()->route("admin.websiteSetting", ["tab" => $request->query("tab", "payments")])
+                    ->with("success", "Payment setting updated successfully");   
+    }
+
 
     public function size() {
         return view("admin.panels.shop-settings.size");

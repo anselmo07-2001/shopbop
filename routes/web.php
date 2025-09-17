@@ -71,7 +71,7 @@ Route::post("/admin/website-setting/footer-update", [AdminController::class, "up
 Route::post("/admin/website-setting/message-settings-update", [AdminController::class, "updateMessageSettings"])->name("admin.messageSettings.update");
 Route::post("/admin/website-setting/products-display-limit", [AdminController::class, "updateProductsDisplayLimit"])->name("admin.productsDisplayLimit.update");
 Route::post("/admin/website-setting/home-settings", [AdminController::class, "updateHomeSettings"])->name("admin.homeSettings.update");
-
+Route::post("/admin/website-setting/payment", [AdminController::class, "updatePayment"])->name("admin.payment.update");
 
 
 Route::get("/admin/shop-setting/size", [AdminController::class, "size"])->name("admin.shopSetting.size");

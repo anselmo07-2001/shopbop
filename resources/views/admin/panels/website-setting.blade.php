@@ -28,15 +28,12 @@
                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Home Settings</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">Payment</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="scripts-tab" data-bs-toggle="tab" data-bs-target="#scripts" type="button" role="tab">Head & Body Scripts</button>
+                    <button class="nav-link text-dark {{ $active_tab === 'payments' ? 'active' : '' }}" 
+                        id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">Payment</button>
                 </li>
             </ul>
    
             <div class="tab-content border border-top-0 p-4 bg-white" id="settingsTabContent">
-
                 <!-- Logo & Favicon -->
                 <div class="tab-pane fade {{ $active_tab === 'branding' ? 'show active' : '' }}" id="logo" role="tabpanel">
                     <form action="{{ route('admin.branding.update') }}?tab=branding" method="POST" enctype="multipart/form-data">
@@ -332,39 +329,27 @@
                     </form>
                 </div>
 
-                    
-                    
-
-                    <!-- Payment -->
-                    <div class="tab-pane fade" id="payment" role="tabpanel">
-                    <div class="mb-3">
-                        <label class="form-label">Business Email</label>
-                        <input type="email" class="form-control" value="payments@shopbop.com">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Bank Information</label>
-                        <textarea class="form-control" rows="3">Bank: ABC Bank, Account: 123456789</textarea>
-                    </div>
-                    <button class="btn btn-primary">Update</button>
-                    </div>
-
-                    <!-- Scripts -->
-                    <div class="tab-pane fade" id="scripts" role="tabpanel">
-                    <div class="mb-3">
-                        <label class="form-label">Code before &lt;/head&gt; tag</label>
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Code after &lt;body&gt; tag</label>
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Code before &lt;/body&gt; tag</label>
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <button class="btn btn-primary">Update</button>
-
-                </div>
+                <!-- Payment -->
+                <div class="tab-pane fade {{ $active_tab === 'payments' ? 'show active' : '' }}" id="payment" role="tabpanel">
+                    <form action="{{ route('admin.payment.update') }}?payments" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Business Email</label>
+                            <input name="business_email" type="email" class="form-control" value="{{ $page_settings->business_email }}">
+                            @error('business_email')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Bank Information</label>
+                            <textarea name="bank_detail" class="form-control" rows="3">{{ $page_settings->bank_detail }}</textarea>
+                            @error('bank_detail')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>              
             </div>
 
         </main>
