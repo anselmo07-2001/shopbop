@@ -28,9 +28,6 @@
                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Home Settings</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="banner-tab" data-bs-toggle="tab" data-bs-target="#banner" type="button" role="tab">Banner</button>
-                </li>
-                <li class="nav-item" role="presentation">
                 <button class="nav-link text-dark" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">Payment</button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -335,30 +332,8 @@
                     </form>
                 </div>
 
-                    <!-- Banner Settings -->
-                    <div class="tab-pane fade" id="banner" role="tabpanel">
-                    <div class="mb-3">
-                        <label class="form-label">Login Page Banner</label>
-                        <input type="file" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Register Page Banner</label>
-                        <input type="file" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Checkout Page Banner</label>
-                        <input type="file" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Cart Page Banner</label>
-                        <input type="file" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Product Category Page Banner</label>
-                        <input type="file" class="form-control">
-                    </div>
-                    <button class="btn btn-primary">Update</button>
-                    </div>
+                    
+                    
 
                     <!-- Payment -->
                     <div class="tab-pane fade" id="payment" role="tabpanel">
