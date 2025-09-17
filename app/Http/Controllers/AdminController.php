@@ -130,6 +130,32 @@ class AdminController extends Controller
                     ->with('success', 'Message Settings updated successfully');
     }
 
+    public function updateProductsDisplayLimit(Request $request) {
+        $page_settings = PageSetting::first();
+
+        if (!$page_settings) {
+            return back()->withErrors("Page settings not found.");
+        }
+
+        $total_products = Product::count();
+
+        if ($total_products === 0) {
+            return back()->withErrors("No products available, so limits cannot be set.");
+        }   
+
+        $validatedData = $request->validate([
+            "featured_products_limit" => "required|integer|min:0|max:$total_products",
+            "latest_products_limit" => "required|integer|min:0|max:$total_products",
+            "popular_products_limit" => "required|integer|min:0|max:$total_products",         
+        ]);
+
+        $page_settings->update($validatedData);
+
+        return redirect()->route("admin.websiteSetting", ["tab" => $request->query("tab", "products-display-limit")])
+                    ->with("success", "Products display limit updated successfully");
+         
+    }
+
 
     public function size() {
         return view("admin.panels.shop-settings.size");

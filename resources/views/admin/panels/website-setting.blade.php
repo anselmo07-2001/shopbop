@@ -20,7 +20,8 @@
                         id="message-tab" data-bs-toggle="tab" data-bs-target="#message" type="button" role="tab">Message Settings</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">Products</button>
+                    <button class="nav-link text-dark {{ $active_tab === 'products-display-limit' ? 'active' : '' }}" 
+                        id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">Products</button>
                 </li>
                 <li class="nav-item" role="presentation">
                 <button class="nav-link text-dark" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Home Settings</button>
@@ -159,20 +160,32 @@
                 </div>
 
                 <!-- Products -->
-                <div class="tab-pane fade" id="products" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Home Page Featured Products</label>
-                    <input type="number" class="form-control" value="8">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Home Page Latest Products</label>
-                    <input type="number" class="form-control" value="6">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Home Page Popular Products</label>
-                    <input type="number" class="form-control" value="6">
-                </div>
-                <button class="btn btn-primary">Update</button>
+                <div class="tab-pane fade {{ $active_tab === 'products-display-limit' ? 'show active' : '' }}" id="products" role="tabpanel">
+                    <form action="{{ route('admin.productsDisplayLimit.update') }}?tab=products-display-limit" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Home Page Featured Products</label>
+                            <input name="featured_products_limit" type="number" class="form-control" value="{{ $page_settings->featured_products_limit }}">
+                            @error('featured_products_limit')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Home Page Latest Products</label>
+                            <input name="latest_products_limit" type="number" class="form-control" value="{{ $page_settings->latest_products_limit }}">
+                            @error('latest_products_limit')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Home Page Popular Products</label>
+                            <input name="popular_products_limit" type="number" class="form-control" value="{{ $page_settings->popular_products_limit }}">
+                            @error('popular_products_limit')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
                 </div>
 
                 <!-- Home Settings -->

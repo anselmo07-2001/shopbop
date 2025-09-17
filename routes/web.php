@@ -69,6 +69,8 @@ Route::get("/admin/website-setting", [AdminController::class, "websiteSetting"])
 Route::post("/admin/website-setting/branding-update", [AdminController::class, "updateBranding"])->name("admin.branding.update");
 Route::post("/admin/website-setting/footer-update", [AdminController::class, "updateFooter"])->name("admin.footer.update");
 Route::post("/admin/website-setting/message-settings-update", [AdminController::class, "updateMessageSettings"])->name("admin.messageSettings.update");
+Route::post("/admin/website-setting/products-display-limit", [AdminController::class, "updateProductsDisplayLimit"])->name("admin.productsDisplayLimit.update");
+
 
 
 Route::get("/admin/shop-setting/size", [AdminController::class, "size"])->name("admin.shopSetting.size");

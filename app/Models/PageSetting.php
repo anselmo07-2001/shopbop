@@ -23,6 +23,9 @@ class PageSetting extends Model
         "show_newsletter",
         "email_subject",
         "email_thankyou_message",
-        "forgot_password_message"
+        "forgot_password_message",
+        "featured_products_limit",
+        "latest_products_limit",
+        "popular_products_limit",
     ];
 }
