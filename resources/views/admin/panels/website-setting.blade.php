@@ -24,7 +24,8 @@
                         id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">Products</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Home Settings</button>
+                <button class="nav-link text-dark {{ $active_tab === 'home-settings' ? 'active' : '' }}" 
+                        id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Home Settings</button>
                 </li>
                 <li class="nav-item" role="presentation">
                 <button class="nav-link text-dark" id="banner-tab" data-bs-toggle="tab" data-bs-target="#banner" type="button" role="tab">Banner</button>
@@ -180,7 +181,7 @@
                         <div class="mb-3">
                             <label class="form-label">Home Page Popular Products</label>
                             <input name="popular_products_limit" type="number" class="form-control" value="{{ $page_settings->popular_products_limit }}">
-                            @error('popular_products_limit')
+                            @error('latest_products_limit')
                                     <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
@@ -189,144 +190,205 @@
                 </div>
 
                 <!-- Home Settings -->
-                <div class="tab-pane fade" id="home" role="tabpanel">
+                <div class="tab-pane fade {{ $active_tab === 'home-settings' ? 'show active' : '' }}" id="home" role="tabpanel">
+                    <form action="{{ route('admin.homeSettings.update') }}?tab=home-settings" method="post">
+                        @csrf
+                        <h5 class="mt-2">Section On/Off</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Service Section</label>
+                                <select name="show_service_section" class="form-select">
+                                    <option {{ $page_settings->show_service_section == 1  ? "selected" : "" }} value="1">On</option>
+                                    <option {{ $page_settings->show_service_section == 0  ? "selected" : "" }} value="0">Off</option>
+                                </select>
+                                @error('show_service_section')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Welcome Section</label>
+                                <select name="show_welcome_product_section" class="form-select">
+                                    <option {{ $page_settings->show_welcome_product_section == 1  ? "selected" : "" }} value="1">On</option>
+                                    <option {{ $page_settings->show_welcome_product_section == 0  ? "selected" : "" }} value="0">Off</option>
+                                </select>
+                                @error('show_welcome_product_section')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Featured Product Section</label>
+                                <select name="show_featured_product_section" class="form-select">
+                                    <option {{ $page_settings->show_featured_product_section == 1  ? "selected" : "" }} value="1">On</option>
+                                    <option {{ $page_settings->show_featured_product_section == 0  ? "selected" : "" }} value="0">Off</option>
+                                </select>
+                                @error('show_featured_product_section')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Latest Product Section</label>
+                                <select name="show_latest_product_section" class="form-select">
+                                    <option {{ $page_settings->show_latest_product_section == 1  ? "selected" : "" }} value="1">On</option>
+                                    <option {{ $page_settings->show_latest_product_section == 0  ? "selected" : "" }} value="0">Off</option>
+                                </select>
+                                @error('show_latest_product_section')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Popular Product Section</label>
+                                <select name="show_popular_product_section" class="form-select">
+                                    <option {{ $page_settings->show_popular_product_section == 1  ? "selected" : "" }} value="1">On</option>
+                                    <option {{ $page_settings->show_popular_product_section == 0  ? "selected" : "" }} value="0">Off</option>
+                                </select>
+                                @error('show_popular_product_section')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
-                <!-- Section On/Off -->
-                <h5 class="mt-2">Section On/Off</h5>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                    <label class="form-label">Service Section</label>
-                    <select class="form-select"><option>On</option><option>Off</option></select>
+                        <h5 class="mt-4">Meta Section</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Meta Title</label>
+                            <input name="meta_title" type="text" class="form-control" value="{{ $page_settings->meta_title }}">
+                            @error('meta_title')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Meta Keywords</label>
+                            <input name="meta_keywords" type="text" class="form-control" value="{{ $page_settings->meta_keywords }}">
+                            @error('meta_keywords')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Meta Description</label>
+                            <textarea name="meta_description" class="form-control" rows="3">{{ $page_settings->meta_description }}</textarea>
+                            @error('meta_description')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        
+                        <h5 class="mt-4">Featured Product Section</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input name="featured_products_title" type="text" class="form-control" value="{{ $page_settings->featured_products_title }}">
+                            @error('featured_products_title')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Subtitle</label>
+                            <input name="featured_products_subtitle" type="text" class="form-control" value="{{ $page_settings->featured_products_subtitle }}">
+                            @error('featured_products_subtitle')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Latest Section -->
+                        <h5 class="mt-4">Latest Product Section</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input name="latest_products_title" type="text" class="form-control" value="{{ $page_settings->latest_products_title }}">
+                            @error('latest_products_title')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Subtitle</label>
+                            <input name="latest_products_subtitle" type="text" class="form-control" value="{{ $page_settings->latest_products_subtitle }}">
+                            @error('latest_products_subtitle')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Popular Section -->
+                        <h5 class="mt-4">Popular Product Section</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input name="popular_products_title" type="text" class="form-control" value="{{ $page_settings->popular_products_title }}">
+                            @error('popular_products_title')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Subtitle</label>
+                            <input name="popular_products_subtitle" type="text" class="form-control" value="{{ $page_settings->popular_products_subtitle }}">
+                            @error('popular_products_subtitle')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Newsletter -->
+                        <h5 class="mt-4">Newsletter Section</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Newsletter Text</label>
+                            <input name="newsletter_title" type="text" class="form-control" value="{{ $page_settings->newsletter_title }}">
+                            @error('newsletter_title')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <button class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+
+                    <!-- Banner Settings -->
+                    <div class="tab-pane fade" id="banner" role="tabpanel">
+                    <div class="mb-3">
+                        <label class="form-label">Login Page Banner</label>
+                        <input type="file" class="form-control">
                     </div>
-                    <div class="col-md-6 mb-3">
-                    <label class="form-label">Welcome Section</label>
-                    <select class="form-select"><option>On</option><option>Off</option></select>
+                    <div class="mb-3">
+                        <label class="form-label">Register Page Banner</label>
+                        <input type="file" class="form-control">
                     </div>
-                    <div class="col-md-6 mb-3">
-                    <label class="form-label">Featured Product Section</label>
-                    <select class="form-select"><option>On</option><option>Off</option></select>
+                    <div class="mb-3">
+                        <label class="form-label">Checkout Page Banner</label>
+                        <input type="file" class="form-control">
                     </div>
-                    <div class="col-md-6 mb-3">
-                    <label class="form-label">Latest Product Section</label>
-                    <select class="form-select"><option>On</option><option>Off</option></select>
+                    <div class="mb-3">
+                        <label class="form-label">Cart Page Banner</label>
+                        <input type="file" class="form-control">
                     </div>
-                    <div class="col-md-6 mb-3">
-                    <label class="form-label">Popular Product Section</label>
-                    <select class="form-select"><option>On</option><option>Off</option></select>
+                    <div class="mb-3">
+                        <label class="form-label">Product Category Page Banner</label>
+                        <input type="file" class="form-control">
                     </div>
-                </div>
+                    <button class="btn btn-primary">Update</button>
+                    </div>
 
-                <!-- Meta Section -->
-                <h5 class="mt-4">Meta Section</h5>
-                <div class="mb-3">
-                    <label class="form-label">Meta Title</label>
-                    <input type="text" class="form-control" value="ShopBop - Best Online Store">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Meta Keywords</label>
-                    <input type="text" class="form-control" value="fashion, clothes, shopbop, ecommerce">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Meta Description</label>
-                    <textarea class="form-control" rows="3">Welcome to ShopBop, your #1 online fashion store.</textarea>
-                </div>
+                    <!-- Payment -->
+                    <div class="tab-pane fade" id="payment" role="tabpanel">
+                    <div class="mb-3">
+                        <label class="form-label">Business Email</label>
+                        <input type="email" class="form-control" value="payments@shopbop.com">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Bank Information</label>
+                        <textarea class="form-control" rows="3">Bank: ABC Bank, Account: 123456789</textarea>
+                    </div>
+                    <button class="btn btn-primary">Update</button>
+                    </div>
 
-                <!-- Featured Section -->
-                <h5 class="mt-4">Featured Product Section</h5>
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-control" value="Featured Products">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Subtitle</label>
-                    <input type="text" class="form-control" value="Our top picks just for you">
-                </div>
+                    <!-- Scripts -->
+                    <div class="tab-pane fade" id="scripts" role="tabpanel">
+                    <div class="mb-3">
+                        <label class="form-label">Code before &lt;/head&gt; tag</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Code after &lt;body&gt; tag</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Code before &lt;/body&gt; tag</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <button class="btn btn-primary">Update</button>
 
-                <!-- Latest Section -->
-                <h5 class="mt-4">Latest Product Section</h5>
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-control" value="Latest Products">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Subtitle</label>
-                    <input type="text" class="form-control" value="Check out our newest arrivals">
-                </div>
-
-                <!-- Popular Section -->
-                <h5 class="mt-4">Popular Product Section</h5>
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-control" value="Popular Products">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Subtitle</label>
-                    <input type="text" class="form-control" value="Most loved by our customers">
-                </div>
-
-                <!-- Newsletter -->
-                <h5 class="mt-4">Newsletter Section</h5>
-                <div class="mb-3">
-                    <label class="form-label">Newsletter Text</label>
-                    <input type="text" class="form-control" value="Subscribe to our Newsletter">
-                </div>
-
-                <button class="btn btn-primary">Update</button>
-                </div>
-
-                <!-- Banner Settings -->
-                <div class="tab-pane fade" id="banner" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Login Page Banner</label>
-                    <input type="file" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Register Page Banner</label>
-                    <input type="file" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Checkout Page Banner</label>
-                    <input type="file" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Cart Page Banner</label>
-                    <input type="file" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Product Category Page Banner</label>
-                    <input type="file" class="form-control">
-                </div>
-                <button class="btn btn-primary">Update</button>
-                </div>
-
-                <!-- Payment -->
-                <div class="tab-pane fade" id="payment" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Business Email</label>
-                    <input type="email" class="form-control" value="payments@shopbop.com">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Bank Information</label>
-                    <textarea class="form-control" rows="3">Bank: ABC Bank, Account: 123456789</textarea>
-                </div>
-                <button class="btn btn-primary">Update</button>
-                </div>
-
-                <!-- Scripts -->
-                <div class="tab-pane fade" id="scripts" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Code before &lt;/head&gt; tag</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Code after &lt;body&gt; tag</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Code before &lt;/body&gt; tag</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <button class="btn btn-primary">Update</button>
                 </div>
             </div>
 

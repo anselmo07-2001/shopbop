@@ -70,6 +70,7 @@ Route::post("/admin/website-setting/branding-update", [AdminController::class, "
 Route::post("/admin/website-setting/footer-update", [AdminController::class, "updateFooter"])->name("admin.footer.update");
 Route::post("/admin/website-setting/message-settings-update", [AdminController::class, "updateMessageSettings"])->name("admin.messageSettings.update");
 Route::post("/admin/website-setting/products-display-limit", [AdminController::class, "updateProductsDisplayLimit"])->name("admin.productsDisplayLimit.update");
+Route::post("/admin/website-setting/home-settings", [AdminController::class, "updateHomeSettings"])->name("admin.homeSettings.update");
 
 
 

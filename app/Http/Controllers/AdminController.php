@@ -156,6 +156,33 @@ class AdminController extends Controller
          
     }
 
+    public function updateHomeSettings(Request $request) {
+        $page_settings = PageSetting::first();
+
+        $validatedData = $request->validate([
+            "show_service_section" => "boolean",
+            "show_welcome_product_section" => "boolean",
+            "show_featured_product_section" => "boolean",
+            "show_latest_product_section" => "boolean",
+            "show_popular_product_section" => "boolean",
+            "meta_title" => "required|string|max:255",
+            "meta_keywords" => "required|string",
+            "meta_description" => "required|string",
+            "featured_products_title" => "required|string|max:255",
+            "featured_products_subtitle" => "required|string",
+            "latest_products_title" => "required|string|max:255",
+            "latest_products_subtitle" => "required|string",
+            "popular_products_title" => "required|string|max:255",
+            "popular_products_subtitle" => "required|string",
+            "newsletter_title" => "required|string|max:255",
+        ]);
+
+        $page_settings->update($validatedData);
+
+        return redirect()->route("admin.websiteSetting", ["tab" => $request->query("tab", "home-settings")])
+                    ->with("success", "Home settings updated successfully");       
+    }
+
 
     public function size() {
         return view("admin.panels.shop-settings.size");
