@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
@@ -62,7 +63,7 @@ Route::middleware("auth:customer")->group(function() {
 Route::get("/admin", [LoginController::class, "loginAdmin"])->name("login.admin");
 Route::post("/admin", [LoginController::class, "handleLoginAdmin"])->name("handle.login.admin");
 
-Route::get("/admin/dashboard", [AdminController::class, "dashboard"])->name("admin.dashboard");
+Route::get("/admin/dashboard", [AdminDashboardController::class, "dashboard"])->name("admin.dashboard");
 Route::get("/admin/edit-profile", [AdminController::class, "editProfile"])->name("admin.editProfile");
 
 
