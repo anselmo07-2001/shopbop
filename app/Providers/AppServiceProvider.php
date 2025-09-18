@@ -50,7 +50,12 @@ class AppServiceProvider extends ServiceProvider
                 "contact_email",
                 "contact_phone",
                 "logo",
-                "favicon"
+                "favicon",
+                "show_newsletter",
+                "newsletter_title",
+                "meta_title",
+                "meta_keywords",
+                "meta_description"
             )->first();
 
             $socials = Social::all();
