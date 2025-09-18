@@ -1,5 +1,7 @@
 <x-layout-admin-panel>
     <div class="container-fluid py-4">
+        <x-flash-message session_name="success" />
+        <x-flash-message session_name="error" />    
      
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="mb-0"><i class="bi bi-arrows-fullscreen me-2"></i>Manage Sizes</h4>
@@ -45,31 +47,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>XS</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-outline-primary me-1">
-                        <i class="bi bi-pencil"></i> Edit
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger">
-                        <i class="bi bi-trash"></i> Delete
-                        </button>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>2</td>
-                    <td>S</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-outline-primary me-1">
-                        <i class="bi bi-pencil"></i> Edit
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger">
-                        <i class="bi bi-trash"></i> Delete
-                        </button>
-                    </td>
-                    </tr>
-                    <!-- more rows here -->
+                    @foreach ($sizes as $size)         
+                        <tr>
+                            <form>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $size->name }}</td>
+                            <td class="text-center">  
+                                <a href="{{ route('admin.sizeUpdateForm', $size->id) }}" class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>                            
+                                <form href="#">
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </form>                       
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
                 </table>
             </div>
