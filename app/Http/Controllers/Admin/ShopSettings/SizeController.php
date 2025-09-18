@@ -7,10 +7,14 @@ use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
-    public function size() {
-        $sizes = Size::all();
+    public function size(Request $request) {
+        $perPage = $request->input("perPage", 10);
+        $sizes = Size::paginate($perPage);
 
-        return view("admin.panels.shop-settings.size", compact("sizes"));
+        return view("admin.panels.shop-settings.size", [
+            "sizes" => $sizes,
+            "perPage" => $perPage,
+        ]);
     }
 
     public function updateSizeForm(Size $size) {

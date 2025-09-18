@@ -76,12 +76,12 @@ Route::post("/admin/website-setting/products-display-limit", [WebsiteSettingsCon
 Route::post("/admin/website-setting/home-settings", [WebsiteSettingsController::class, "updateHomeSettings"])->name("admin.homeSettings.update");
 Route::post("/admin/website-setting/payment", [WebsiteSettingsController::class, "updatePayment"])->name("admin.payment.update");
 
+Route::get("/admin/shop-setting/size", [SizeController::class, "size"])->name("admin.shopSetting.size");
 Route::get("/admin/shop-setting/size/updateForm/{size}", [SizeController::class, "updateSizeForm"])->name("admin.sizeUpdateForm");
 Route::put("/admin/shop-setting/size/update/{size}", [SizeController::class, "updateSize"])->name("admin.sizeUpdate.update");
 Route::delete("/admin/shop-setting/size/delete", [SizeController::class, "deleteSize"])->name("admin.size.delete");
 
 
-Route::get("/admin/shop-setting/size", [SizeController::class, "size"])->name("admin.shopSetting.size");
 Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
 Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
 Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");

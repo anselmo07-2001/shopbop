@@ -14,16 +14,21 @@
             <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-6">
-                <label class="form-label me-2">Show</label>
-                <select class="form-select form-select-sm w-auto d-inline">
-                    <option>10</option>
-                    <option>25</option>
-                    <option>50</option>
-                </select>
-                <span class="ms-2">entries</span>
+                    <form method="GET" action="{{ route('admin.shopSetting.size') }}">
+                        <label for="perPage" class="form-label me-2">Show</label>
+                        <select name="perPage" id="perPage" class="form-select form-select-sm w-auto d-inline"
+                                onchange="this.form.submit()">
+                            <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                        </select>
+                        <span class="ms-2">entries</span>
+                    </form>
                 </div>
+
                 <div class="col-md-6 text-end">
-                <input type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
+                    <input type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
                 </div>
             </div>
 
@@ -49,14 +54,15 @@
                 <tbody>
                     @foreach ($sizes as $size)         
                         <tr>
-                            <form>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $sizes->firstItem() + $loop->index }}</td>
                             <td>{{ $size->name }}</td>
                             <td class="text-center">  
                                 <a href="{{ route('admin.sizeUpdateForm', $size->id) }}" class="btn btn-sm btn-outline-primary me-1">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>                            
-                                <form href="#">
+                                <form action="#" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
                                     <button class="btn btn-sm btn-outline-danger">
                                         <i class="bi bi-trash"></i> Delete
                                     </button>
@@ -69,18 +75,15 @@
             </div>
 
             <!-- Footer -->
-            <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">Showing 1 to 10 of 47 entries</small>
-                <nav>
-                <ul class="pagination pagination-sm mb-0">
-                    <li class="page-item disabled"><a class="page-link">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-                </nav>
+            <div class="d-flex justify-content-between align-items-center my-3">
+                <div>
+                    Showing {{ $sizes->firstItem() }} to {{ $sizes->lastItem() }} of {{ $sizes->total() }} results
+                </div>
+                <div>
+                    {{ $sizes->appends(['perPage' => $perPage])->links('pagination::custom') }}
+                </div>
             </div>
+
             </div>
         </div>
     
