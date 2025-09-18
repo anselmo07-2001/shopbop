@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\ShopSettings\SizeController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
@@ -76,7 +77,7 @@ Route::post("/admin/website-setting/home-settings", [WebsiteSettingsController::
 Route::post("/admin/website-setting/payment", [WebsiteSettingsController::class, "updatePayment"])->name("admin.payment.update");
 
 
-Route::get("/admin/shop-setting/size", [AdminController::class, "size"])->name("admin.shopSetting.size");
+Route::get("/admin/shop-setting/size", [SizeController::class, "size"])->name("admin.shopSetting.size");
 Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
 Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
 Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");

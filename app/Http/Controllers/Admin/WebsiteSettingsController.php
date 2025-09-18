@@ -7,6 +7,7 @@ use App\Models\PageSetting;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class WebsiteSettingsController extends Controller
 {
@@ -36,7 +37,7 @@ class WebsiteSettingsController extends Controller
             } 
 
             // Save new logo
-            $logo_name = time() . "." . $request->file("logo")->getClientOriginalExtension();
+            $logo_name = Str::uuid() . "_logo." . $request->file("logo")->getClientOriginalExtension();
             $request->file("logo")->storeAs("branding", $logo_name, "public");
 
             $page_settings->logo = $logo_name;
@@ -50,7 +51,7 @@ class WebsiteSettingsController extends Controller
             } 
 
             // Save new favicon
-            $favicon_name = time() . "." . $request->file("favicon")->getClientOriginalExtension();
+            $favicon_name = Str::uuid() . "_favicon." . $request->file("favicon")->getClientOriginalExtension();
             $request->file("favicon")->storeAs("branding", $favicon_name, "public");
 
             $page_settings->favicon = $favicon_name;

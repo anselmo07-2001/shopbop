@@ -20,9 +20,9 @@ class AdminController extends Controller
         return view("admin.panels.edit-profile");
     }
 
-    public function size() {
-        return view("admin.panels.shop-settings.size");
-    }
+    // public function size() {
+    //     return view("admin.panels.shop-settings.size");
+    // }
 
     public function color() {
         return view("admin.panels.shop-settings.color");
