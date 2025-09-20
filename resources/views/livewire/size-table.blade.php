@@ -1,5 +1,7 @@
 <div class="card shadow-sm border-0">
-            <div class="card-body">
+        
+
+        <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-6"> 
                     <label for="perPage" class="form-label me-2">Show</label>
@@ -42,16 +44,14 @@
                             <td>{{ $sizes->firstItem() + $loop->index }}</td>
                             <td>{{ $size->name }}</td>
                             <td class="text-center">  
-                                <a href="{{ route('admin.sizeUpdateForm', $size->id) }}" class="btn btn-sm btn-outline-primary me-1">
+                                <a href="{{ route('admin.sizeUpdateForm', $size->id) }}" class="btn btn-sm btn-primary me-1">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>                            
-                                <form action="#" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
-                                </form>                       
+                                <x-delete-modal 
+                                        id="{{ $size->id }}" 
+                                        name="{{ $size->name}}" 
+                                        action="{{ route('admin.size.delete', $size->id)}}"
+                                />                   
                             </td>
                         </tr>
                     @endforeach

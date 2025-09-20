@@ -79,7 +79,7 @@ Route::post("/admin/website-setting/payment", [WebsiteSettingsController::class,
 Route::get("/admin/shop-setting/size", [SizeController::class, "size"])->name("admin.shopSetting.size");
 Route::get("/admin/shop-setting/size/updateForm/{size}", [SizeController::class, "updateSizeForm"])->name("admin.sizeUpdateForm");
 Route::put("/admin/shop-setting/size/update/{size}", [SizeController::class, "updateSize"])->name("admin.sizeUpdate.update");
-Route::delete("/admin/shop-setting/size/delete", [SizeController::class, "deleteSize"])->name("admin.size.delete");
+Route::delete("/admin/shop-setting/size/delete/{size}", [SizeController::class, "deleteSize"])->name("admin.size.delete");
 
 
 Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");

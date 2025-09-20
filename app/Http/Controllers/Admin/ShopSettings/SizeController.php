@@ -31,6 +31,11 @@ class SizeController extends Controller
         return back()->with("success", "Size updated successfully");
     }
 
+    public function deleteSize(Size $size) {   
+        $size->delete();
+        return back()->with("success", "Size deleted succesfully");
+    }
+
 
   
 }
