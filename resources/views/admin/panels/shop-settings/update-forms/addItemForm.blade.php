@@ -4,8 +4,8 @@
 
     <x-update-form 
         title="Size Name"
-        :viewAllLink="route('admin.shopSetting.size')"
-        :action="route('admin.addSize')"
+        :viewAllLink="route('admin.shopSetting.size.index')"
+        :action="route('admin.shopSetting.size.store')"
         :inputs="[
             [
                 'type' => 'text',

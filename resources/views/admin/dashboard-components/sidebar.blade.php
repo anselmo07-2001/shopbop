@@ -1,4 +1,4 @@
-<nav class="col-md-2 col-lg-2 d-md-block bg-dark text-white p-3 min-vh-100">
+<nav class="col-md-2 col-lg-2 d-md-block bg-dark text-white p-3 min-vh-100  collapse show">
     <h4 class="text-white mb-4" style="margin-left: 0.5rem">ShopBop</h4>
     <ul class="nav flex-column">
         <li class="nav-item">
@@ -16,7 +16,7 @@
         </li>
 
         @php
-          $shopActive = request()->is('admin/shop-setting/*');
+          $shopActive = request()->routeIs("admin.shopSetting.*");
         @endphp
         <li class="nav-item">
           <a class="nav-link text-white mb-2 sidebar-link d-flex justify-content-between align-items-center hover-primary 
@@ -30,8 +30,8 @@
           <div class="collapse ps-3 {{ $shopActive ? 'show' : '' }}" id="shopSettingsMenu">
               <ul class="nav flex-column small">
                   <li class="nav-item">
-                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/size') ? 'active bg-primary rounded' : '' }} hover-primary" 
-                         href="{{ route('admin.shopSetting.size') }}">
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.size.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                         href="{{ route('admin.shopSetting.size.index') }}">
                           <i class="fa fa-ruler me-2"></i> Size
                       </a>
                   </li>

@@ -44,13 +44,13 @@
                             <td>{{ $sizes->firstItem() + $loop->index }}</td>
                             <td>{{ $size->name }}</td>
                             <td class="text-center">  
-                                <a href="{{ route('admin.sizeUpdateForm', $size->id) }}" class="btn btn-sm btn-primary me-1">
+                                <a href="{{ route('admin.shopSetting.size.edit', $size->id) }}" class="btn btn-sm btn-primary me-1">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>                            
                                 <x-delete-modal 
                                         id="{{ $size->id }}" 
                                         name="{{ $size->name}}" 
-                                        action="{{ route('admin.size.delete', $size->id)}}"
+                                        action="{{ route('admin.shopSetting.size.delete', $size->id)}}"
                                 />                   
                             </td>
                         </tr>

@@ -7,19 +7,19 @@ use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
-    public function size(Request $request) {
+    public function index(Request $request) {
         return view("admin.panels.shop-settings.size");
     }
 
-    public function updateSizeForm(Size $size) {
+    public function edit(Size $size) {
         return view("admin.panels.shop-settings.update-forms.updateSizeForm", compact("size"));
     }
 
-    public function addSizeForm() {
+    public function create() {
         return view("admin.panels.shop-settings.update-forms.addItemForm");
     }
 
-    public function updateSize(Size $size, Request $request) {
+    public function update(Size $size, Request $request) {
         $validatedData = $request->validate([
             "size_name" => "required|string|max:255|unique:sizes,name," . $size->id
         ],[
@@ -35,12 +35,12 @@ class SizeController extends Controller
         return back()->with("success", "Size updated successfully");
     }
 
-    public function deleteSize(Size $size) {   
+    public function destroy(Size $size) {   
         $size->delete();
         return back()->with("success", "Size deleted succesfully");
     }
 
-    public function addSize(Request $request) {
+    public function store(Request $request) {
         $validatedData = $request->validate([
             "size_name" => "required|string|max:255|unique:sizes,name" 
         ],[
@@ -51,7 +51,7 @@ class SizeController extends Controller
             "name" => $validatedData["size_name"]
         ]);
 
-        return redirect()->route('admin.shopSetting.size')
+        return redirect()->route('admin.shopSetting.size.index')
             ->with("success", "New size created successfully");
     }
 

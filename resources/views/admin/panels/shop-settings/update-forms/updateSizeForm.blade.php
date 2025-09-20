@@ -4,8 +4,8 @@
 
     <x-update-form 
         title='Edit Size'
-        :viewAllLink="route('admin.shopSetting.size')"
-        :action="route('admin.sizeUpdate.update', $size->id)"
+        :viewAllLink="route('admin.shopSetting.size.index')"
+        :action="route('admin.shopSetting.size.update', $size->id)"
         method="PUT"
         :inputs="[
             [
