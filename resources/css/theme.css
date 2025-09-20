@@ -105,3 +105,32 @@
 [aria-expanded="true"] .chevron-icon {
   transform: rotate(180deg);
 }
+
+/** sidebar **/
+.hover-primary:hover {
+  background-color: var(--bs-primary) !important;
+  color: #fff; /* ensures text is readable */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
