@@ -12,6 +12,8 @@ class SizeTable extends Component
 
     public $search = "";
     public $perPage = 10;
+    public $sortField = "id";
+    public $sortDirection = "desc";
 
     protected $paginationTheme = "bootstrap";
 
@@ -20,11 +22,21 @@ class SizeTable extends Component
         $this->resetPage(); // Reset to first page on search
     }
 
+    public function sortBy($field) {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === "asc" ? "desc" : "asc";
+        }
+        else {
+            $this->sortField = $field;
+            $this->sortDirection = "asc";
+        }
+    }
+
     public function render()
     {
         $sizes = Size::query()
             ->when($this->search, fn($query) => $query->where('name', 'like', "%{$this->search}%"))
-            ->orderBy('id', 'desc')
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
         return view('livewire.size-table', compact('sizes'));
