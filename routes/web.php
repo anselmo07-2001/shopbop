@@ -76,12 +76,14 @@ Route::post("/admin/website-setting/products-display-limit", [WebsiteSettingsCon
 Route::post("/admin/website-setting/home-settings", [WebsiteSettingsController::class, "updateHomeSettings"])->name("admin.homeSettings.update");
 Route::post("/admin/website-setting/payment", [WebsiteSettingsController::class, "updatePayment"])->name("admin.payment.update");
 
-Route::get("/admin/shop-setting/size", [SizeController::class, "index"])->name("admin.shopSetting.size.index");
-Route::get("/admin/shop-setting/size/addSizeForm", [SizeController::class, "create"])->name("admin.shopSetting.size.create");
-Route::post("/admin/shop-setting/size/addSize", [SizeController::class, "store"])->name("admin.shopSetting.size.store");
-Route::get("/admin/shop-setting/size/updateForm/{size}", [SizeController::class, "edit"])->name("admin.shopSetting.size.edit");
-Route::put("/admin/shop-setting/size/update/{size}", [SizeController::class, "update"])->name("admin.shopSetting.size.update");
-Route::delete("/admin/shop-setting/size/delete/{size}", [SizeController::class, "destroy"])->name("admin.shopSetting.size.delete");
+Route::prefix("/admin/shop-setting/size")->name("admin.shopSetting.size.")->group(function () {
+    Route::get("/", [SizeController::class, "index"])->name("index");
+    Route::get("/create", [SizeController::class, "create"])->name("create");
+    Route::post("/", [SizeController::class, "store"])->name("store");
+    Route::get("/{size}/edit", [SizeController::class, "edit"])->name("edit");
+    Route::put("/{size}", [SizeController::class, "update"])->name("update");
+    Route::delete("/{size}", [SizeController::class, "destroy"])->name("delete");
+});
 
 
 Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
