@@ -3,18 +3,17 @@
     <x-flash-message session_name="error" />    
 
     <x-update-form 
-        title='Edit Size'
+        title="Size Name"
         :viewAllLink="route('admin.shopSetting.size')"
-        :action="route('admin.sizeUpdate.update', $size->id)"
-        method="PUT"
+        :action="route('admin.addSize')"
         :inputs="[
             [
                 'type' => 'text',
-                'labelName' => 'Size Name',
-                'value' => $size->name,
+                'labelName' => 'Add Name',
+                'value' => '',
                 'name' => 'size_name',
                 'labelFor' => 'size_name',
-                'id' => 'size_name',
+                'id' => 'size_name',    
             ]
         ]"
     />

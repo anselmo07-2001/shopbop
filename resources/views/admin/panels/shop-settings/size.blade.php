@@ -5,9 +5,9 @@
      
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="mb-0"><i class="bi bi-arrows-fullscreen me-2"></i>Manage Sizes</h4>
-            <button class="btn btn-dark">
+            <a href="{{ route('admin.addSizeForm') }}" class="btn btn-dark">
                 <i class="bi bi-plus-circle me-1"></i> Add New
-            </button>
+            </a>
         </div>
                
         <livewire:size-table/>

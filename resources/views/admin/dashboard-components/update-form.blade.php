@@ -1,5 +1,5 @@
 @props(["title" => "", "viewAllLink" => "#", "inputs" => [], 
-        "action" => "#"])
+        "action" => "#", "method" => null])
 
 <div class="card shadow-sm">
     
@@ -13,7 +13,10 @@
     <div class="card-body">
       <form action="{{ $action }}" method="POST">
         @csrf
-        @method("PUT")
+        @if($method) 
+            @method($method)
+        @endif
+
         @foreach ($inputs as $input)
             <div class="mb-3 row">
             <label for="{{ $input['labelFor'] }}" class="col-sm-2 col-form-label fw-bold">{{ $input["labelName"] }}</label>
@@ -27,7 +30,7 @@
         @endforeach
         <div class="d-flex justify-content-start">
           <button type="submit" class="btn btn-success">
-            <i class="bi bi-check-circle me-1"></i> Update
+            <i class="bi bi-check-circle me-1"></i> {{ $method === 'PUT' || $method === 'PATCH' ? 'Update' : 'Save' }}
           </button>
         </div>
       </form>

@@ -15,6 +15,10 @@ class SizeController extends Controller
         return view("admin.panels.shop-settings.update-forms.updateSizeForm", compact("size"));
     }
 
+    public function addSizeForm() {
+        return view("admin.panels.shop-settings.update-forms.addItemForm");
+    }
+
     public function updateSize(Size $size, Request $request) {
         $validatedData = $request->validate([
             "size_name" => "required|string|max:255|unique:sizes,name," . $size->id
@@ -36,6 +40,19 @@ class SizeController extends Controller
         return back()->with("success", "Size deleted succesfully");
     }
 
+    public function addSize(Request $request) {
+        $validatedData = $request->validate([
+            "size_name" => "required|string|max:255|unique:sizes,name" 
+        ],[
+            "size_name.unique" => "This size name already exists.",
+        ]);
 
-  
+        Size::create([
+            "name" => $validatedData["size_name"]
+        ]);
+
+        return redirect()->route('admin.shopSetting.size')
+            ->with("success", "New size created successfully");
+    }
+
 }
