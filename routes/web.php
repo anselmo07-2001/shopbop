@@ -89,6 +89,7 @@ Route::prefix("/admin/shop-setting/size")->name("admin.shopSetting.size.")->grou
 Route::prefix("/admin/shop-setting/color")->name("admin.shopSetting.color.")->group(function() {
     Route::get("/", [ColorController::class, "index"])->name("index");
     Route::get("/create", [ColorController::class, "create"])->name("create");
+    Route::post("/", [ColorController::class, "store"])->name("store");
 });
 
 

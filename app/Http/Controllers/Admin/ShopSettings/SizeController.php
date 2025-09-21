@@ -12,11 +12,11 @@ class SizeController extends Controller
     }
 
     public function edit(Size $size) {
-        return view("admin.panels.shop-settings.update-forms.updateSizeForm", compact("size"));
+        return view("admin.panels.shop-settings.update-forms.size.updateSize", compact("size"));
     }
 
     public function create() {
-        return view("admin.panels.shop-settings.update-forms.addItemForm");
+        return view("admin.panels.shop-settings.update-forms.size.addSize");
     }
 
     public function update(Size $size, Request $request) {
