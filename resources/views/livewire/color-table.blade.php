@@ -40,9 +40,9 @@
                             <td>{{ $loop->iteration}}</td>
                             <td>{{ $color->name }}</td>
                             <td class="text-center">
-                                <button class="btn btn-sm btn-primary me-1">
+                                <a href="{{ route('admin.shopSetting.color.edit', $color->id) }}" class="btn btn-sm btn-primary me-1">
                                     <i class="bi bi-pencil"></i> Edit
-                                </button>
+                                </a>      
                                 <x-delete-modal 
                                         id="{{ $color->id }}" 
                                         name="{{ $color->name}}" 
