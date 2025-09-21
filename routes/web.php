@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\ShopSettings\ColorController;
 use App\Http\Controllers\Admin\ShopSettings\SizeController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
@@ -85,8 +86,15 @@ Route::prefix("/admin/shop-setting/size")->name("admin.shopSetting.size.")->grou
     Route::delete("/{size}", [SizeController::class, "destroy"])->name("delete");
 });
 
+Route::prefix("/admin/shop-setting/color")->name("admin.shopSetting.color.")->group(function() {
+    Route::get("/", [ColorController::class, "index"])->name("index");
+    Route::get("/create", [ColorController::class, "create"])->name("create");
+});
 
-Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
+
+
+
+// Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
 Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
 Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");
 Route::get("/admin/shop-setting/top-level-category", [AdminController::class, "topLevelCategory"])->name("admin.shopSetting.topLevelCategory");

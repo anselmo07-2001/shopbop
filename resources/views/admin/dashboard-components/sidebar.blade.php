@@ -36,8 +36,8 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/color') ? 'active bg-primary rounded' : '' }} hover-primary" 
-                       href="{{ route('admin.shopSetting.color') }}">
+                    <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.color.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                       href="{{ route('admin.shopSetting.color.index') }}">
                       <i class="fa fa-palette me-2"></i> Color
                     </a>
                   </li>
