@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ShopSettings\ColorController;
+use App\Http\Controllers\Admin\ShopSettings\CountryController;
 use App\Http\Controllers\Admin\ShopSettings\SizeController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
@@ -95,11 +96,21 @@ Route::prefix("/admin/shop-setting/color")->name("admin.shopSetting.color.")->gr
     Route::put("/{color}", [ColorController::class, "update"])->name("update");
 });
 
+Route::prefix("/admin/shop-setting/country")->name("admin.shopSetting.country.")->group(function() {
+    Route::get("/", [CountryController::class, "index"])->name("index");
+    Route::get("/create", [CountryController::class, "create"])->name("create");
+    Route::post("/", [CountryController::class, "store"])->name("store");
+    Route::delete("/{country}", [CountryController::class, "destroy"])->name("destroy");
+    Route::get("/{country}/edit", [CountryController::class, "edit"])->name("edit");
+    Route::put("/{country}", [CountryController::class, "update"])->name("update");
+});
+
+
 
 
 
 // Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
-Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
+// Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
 Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");
 Route::get("/admin/shop-setting/top-level-category", [AdminController::class, "topLevelCategory"])->name("admin.shopSetting.topLevelCategory");
 Route::get("/admin/shop-setting/mid-level-category", [AdminController::class, "midLevelCategory"])->name("admin.shopSetting.midLevelCategory");

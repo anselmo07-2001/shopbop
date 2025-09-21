@@ -42,8 +42,8 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/country') ? 'active bg-primary rounded' : '' }} hover-primary" 
-                         href="{{ route('admin.shopSetting.country') }}">
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.country.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                         href="{{ route('admin.shopSetting.country.index') }}">
                         <i class="fa fa-flag me-2"></i> Country
                       </a>
                   </li>
