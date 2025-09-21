@@ -22,6 +22,10 @@ class SizeTable extends Component
         $this->resetPage(); // Reset to first page on search
     }
 
+    public function updatingPerPage() {
+        $this->resetPage();
+    }
+
     public function sortBy($field) {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === "asc" ? "desc" : "asc";
