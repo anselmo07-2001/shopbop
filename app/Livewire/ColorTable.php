@@ -14,6 +14,17 @@ class ColorTable extends Component
     public $perPage = 10;
     public $sortField = "id";
     public $sortDirection = "desc";
+    public $search = "";
+
+    public function updatingSearch() {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage() {
+        $this->resetPage();
+    }
+
+    
 
     public function sortBy($field) {
         if ($this->sortField === $field) {
@@ -28,7 +39,10 @@ class ColorTable extends Component
 
     public function render()
     {
-        $colors = Color::orderBy($this->sortField, $this->sortDirection)->paginate($this->perPage);
+        $colors = Color::query()
+                        ->when($this->search, fn($query) => $query->where("name", "like", "%{$this->search}%"))
+                        ->orderBy($this->sortField, $this->sortDirection)
+                        ->paginate($this->perPage);
 
         return view('livewire.color-table', compact("colors"));
     }

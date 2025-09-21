@@ -11,7 +11,7 @@
                 <span class="ms-2">entries</span>
             </div>
             <div class="col-md-6 text-end">
-                <input type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
+                <input wire:model.debounce.300ms.live="search" type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
             </div>
         </div>
 
