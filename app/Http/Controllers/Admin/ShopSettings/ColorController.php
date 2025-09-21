@@ -30,4 +30,9 @@ class ColorController extends Controller
         return redirect()->route("admin.shopSetting.color.index")
                  ->with("success", "New color created successfully");
     }
+
+    public function destroy(Color $color) {
+        $color->delete();
+        return back()->with("success", "Color deleted successfully");
+    }
 }

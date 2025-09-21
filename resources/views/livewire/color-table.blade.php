@@ -43,9 +43,11 @@
                                 <button class="btn btn-sm btn-primary me-1">
                                     <i class="bi bi-pencil"></i> Edit
                                 </button>
-                                <button class="btn btn-sm btn-danger">
-                                    <i class="bi bi-trash"></i> Delete
-                                </button>
+                                <x-delete-modal 
+                                        id="{{ $color->id }}" 
+                                        name="{{ $color->name}}" 
+                                        action="{{ route('admin.shopSetting.color.destroy', $color->id)}}"
+                                />  
                             </td>
                         </tr>           
                     @endforeach

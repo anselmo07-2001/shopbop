@@ -90,6 +90,7 @@ Route::prefix("/admin/shop-setting/color")->name("admin.shopSetting.color.")->gr
     Route::get("/", [ColorController::class, "index"])->name("index");
     Route::get("/create", [ColorController::class, "create"])->name("create");
     Route::post("/", [ColorController::class, "store"])->name("store");
+    Route::delete("/{color}", [ColorController::class, "destroy"])->name("destroy");
 });
 
 
