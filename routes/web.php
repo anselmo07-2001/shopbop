@@ -83,7 +83,7 @@ Route::prefix("/admin/shop-setting/size")->name("admin.shopSetting.size.")->grou
     Route::post("/", [SizeController::class, "store"])->name("store");
     Route::get("/{size}/edit", [SizeController::class, "edit"])->name("edit");
     Route::put("/{size}", [SizeController::class, "update"])->name("update");
-    Route::delete("/{size}", [SizeController::class, "destroy"])->name("delete");
+    Route::delete("/{size}", [SizeController::class, "destroy"])->name("destroy");
 });
 
 Route::prefix("/admin/shop-setting/color")->name("admin.shopSetting.color.")->group(function() {

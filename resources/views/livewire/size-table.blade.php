@@ -50,7 +50,7 @@
                                 <x-delete-modal 
                                         id="{{ $size->id }}" 
                                         name="{{ $size->name}}" 
-                                        action="{{ route('admin.shopSetting.size.delete', $size->id)}}"
+                                        action="{{ route('admin.shopSetting.size.destroy', $size->id)}}"
                                 />                   
                             </td>
                         </tr>
