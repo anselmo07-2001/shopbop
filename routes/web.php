@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ShopSettings\ColorController;
 use App\Http\Controllers\Admin\ShopSettings\CountryController;
+use App\Http\Controllers\Admin\ShopSettings\ShippingCostController;
 use App\Http\Controllers\Admin\ShopSettings\SizeController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
@@ -21,6 +22,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Models\Product;
+use App\Models\ShippingCost;
 use Illuminate\Support\Facades\Route;
 
 
@@ -105,13 +107,20 @@ Route::prefix("/admin/shop-setting/country")->name("admin.shopSetting.country.")
     Route::put("/{country}", [CountryController::class, "update"])->name("update");
 });
 
+Route::prefix("/admin/shop-setting/shipping-cost")->name("admin.shopSetting.shippingCost.")->group(function() {
+    Route::get("/", [ShippingCostController::class, "index"])->name("index");
+    Route::post("/", [ShippingCostController::class, "store"])->name("store");
+});
+
+
+
 
 
 
 
 // Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
 // Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
-Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");
+// Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");
 Route::get("/admin/shop-setting/top-level-category", [AdminController::class, "topLevelCategory"])->name("admin.shopSetting.topLevelCategory");
 Route::get("/admin/shop-setting/mid-level-category", [AdminController::class, "midLevelCategory"])->name("admin.shopSetting.midLevelCategory");
 Route::get("/admin/shop-setting/end-level-category", [AdminController::class, "endLevelCategory"])->name("admin.shopSetting.endLevelCategory");
