@@ -2,7 +2,24 @@
     <div class="card-header bg-light">
         <h5 class="mb-0"><i class="bi bi-table"></i> View Shipping Costs</h5>
     </div>
-    <div class="card-body">
+
+    <div class="p-4 pb-0 row mb-3">
+        <div class="col-md-6">
+            <label class="form-label me-2">Show</label>
+            <select wire:model.live="perPage" class="form-select form-select-sm w-auto d-inline">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+            <span class="ms-2">entries</span>
+        </div>
+
+        <div class="col-md-6 text-end">
+            <input wire:model.debounce.300ms.live="search" type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
+        </div>
+    </div>
+
+    <div class="card-body" style="padding-top: 0">
     <div class="table-responsive">
         <table class="table table-bordered align-middle">
         <thead class="table-light">
