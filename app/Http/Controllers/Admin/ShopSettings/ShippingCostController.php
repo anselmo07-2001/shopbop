@@ -28,4 +28,9 @@ class ShippingCostController extends Controller
 
         return back()->with("success", "Added a country shipping cost successfully");
     }
+
+    public function destroy(ShippingCost $country) {
+        $country->delete();
+        return back()->with("success", "Country shipping cost deleted succesfully");
+    }
 }

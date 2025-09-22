@@ -110,6 +110,7 @@ Route::prefix("/admin/shop-setting/country")->name("admin.shopSetting.country.")
 Route::prefix("/admin/shop-setting/shipping-cost")->name("admin.shopSetting.shippingCost.")->group(function() {
     Route::get("/", [ShippingCostController::class, "index"])->name("index");
     Route::post("/", [ShippingCostController::class, "store"])->name("store");
+    Route::delete("/{country}", [ShippingCostController::class, "destroy"])->name("destroy");
 });
 
 

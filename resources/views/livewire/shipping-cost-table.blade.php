@@ -32,15 +32,19 @@
         </thead>
         <tbody>
             @foreach ($countries_shipping_cost as $shipping_cost)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $shipping_cost->country->country_name }}</td>
-                    <td>${{ $shipping_cost->amount }}</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary me-1">Edit</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </td>
-                </tr>     
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $shipping_cost->country->country_name }}</td>
+                        <td>${{ $shipping_cost->amount }}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-primary me-1">Edit</button>
+                            <x-delete-modal 
+                                        id="{{ $shipping_cost->id }}" 
+                                        name="{{ $shipping_cost->country->country_name}}" 
+                                        action="{{ route('admin.shopSetting.shippingCost.destroy', $shipping_cost->id)}}"
+                            /> 
+                        </td>
+                    </tr>     
             @endforeach
         </tbody>
         </table>
