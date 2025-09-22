@@ -39,67 +39,7 @@
             </div>
         </div>
 
-        <div class="card shadow-sm mb-4">
-            <div class="card-header bg-light">
-            <h5 class="mb-0"><i class="bi bi-table"></i> View Shipping Costs</h5>
-            </div>
-            <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle">
-                <thead class="table-light">
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Country Name</th>
-                    <th scope="col">Country Amount</th>
-                    <th scope="col" class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>Australia</td>
-                    <td>$8</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary me-1">Edit</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>2</td>
-                    <td>Pakistan</td>
-                    <td>$10</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary me-1">Edit</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>3</td>
-                    <td>United Arab Emirates</td>
-                    <td>$11</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary me-1">Edit</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>4</td>
-                    <td>United States</td>
-                    <td>$0</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary me-1">Edit</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-            <div class="alert alert-danger mt-3 mb-0" role="alert">
-                <i class="bi bi-exclamation-triangle"></i>
-                If a country does not exist in the above list, the following "Rest of the World" shipping cost will be applied.
-            </div>
-            </div>
-        </div>
+        <livewire:shipping-cost-table/>
              
         <div class="card shadow-sm">
             <div class="card-header bg-light">

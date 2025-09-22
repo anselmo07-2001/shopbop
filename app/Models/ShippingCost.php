@@ -10,4 +10,8 @@ class ShippingCost extends Model
         "country_id",
         "amount"
     ];
+
+    public function country() {
+        return $this->belongsTo(Country::class);
+    }
 }
