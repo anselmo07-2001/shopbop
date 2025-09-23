@@ -33,4 +33,26 @@ class ShippingCostController extends Controller
         $country->delete();
         return back()->with("success", "Country shipping cost deleted succesfully");
     }
+
+    public function edit(ShippingCost $shippingCost) {
+        $countries = Country::all();
+
+        return view("admin.panels.shop-settings.update-forms.shippingCost.updateShippingCost", [
+            "shippingCost" => $shippingCost,
+            "countries" => $countries
+        ]);
+    }
+
+    public function update(ShippingCost $shippingCost, Request $request) {
+        $validatedData = $request->validate([
+            "country_id" => "required|integer|unique:shipping_costs,country_id," . $shippingCost->id,
+            "amount" => "required|numeric|min:0.01"
+        ],[
+            "country_id.unique" => "The country shipping cost is already set."
+        ]);
+
+        $shippingCost->update($validatedData);
+         
+        return back()->with("success", "Updated country shipping cost successfully");
+    }
 }

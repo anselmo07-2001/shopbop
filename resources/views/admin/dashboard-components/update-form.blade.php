@@ -18,15 +18,34 @@
         @endif
 
         @foreach ($inputs as $input)
-            <div class="mb-3 row">
-            <label for="{{ $input['labelFor'] }}" class="col-sm-2 col-form-label fw-bold">{{ $input["labelName"] }}</label>
-            <div class="col-sm-10">
-                <input type="{{ $input['type'] }}" class="form-control" id="{{ $input['id'] }}" name="{{ $input['name'] }}" value="{{ $input["value"] }}" required>
-                @error($input['name'])
-                    <div class="text-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            </div>     
+            @if ($input["type"] === "text")
+              <div class="mb-3 row">
+                <label for="{{ $input['labelFor'] }}" class="col-sm-2 col-form-label fw-bold">{{ $input["labelName"] }}</label>
+                <div class="col-sm-10">
+                    <input type="{{ $input['type'] }}" class="form-control" id="{{ $input['id'] }}" name="{{ $input['name'] }}" value="{{ $input["value"] }}" required>
+                    @error($input['name'])
+                        <div class="text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+              </div>
+            @elseif ($input["type"] === "select")
+                <div class="mb-3 row">
+                  <label for="{{ $input['labelFor'] }}" class="col-sm-2 col-form-label fw-bold">{{ $input["labelName"] }}</label>
+                  <div class="col-sm-10">
+                    <select name="{{ $input['name'] }}" id="{{ $input['id'] }}" class="form-select">
+                      @foreach($input['options'] as $option)
+                          <option value="{{ $option['value'] }}" 
+                                  @if(!empty($option['selected']) && $option['selected']) selected @endif>
+                              {{ $option['label'] }}
+                          </option>
+                      @endforeach
+                    </select>
+                    @error($input['name'])
+                        <div class="text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                  </div>
+                </div>
+            @endif   
         @endforeach
         <div class="d-flex justify-content-start">
           <button type="submit" class="btn btn-success">

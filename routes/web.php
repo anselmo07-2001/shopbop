@@ -111,6 +111,8 @@ Route::prefix("/admin/shop-setting/shipping-cost")->name("admin.shopSetting.ship
     Route::get("/", [ShippingCostController::class, "index"])->name("index");
     Route::post("/", [ShippingCostController::class, "store"])->name("store");
     Route::delete("/{country}", [ShippingCostController::class, "destroy"])->name("destroy");
+    Route::get("/{shippingCost}/edit", [ShippingCostController::class, "edit"])->name("edit");
+    Route::put("/{shippingCost}", [ShippingCostController::class, "update"])->name("update");
 });
 
 

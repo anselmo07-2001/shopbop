@@ -37,7 +37,9 @@
                         <td>{{ $shipping_cost->country->country_name }}</td>
                         <td>${{ $shipping_cost->amount }}</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-primary me-1">Edit</button>
+                            <a href="{{ route('admin.shopSetting.shippingCost.edit', $shipping_cost->id) }}" class="btn btn-sm btn-primary me-1">
+                                    <i class="bi bi-pencil"></i> Edit
+                            </a>    
                             <x-delete-modal 
                                         id="{{ $shipping_cost->id }}" 
                                         name="{{ $shipping_cost->country->country_name}}" 
