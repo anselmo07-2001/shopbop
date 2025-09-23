@@ -61,7 +61,7 @@
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/mid-level-category') ? 'active bg-primary rounded' : '' }} hover-primary" 
-                      href="{{ route('admin.shopSetting.midLevelCategory') }}">
+                      href="{{ route('admin.shopSetting.midLevelCategory.index') }}">
                         <i class="fa fa-list-ul me-2"></i> Mid Level Category
                       </a>
                   </li>

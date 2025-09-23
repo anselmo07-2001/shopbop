@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ShopSettings\ColorController;
 use App\Http\Controllers\Admin\ShopSettings\CountryController;
+use App\Http\Controllers\Admin\ShopSettings\MidLevelCategoryController;
 use App\Http\Controllers\Admin\ShopSettings\ShippingCostController;
 use App\Http\Controllers\Admin\ShopSettings\ShippingCostsAllController;
 use App\Http\Controllers\Admin\ShopSettings\SizeController;
@@ -130,6 +131,10 @@ Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting
     Route::put("/{topLevelCategory}", [TopLevelCategoryController::class, "update"])->name("update");
 });
 
+Route::prefix("/admin/shop-setting/mid-level-category")->name("admin.shopSetting.midLevelCategory.")->group(function() {
+    Route::get("/", [MidLevelCategoryController::class, "index"])->name("index");
+});
+
 
 
 
@@ -137,7 +142,7 @@ Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting
 // Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
 // Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");
 // Route::get("/admin/shop-setting/top-level-category", [AdminController::class, "topLevelCategory"])->name("admin.shopSetting.topLevelCategory");
-Route::get("/admin/shop-setting/mid-level-category", [AdminController::class, "midLevelCategory"])->name("admin.shopSetting.midLevelCategory");
+// Route::get("/admin/shop-setting/mid-level-category", [AdminController::class, "midLevelCategory"])->name("admin.shopSetting.midLevelCategory");
 Route::get("/admin/shop-setting/end-level-category", [AdminController::class, "endLevelCategory"])->name("admin.shopSetting.endLevelCategory");
 
 Route::get("/admin/product-management", [AdminController::class, "productManagement"])->name("admin.productManagement");
