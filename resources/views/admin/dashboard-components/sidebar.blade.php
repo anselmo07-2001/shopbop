@@ -48,7 +48,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.shippingCost.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.topLevelCatory.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
                          href="{{ route('admin.shopSetting.shippingCost.index') }}">
                         <i class="fa fa-shipping-fast me-2"></i> Shipping Cost
                       </a>

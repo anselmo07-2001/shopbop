@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ShopSettings\CountryController;
 use App\Http\Controllers\Admin\ShopSettings\ShippingCostController;
 use App\Http\Controllers\Admin\ShopSettings\ShippingCostsAllController;
 use App\Http\Controllers\Admin\ShopSettings\SizeController;
+use App\Http\Controllers\Admin\ShopSettings\TopLevelCategoryController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
@@ -120,8 +121,9 @@ Route::prefix("/admin/shop-setting/shipping-cost")->name("admin.shopSetting.ship
 Route::put("/admin/shop-setting/shipping-costs-all", [ShippingCostsAllController::class, "update"])
     ->name("admin.shopSetting.shippingCostsAll.update");
 
-
-
+Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting.topLevelCategory.")->group(function() {
+    Route::get("/", [TopLevelCategoryController::class, "index"])->name("index");
+});
 
 
 
