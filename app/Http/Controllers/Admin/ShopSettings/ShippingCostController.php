@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Admin\ShopSettings;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\ShippingCost;
+use App\Models\ShippingCostAll;
 use Illuminate\Http\Request;
 
 class ShippingCostController extends Controller
 {
     public function index() {
           $countries = Country::all();
+          $shipping_cost_all = ShippingCostAll::firstOrFail();
 
           return view("admin.panels.shop-settings.shipping-cost",[
-              "countries" => $countries
+              "countries" => $countries,
+              "shipping_cost_all" => $shipping_cost_all
           ]);
     }
 

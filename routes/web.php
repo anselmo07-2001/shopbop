@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ShopSettings\ColorController;
 use App\Http\Controllers\Admin\ShopSettings\CountryController;
 use App\Http\Controllers\Admin\ShopSettings\ShippingCostController;
+use App\Http\Controllers\Admin\ShopSettings\ShippingCostsAllController;
 use App\Http\Controllers\Admin\ShopSettings\SizeController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
@@ -23,6 +24,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Models\Product;
 use App\Models\ShippingCost;
+use App\Models\ShippingCostAll;
 use Illuminate\Support\Facades\Route;
 
 
@@ -114,6 +116,9 @@ Route::prefix("/admin/shop-setting/shipping-cost")->name("admin.shopSetting.ship
     Route::get("/{shippingCost}/edit", [ShippingCostController::class, "edit"])->name("edit");
     Route::put("/{shippingCost}", [ShippingCostController::class, "update"])->name("update");
 });
+
+Route::put("/admin/shop-setting/shipping-costs-all", [ShippingCostsAllController::class, "update"])
+    ->name("admin.shopSetting.shippingCostsAll.update");
 
 
 

@@ -46,16 +46,21 @@
                 <h5 class="mb-0"><i class="bi bi-globe"></i> Shipping Cost (Rest of the world)</h5>
             </div>
             <div class="card-body">
-                <form>
-                <div class="row g-3 align-items-center">
-                    <div class="col-md-6">
-                    <label for="restAmount" class="form-label">Amount <span class="text-danger">*</span></label>
-                    <input type="number" id="restAmount" class="form-control" placeholder="Enter amount">
+                <form method="POST" action="{{ route('admin.shopSetting.shippingCostsAll.update') }}">
+                    @csrf
+                    @method("PUT")
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-6">
+                            <label for="restAmount" class="form-label">Amount <span class="text-danger">*</span></label>
+                            <input name="amount" type="number" id="restAmount" class="form-control" placeholder="Enter amount" value="{{ $shipping_cost_all->amount }}">
+                        </div>
+                        @error("amount")
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-primary px-4">Update</button>
+                        </div>
                     </div>
-                    <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-primary px-4">Update</button>
-                    </div>
-                </div>
                 </form>
             </div>
         </div>
