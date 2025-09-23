@@ -24,9 +24,24 @@
         <table class="table table-bordered align-middle">
         <thead class="table-light">
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">Country Name</th>
-            <th scope="col">Country Amount</th>
+            <th scope="col">
+                #
+                <button wire:click="sortBy('id')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                    <i class="bi bi-arrow-down-up"></i>
+                </button>
+            </th>
+            <th scope="col">
+                Country Name
+                <button wire:click="sortBy('country_name')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                    <i class="bi bi-arrow-down-up"></i>
+                </button>
+            </th>
+            <th scope="col">
+                Country Amount
+                <button wire:click="sortBy('amount')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                    <i class="bi bi-arrow-down-up"></i>
+                </button>
+            </th>
             <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
