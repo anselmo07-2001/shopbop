@@ -55,7 +55,7 @@
                   </li>
                   <li class="nav-item">
                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/top-level-category') ? 'active bg-primary rounded' : '' }} hover-primary" 
-                        href="{{ route('admin.shopSetting.topLevelCategory') }}">
+                        href="{{ route('admin.shopSetting.topLevelCategory.index') }}">
                         <i class="fa fa-sitemap me-2"></i> Top Level Category
                      </a>
                   </li>

@@ -123,6 +123,8 @@ Route::put("/admin/shop-setting/shipping-costs-all", [ShippingCostsAllController
 
 Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting.topLevelCategory.")->group(function() {
     Route::get("/", [TopLevelCategoryController::class, "index"])->name("index");
+    Route::get("/create", [TopLevelCategoryController::class, "create"])->name("create");
+    Route::post("/", [TopLevelCategoryController::class, "store"])->name("store");
 });
 
 
@@ -131,7 +133,7 @@ Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting
 // Route::get("/admin/shop-setting/color", [AdminController::class, "color"])->name("admin.shopSetting.color");
 // Route::get("/admin/shop-setting/country", [AdminController::class, "country"])->name("admin.shopSetting.country");
 // Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");
-Route::get("/admin/shop-setting/top-level-category", [AdminController::class, "topLevelCategory"])->name("admin.shopSetting.topLevelCategory");
+// Route::get("/admin/shop-setting/top-level-category", [AdminController::class, "topLevelCategory"])->name("admin.shopSetting.topLevelCategory");
 Route::get("/admin/shop-setting/mid-level-category", [AdminController::class, "midLevelCategory"])->name("admin.shopSetting.midLevelCategory");
 Route::get("/admin/shop-setting/end-level-category", [AdminController::class, "endLevelCategory"])->name("admin.shopSetting.endLevelCategory");
 
