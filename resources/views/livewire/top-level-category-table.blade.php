@@ -50,9 +50,11 @@
                             <button class="btn btn-sm btn-primary me-1">
                                 <i class="bi bi-pencil"></i> Edit
                             </button>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="bi bi-trash"></i> Delete
-                            </button>
+                            <x-delete-modal 
+                                        id="{{ $t_category->id }}" 
+                                        name="{{ $t_category->name}}" 
+                                        action="{{ route('admin.shopSetting.topLevelCategory.destroy', $t_category->id)}}"
+                            />  
                         </td>
                     </tr>
                 @endforeach

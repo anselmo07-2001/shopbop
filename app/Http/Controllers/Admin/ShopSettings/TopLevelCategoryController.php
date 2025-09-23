@@ -26,4 +26,9 @@ class TopLevelCategoryController extends Controller
         return redirect()->route('admin.shopSetting.topLevelCategory.index')
             ->with("success", "New Top Level Category created successfully");
     }
+
+    public function destroy(TopCategory $topLevelCategory) {
+        $topLevelCategory->delete();
+        return back()->with("success", "Size deleted succesfully");
+    }
 }
