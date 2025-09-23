@@ -126,6 +126,8 @@ Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting
     Route::get("/create", [TopLevelCategoryController::class, "create"])->name("create");
     Route::post("/", [TopLevelCategoryController::class, "store"])->name("store");
     Route::delete("/{topLevelCategory}", [TopLevelCategoryController::class, "destroy"])->name("destroy");
+    Route::get("/{topLevelCategory}/edit", [TopLevelCategoryController::class, "edit"])->name("edit");
+    Route::put("/{topLevelCategory}", [TopLevelCategoryController::class, "update"])->name("update");
 });
 
 

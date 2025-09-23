@@ -47,9 +47,10 @@
                         <td>{{ $t_category->name }}</td>
                         <td>{{ $t_category->show_on_menu == 1 ? "Yes" : "No" }}</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-primary me-1">
-                                <i class="bi bi-pencil"></i> Edit
-                            </button>
+                            <a href="{{ route('admin.shopSetting.topLevelCategory.edit', $t_category->id) }}" 
+                               class="btn btn-sm btn-primary me-1">
+                                    <i class="bi bi-pencil"></i> Edit
+                            </a> 
                             <x-delete-modal 
                                         id="{{ $t_category->id }}" 
                                         name="{{ $t_category->name}}" 
