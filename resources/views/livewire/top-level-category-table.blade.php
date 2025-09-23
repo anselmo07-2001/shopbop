@@ -33,7 +33,7 @@
                 </th>
                 <th scope="col">
                     Show on Menu?
-                    <button class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                    <button wire:click="sortBy('show_on_menu')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
                     <i class="bi bi-arrow-down-up"></i>
                     </button>
                 </th>
