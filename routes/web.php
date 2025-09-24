@@ -135,6 +135,7 @@ Route::prefix("/admin/shop-setting/mid-level-category")->name("admin.shopSetting
     Route::get("/", [MidLevelCategoryController::class, "index"])->name("index");
     Route::get("/create", [MidLevelCategoryController::class, "create"])->name("create");
     Route::post("/", [MidLevelCategoryController::class, "store"])->name("store");
+    Route::delete("/{midLevelCategory}", [MidLevelCategoryController::class, "destroy"])->name("destroy");
 });
 
 

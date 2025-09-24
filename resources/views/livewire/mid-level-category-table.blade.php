@@ -41,18 +41,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($mid_level_categories as $m_categories)
+                @foreach ($mid_level_categories as $m_category)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $m_categories->name }}</td>
-                        <td>{{ $m_categories->topCategory->name }}</td>
+                        <td>{{ $m_category->name }}</td>
+                        <td>{{ $m_category->topCategory->name }}</td>
                         <td class="text-center">
                             <button class="btn btn-sm btn-primary me-1">
                             <i class="bi bi-pencil"></i> Edit
                             </button>
-                            <button class="btn btn-sm btn-danger">
-                            <i class="bi bi-trash"></i> Delete
-                            </button>
+                            <x-delete-modal 
+                                        id="{{ $m_category->id }}" 
+                                        name="{{ $m_category->name}}" 
+                                        action="{{ route('admin.shopSetting.midLevelCategory.destroy', $m_category->id)}}"
+                            />  
                         </td>
                     </tr>    
                 @endforeach

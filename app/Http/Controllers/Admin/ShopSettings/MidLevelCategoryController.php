@@ -31,4 +31,9 @@ class MidLevelCategoryController extends Controller
         return redirect()->route("admin.shopSetting.midLevelCategory.index")
                     ->with("success", "Created Mid Level Category successfully");
     }
+
+    public function destroy(MidCategory $midLevelCategory) {
+        $midLevelCategory->delete();
+        return back()->with("success", "Mid Level Category deleted succesfully");
+    }
 }
