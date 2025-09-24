@@ -20,7 +20,7 @@ class MidLevelCategoryController extends Controller
     public function store(Request $request) {
         $validatedData = $request->validate([
             "top_level_category_name" => "required|exists:top_categories,id",
-            "mid_level_category_name" => "required|string|max:255"
+            "mid_level_category_name" => "required|string|max:255|unique:mid_categories,name"
         ]);
 
         MidCategory::create([
