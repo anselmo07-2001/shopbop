@@ -133,6 +133,8 @@ Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting
 
 Route::prefix("/admin/shop-setting/mid-level-category")->name("admin.shopSetting.midLevelCategory.")->group(function() {
     Route::get("/", [MidLevelCategoryController::class, "index"])->name("index");
+    Route::get("/create", [MidLevelCategoryController::class, "create"])->name("create");
+    Route::post("/", [MidLevelCategoryController::class, "store"])->name("store");
 });
 
 

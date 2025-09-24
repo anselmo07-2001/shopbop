@@ -48,19 +48,19 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.topLevelCatory.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.shippingCost.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
                          href="{{ route('admin.shopSetting.shippingCost.index') }}">
                         <i class="fa fa-shipping-fast me-2"></i> Shipping Cost
                       </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/top-level-category') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                     <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.topLevelCatory.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
                         href="{{ route('admin.shopSetting.topLevelCategory.index') }}">
                         <i class="fa fa-sitemap me-2"></i> Top Level Category
                      </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/mid-level-category') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.midLevelCatory.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
                       href="{{ route('admin.shopSetting.midLevelCategory.index') }}">
                         <i class="fa fa-list-ul me-2"></i> Mid Level Category
                       </a>
