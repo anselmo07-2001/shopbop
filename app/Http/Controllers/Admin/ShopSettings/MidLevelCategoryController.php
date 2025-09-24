@@ -36,4 +36,27 @@ class MidLevelCategoryController extends Controller
         $midLevelCategory->delete();
         return back()->with("success", "Mid Level Category deleted succesfully");
     }
+
+    public function edit(MidCategory $midLevelCategory) {
+        $top_level_categories = TopCategory::all();
+
+        return view("admin.panels.shop-settings.update-forms.midLevelCategory.updateMidLevelCategory", [
+            "mid_level_category" => $midLevelCategory,
+            "top_level_categories" => $top_level_categories
+        ]);
+     }
+
+    public function update(MidCategory $midLevelCategory, Request $request) {
+        $validatedData = $request->validate([
+            "top_level_category_name" => "required|exists:top_categories,id",
+            "mid_level_category_name" => "required|string|max:255|unique:mid_categories,name," . $midLevelCategory->id
+        ]);
+
+        $midLevelCategory->update([
+            "name" => $validatedData["mid_level_category_name"],
+            "top_category_id" => $validatedData["top_level_category_name"],
+        ]);
+
+        return back()->with("success", "Mid Level Category updated succesfully");
+    }
 }
