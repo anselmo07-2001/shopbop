@@ -54,13 +54,13 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.topLevelCatory.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                     <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.topLevelCategory.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
                         href="{{ route('admin.shopSetting.topLevelCategory.index') }}">
                         <i class="fa fa-sitemap me-2"></i> Top Level Category
                      </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.midLevelCatory.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+                      <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.midLevelCategory.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
                       href="{{ route('admin.shopSetting.midLevelCategory.index') }}">
                         <i class="fa fa-list-ul me-2"></i> Mid Level Category
                       </a>
