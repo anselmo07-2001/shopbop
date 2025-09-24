@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ShopSettings\ColorController;
 use App\Http\Controllers\Admin\ShopSettings\CountryController;
+use App\Http\Controllers\Admin\ShopSettings\EndLevelCategoryController;
 use App\Http\Controllers\Admin\ShopSettings\MidLevelCategoryController;
 use App\Http\Controllers\Admin\ShopSettings\ShippingCostController;
 use App\Http\Controllers\Admin\ShopSettings\ShippingCostsAllController;
@@ -140,6 +141,18 @@ Route::prefix("/admin/shop-setting/mid-level-category")->name("admin.shopSetting
     Route::put("/{midLevelCategory}", [MidLevelCategoryController::class, "update"])->name("update");
 });
 
+Route::prefix("/admin/shop-setting/end-level-category")->name("admin.shopSetting.endLevelCategory.")->group(function() {
+    Route::get("/", [EndLevelCategoryController::class, "index"])->name("index");
+    Route::get("/create", [EndLevelCategoryController::class, "create"])->name("create");
+    Route::post("/", [EndLevelCategoryController::class, "store"])->name("store");
+    Route::delete("/{endLevelCategory}", [EndLevelCategoryController::class, "destroy"])->name("destroy");
+    Route::get("/{endLevelCategory}/edit", [EndLevelCategoryController::class, "edit"])->name("edit");
+    Route::put("/{endLevelCategory}", [EndLevelCategoryController::class, "update"])->name("update");
+});
+
+
+
+
 
 
 
@@ -148,7 +161,7 @@ Route::prefix("/admin/shop-setting/mid-level-category")->name("admin.shopSetting
 // Route::get("/admin/shop-setting/shipping-cost", [AdminController::class, "shippingCost"])->name("admin.shopSetting.shippingCost");
 // Route::get("/admin/shop-setting/top-level-category", [AdminController::class, "topLevelCategory"])->name("admin.shopSetting.topLevelCategory");
 // Route::get("/admin/shop-setting/mid-level-category", [AdminController::class, "midLevelCategory"])->name("admin.shopSetting.midLevelCategory");
-Route::get("/admin/shop-setting/end-level-category", [AdminController::class, "endLevelCategory"])->name("admin.shopSetting.endLevelCategory");
+// Route::get("/admin/shop-setting/end-level-category", [AdminController::class, "endLevelCategory"])->name("admin.shopSetting.endLevelCategory");
 
 Route::get("/admin/product-management", [AdminController::class, "productManagement"])->name("admin.productManagement");
 Route::get("/admin/order-management", [AdminController::class, "orderManagement"])->name("admin.orderManagement");

@@ -66,8 +66,8 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white mb-1 sidebar-link {{ request()->is('admin/shop-setting/end-level-category') ? 'active bg-primary rounded' : '' }} hover-primary"
-                       href="{{ route('admin.shopSetting.endLevelCategory') }}">
+                    <a class="nav-link text-white mb-1 sidebar-link {{ request()->routeIs('admin.shopSetting.endLevelCategory.*') ? 'active bg-primary rounded' : '' }} hover-primary"
+                       href="{{ route('admin.shopSetting.endLevelCategory.index') }}">
                       <i class="fa fa-list me-2"></i> End Level Category
                     </a>
                   </li>
