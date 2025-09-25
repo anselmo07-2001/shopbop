@@ -40,8 +40,9 @@ class EndLevelCategoryController extends Controller
                 ->with("success", "Created End Level Category Successfully.");
     }
 
-    public function destroy() {
-
+    public function destroy(EndCategory $endLevelCategory) {
+        $endLevelCategory->delete();
+        return back()->with("success", "End Level Category deleted succesfully");
     }
 
     public function edit() {
