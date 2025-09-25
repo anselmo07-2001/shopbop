@@ -54,9 +54,10 @@
                         <td>{{ $e_category->midCategory->name }}</td>
                         <td>{{ $e_category->midCategory->topCategory->name }}</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-primary me-1">
-                            <i class="bi bi-pencil"></i> Edit
-                            </button>
+                            <a href="{{ route('admin.shopSetting.endLevelCategory.edit', $e_category->id) }}" 
+                               class="btn btn-sm btn-primary me-1">
+                                    <i class="bi bi-pencil"></i> Edit
+                            </a> 
                             <x-delete-modal 
                                 id="{{ $e_category->id }}" 
                                 name="{{ $e_category->name}}" 

@@ -4,8 +4,8 @@
  
     <x-update-form 
         title='Edit Mid Level Category'
-        :viewAllLink="route('admin.shopSetting.midLevelCategory.index')"
-        :action="route('admin.shopSetting.midLevelCategory.update', $mid_level_category->id)"
+        :viewAllLink="route('admin.shopSetting.endLevelCategory.index')"
+        :action="route('admin.shopSetting.endLevelCategory.update', $end_level_category->id)"
         method="PUT"
         :inputs="[
             [
@@ -17,24 +17,44 @@
                 'options' => collect([
                     [
                         'value' => '',
-                        'label' => 'Select Top Level Category',
+                        'label' => 'Select Mid Level Category',
                         'selected' => false
                     ]
                 ])->merge( 
-                    $top_level_categories->map( fn($c) => [
-                        'value' => $c->id,
-                        'label' => $c->name,
-                        'selected' => $mid_level_category->top_category_id === $c->id
+                    $top_level_categories->map( fn($t) => [
+                        'value' => $t->id,
+                        'label' => $t->name,
+                        'selected' => $end_level_category->midCategory->topCategory->id === $t->id
+                    ])
+                )
+            ],
+            [
+                'type' => 'select',
+                'labelName' => 'Mid Category Name',
+                'name' => 'mid_level_category_name',
+                'labelFor' => 'mid_level_category_name',
+                'id' => 'mid_level_category_name',
+                'options' => collect([
+                    [
+                        'value' => '',
+                        'label' => 'Select Mid Level Category',
+                        'selected' => false
+                    ]
+                ])->merge( 
+                    $mid_level_categories->map( fn($m) => [
+                        'value' => $m->id,
+                        'label' => $m->name,
+                        'selected' => $end_level_category->mid_category_id === $m->id
                     ])
                 )
             ],
             [
                 'type' => 'text',
-                'labelName' => 'Mid Category Name',
-                'value' => $mid_level_category->name,
-                'name' => 'mid_level_category_name',
-                'labelFor' => 'mid_category_name',
-                'id' => 'mid_category_name',    
+                'labelName' => 'End Category Name',
+                'value' => $end_level_category->name,
+                'name' => 'end_level_category_name',
+                'labelFor' => 'end_category_name',
+                'id' => 'end_category_name',    
             ]
         ]"
     />
