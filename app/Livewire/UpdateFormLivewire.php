@@ -50,7 +50,6 @@ class UpdateFormLivewire extends Component
 
     public function mount() {
         $this->viewAllLink = route('admin.shopSetting.endLevelCategory.index');
-        $this->action = route('admin.shopSetting.endLevelCategory.store');
     }
 
     public function updatingTopCategoryId() {

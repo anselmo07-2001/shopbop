@@ -144,10 +144,8 @@ Route::prefix("/admin/shop-setting/mid-level-category")->name("admin.shopSetting
 Route::prefix("/admin/shop-setting/end-level-category")->name("admin.shopSetting.endLevelCategory.")->group(function() {
     Route::get("/", [EndLevelCategoryController::class, "index"])->name("index");
     Route::get("/create", [EndLevelCategoryController::class, "create"])->name("create");
-    Route::post("/", [EndLevelCategoryController::class, "store"])->name("store");
     Route::delete("/{endLevelCategory}", [EndLevelCategoryController::class, "destroy"])->name("destroy");
     Route::get("/{endLevelCategory}/edit", [EndLevelCategoryController::class, "edit"])->name("edit");
-    Route::put("/{endLevelCategory}", [EndLevelCategoryController::class, "update"])->name("update");
 });
 
 
