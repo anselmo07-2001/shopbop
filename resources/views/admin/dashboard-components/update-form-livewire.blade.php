@@ -1,5 +1,8 @@
 <div class="card shadow-sm">
-    
+    <x-flash-message session_name="success" />
+    <x-flash-message session_name="error" />
+
+
     <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i>{{ $title }}</h5>
       <a href="{{ $viewAllLink }}" class="btn btn-sm btn-dark">
@@ -8,7 +11,7 @@
     </div>
 
     <div class="card-body">
-      <form wire:submit.prevent="store">
+      <form wire:submit.prevent="{{ $method === 'POST' ? 'store' : 'update'}}">
         @csrf
         @if($method) 
             @method($method)

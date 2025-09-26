@@ -5,11 +5,13 @@ namespace App\Livewire;
 use App\Models\EndCategory;
 use App\Models\MidCategory;
 use App\Models\TopCategory;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class UpdateFormLivewire extends Component
 {
-    public $title = 'Add End Level Category';
+    public $title = null;
     public $viewAllLink = null;
     public $action = null;
     public $method = "";
@@ -17,6 +19,7 @@ class UpdateFormLivewire extends Component
 
     public $topCategoryId = null;
     public $midCategoryId = null;
+    public $endCategoryId = null; // use for updating
     public $end_level_category_name = null;
 
     protected function rules()
@@ -36,7 +39,12 @@ class UpdateFormLivewire extends Component
                     }
                 }
             ],
-            'end_level_category_name' => 'required|string|max:255|unique:end_categories,name',
+            'end_level_category_name' => [
+                "required",
+                "string",
+                "max:255",
+                Rule::unique("end_categories", "name")->ignore($this->endCategoryId)
+            ]
         ];
     }
 
@@ -118,7 +126,31 @@ class UpdateFormLivewire extends Component
             "name" => $this->end_level_category_name
         ]);
 
-        session()->flash('success', 'End Level Category created!');
+        session()->flash('success', 'End Level Category created successfully');
         return redirect()->route('admin.shopSetting.endLevelCategory.index');
+    }
+
+    public function update() {
+        $this->validate();
+
+        $end_category = EndCategory::findOrFail($this->endCategoryId);
+        $midCategory = MidCategory::findOrFail($this->midCategoryId);
+ 
+        DB::transaction(function () use($midCategory, $end_category) {
+            // If user change the topCategoryId then the mid level category will also change
+            if ($midCategory->topCategory->id !== $this->topCategoryId) {
+                $midCategory->update([
+                    "top_category_id" => $this->topCategoryId
+                ]);
+            }
+            
+            $end_category->update([
+                "name" => $this->end_level_category_name,
+                "mid_category_id" => $this->midCategoryId
+            ]);       
+        });
+
+        session()->flash('success', 'End Level Category updated successfully');
+        return redirect()->route('admin.shopSetting.endLevelCategory.edit', $this->endCategoryId);
     }
 }
