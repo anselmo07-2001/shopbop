@@ -78,8 +78,8 @@
 
         <!-- Products -->
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/product-management') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.productManagement') }}">
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.productManagement.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.productManagement.index') }}">
                 <i class="fa fa-box me-2"></i> Product Management
           </a>
         </li>
