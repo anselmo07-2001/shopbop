@@ -2,15 +2,15 @@
     <div class="row mb-3">
         <div class="col-md-6 d-flex align-items-center">
             <label class="form-label me-2 mb-0">Show</label>
-            <select class="form-select form-select-sm w-auto">
-            <option>10</option>
-            <option>25</option>
-            <option>50</option>
+            <select wire:model.live="perPage" class="form-select form-select-sm w-auto">
+            <option value="10" >10</option>
+            <option value="25" >25</option>
+            <option value="50" >50</option>
             </select>
             <span class="ms-2">entries</span>
         </div>
         <div class="col-md-6 text-end">
-            <input type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
+            <input wire:model.debounce.300ms.live="search" type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
         </div>
     </div>
 
@@ -18,15 +18,55 @@
         <table class="table table-bordered table-striped table-hover align-middle">
             <thead class="table-light">
             <tr>
-                <th># <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
+                <th>
+                    # 
+                    <button wire:click="sortBy('id')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                        <i class="bi bi-arrow-down-up ms-1 text-muted"></i>
+                    </button>
+                </th>
                 <th>Photo</th>
-                <th>Product Name <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                <th>Old Price <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                <th>(C) Price <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                <th>Quantity <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                <th>Featured? <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                <th>Active? <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                <th>Category <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
+                <th>
+                    Product Name 
+                    <button wire:click="sortBy('name')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                        <i class="bi bi-arrow-down-up ms-1 text-muted"></i>
+                    </button>
+                </th>
+                <th>
+                    Old Price 
+                    <button wire:click="sortBy('original_price')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                        <i class="bi bi-arrow-down-up ms-1 text-muted"></i>
+                    </button>
+                </th>
+                <th>
+                    (C) Price 
+                    <button wire:click="sortBy('current_price')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                        <i class="bi bi-arrow-down-up ms-1 text-muted"></i>
+                    </button>
+                </th>
+                <th>
+                    Quantity 
+                    <button wire:click="sortBy('quantity')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                        <i class="bi bi-arrow-down-up ms-1 text-muted"></i>
+                    </button>
+                </th>
+                <th>
+                    Featured? 
+                    <button wire:click="sortBy('is_featured')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                        <i class="bi bi-arrow-down-up ms-1 text-muted"></i>
+                    </button>
+                </th>
+                <th>
+                    Active? 
+                    <button wire:click="sortBy('is_active')" class="btn btn-sm btn-link p-0 ms-1 text-secondary">
+                        <i class="bi bi-arrow-down-up ms-1 text-muted"></i>
+                    </button>
+                </th>
+                <th>
+                    Category
+                    <button wire:click="sortBy('category')" class="btn btn-sm btn-link p-0 ms-1 text-secondary"> 
+                        <i class="bi bi-arrow-down-up ms-1 text-muted"></i>
+                    </button>
+                </th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -57,15 +97,12 @@
         </table>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mt-2">
-        <small class="text-muted">Showing 1 to 10 of 20 entries</small>
-        <nav>
-            <ul class="pagination pagination-sm mb-0">
-            <li class="page-item disabled"><a class="page-link">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <div>
+            Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} results
+        </div>
+        <div>
+            {{ $products->links('pagination::livewire-bootstrap') }}
+        </div>
     </div>
 </div>
