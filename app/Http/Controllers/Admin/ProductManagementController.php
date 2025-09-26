@@ -10,4 +10,8 @@ class ProductManagementController extends Controller
     public function index() {
         return view("admin.panels.product-management");
     }
+
+    public function create() {
+        return view("admin.panels.product-management-create");
+    }
 }
