@@ -112,6 +112,11 @@
   color: #fff; /* ensures text is readable */
 }
 
+/** WYSIWYG EDITOR **/
+.ck-editor__editable {
+    min-height: 300px !important;
+}
+
 
 
 
