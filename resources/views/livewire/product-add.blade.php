@@ -58,24 +58,20 @@
         <!-- Size -->
         <div class="col-6 col-md-3">
             <label class="form-label">Select Size</label>
-            <select class="form-select">
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-                <option>XXL</option>
+            <select data-tom-select multiple class="form-select" wire:model.defer="selected_sizes">
+                @foreach ($sizes as $size)
+                    <option value="{{ $size->id }}">{{ $size->name }}</option>           
+                @endforeach
             </select>
         </div>
 
         <!-- Color -->
         <div class="col-6 col-md-3">
             <label class="form-label">Select Color</label>
-            <select class="form-select">
-                <option>Red</option>
-                <option>Blue</option>
-                <option>Black</option>
-                <option>White</option>
-                <option>Green</option>
+            <select data-tom-select multiple class="form-select" wire:model.defer="selected_colors">
+                @foreach ($colors as $color)
+                    <option value="{{ $color->id }}" >{{ $color->name }}</option>
+                @endforeach
             </select>
         </div>
 
