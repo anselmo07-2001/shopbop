@@ -4,6 +4,7 @@
         <livewire:product-add
             :sizes="$sizes"
             :colors="$colors"
+            :topCategories="$top_categories"
         />
     </div>
 </x-layout-admin-panel>
