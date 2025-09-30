@@ -1,5 +1,7 @@
 @props(["ratings" => null, "product" => null])
 
+
+
 <div class="container my-5">
     <div class="mb-4">
         <h4>Customer Reviews</h4>
@@ -28,39 +30,42 @@
         </div>
 
         <!-- Rating Breakdown -->
+
+
+
         <div class="mb-3">
         <div class="d-flex align-items-center mb-1">
             <span class="me-2">5 stars</span>
             <div class="progress flex-grow-1" style="height:8px;">
-            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ ( $ratings->where("rating", 5)->count() / count($ratings) * 100 ) }}%;"></div>
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ count($ratings) > 0 ? ($ratings->where('rating', 5)->count() / count($ratings) * 100) : 0 }}%;"></div>
             </div>
             <span class="ms-2">{{ $ratings->where("rating", 5)->count() }}</span>
         </div>
         <div class="d-flex align-items-center mb-1">
             <span class="me-2">4 stars</span>
             <div class="progress flex-grow-1" style="height:8px;">
-            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ ( $ratings->where("rating", 4)->count() / count($ratings) * 100 ) }}%;"></div>
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ count($ratings) > 0 ? ($ratings->where('rating', 4)->count() / count($ratings) * 100) : 0 }}%;"></div>
             </div>
             <span class="ms-2">{{ $ratings->where("rating", 4)->count() }}</span>
         </div>
         <div class="d-flex align-items-center mb-1">
             <span class="me-2">3 stars</span>
             <div class="progress flex-grow-1" style="height:8px;">
-            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ ( $ratings->where("rating", 3)->count() / count($ratings) * 100 ) }}%;"></div>
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ count($ratings) > 0 ? ($ratings->where('rating', 3)->count() / count($ratings) * 100) : 0 }}%;"></div>
             </div>
             <span class="ms-2">{{ $ratings->where("rating", 3)->count() }}</span>
         </div>
         <div class="d-flex align-items-center mb-1">
             <span class="me-2">2 stars</span>
             <div class="progress flex-grow-1" style="height:8px;">
-            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ ( $ratings->where("rating", 2)->count() / count($ratings) * 100 ) }}%;"></div>
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ count($ratings) > 0 ? ($ratings->where('rating', 2)->count() / count($ratings) * 100) : 0 }}%;"></div>
             </div>
             <span class="ms-2">{{ $ratings->where("rating", 2)->count() }}</span>
         </div>
         <div class="d-flex align-items-center mb-1">
             <span class="me-2">1 star</span>
             <div class="progress flex-grow-1" style="height:8px;">
-            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ ( $ratings->where("rating", 1)->count() / count($ratings) * 100 ) }}%;"></div>
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ count($ratings) > 0 ? ($ratings->where('rating', 1)->count() / count($ratings) * 100) : 0 }}%;"></div>
             </div>
             <span class="ms-2">{{ $ratings->where("rating", 1)->count() }}</span>
         </div>
