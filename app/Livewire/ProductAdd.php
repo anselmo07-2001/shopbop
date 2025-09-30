@@ -9,6 +9,7 @@ use App\Models\ProductGallery;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ProductAdd extends Component
 {
@@ -97,7 +98,6 @@ class ProductAdd extends Component
     }
 
     public function store() {
-
         $notEmptyHtml = function ($attribute, $value, $fail) {
             if (trim(strip_tags($value)) === '') {
                 $fail("The $attribute field cannot be empty.");
@@ -131,44 +131,47 @@ class ProductAdd extends Component
             'selected_topCategory.required' => 'Please select a top category.',
             'selected_midCategory.required' => 'Please select a mid category.',
             'selected_endCategory.required' => 'Please select an end category.',
-            'selected_sizes.required' => 'Please select a size at least one.',
-            'selected_colors.required' => 'Please select a color at least one.',
-            "other_photos.required" => 'Please upload a photo at least one.',
+            'selected_sizes.required' => 'Please select at least one size.',
+            'selected_colors.required' => 'Please select at least one color.',
+            "other_photos.required" => 'Please upload at least one photo.',
         ]);
 
-        //Store the featured photo
-        $featured_photo_filename = "product-featured-" . time() . "." . $validated_data["feature_photo"]->getClientOriginalExtension();
-        $validated_data["feature_photo"]->storeAs("products", $featured_photo_filename, "public");
+        DB::transaction(function() use ($validated_data) {
 
-        $product = Product::create([
-            "name" => $validated_data["product_name"],
-            "original_price" => $validated_data["original_price"],
-            "current_price" => $validated_data["current_price"],
-            "quantity" => $validated_data["quantity"],
-            "featured_photo" => $featured_photo_filename,
-            "description" => $validated_data["description"],
-            "short_description" => $validated_data["short_description"],
-            "features" => $validated_data["feature"],
-            "condition" => $validated_data["condition"],
-            "return_policy" => $validated_data["return_policy"],
-            "is_featured" => $validated_data["is_featured"],
-            "is_active" => $validated_data["is_active"],
-            "end_category_id" => $validated_data["selected_endCategory"],
-        ]);
-        
-        $product->sizes()->attach($validated_data["selected_sizes"]);
-        $product->colors()->attach($validated_data["selected_colors"]);
+            //Store the featured photo
+            $featured_photo_filename = "product-featured-" . time() . "." . $validated_data["feature_photo"]->getClientOriginalExtension();
+            $validated_data["feature_photo"]->storeAs("products", $featured_photo_filename, "public");
 
-        //Store the other photo
-        foreach($validated_data["other_photos"] as $other_photo) {
-            $filename = Str::uuid() . '.' . $other_photo->getClientOriginalExtension();
-            $other_photo->storeAs("gallery", $filename, "public");
-
-            ProductGallery::create([
-                "image_path" => $filename,
-                "product_id" => $product->id
+            $product = Product::create([
+                "name" => $validated_data["product_name"],
+                "original_price" => $validated_data["original_price"],
+                "current_price" => $validated_data["current_price"],
+                "quantity" => $validated_data["quantity"],
+                "featured_photo" => $featured_photo_filename,
+                "description" => $validated_data["description"],
+                "short_description" => $validated_data["short_description"],
+                "features" => $validated_data["feature"],
+                "condition" => $validated_data["condition"],
+                "return_policy" => $validated_data["return_policy"],
+                "is_featured" => $validated_data["is_featured"],
+                "is_active" => $validated_data["is_active"],
+                "end_category_id" => $validated_data["selected_endCategory"],
             ]);
-        }
+            
+            $product->sizes()->attach($validated_data["selected_sizes"]);
+            $product->colors()->attach($validated_data["selected_colors"]);
+
+            //Store the other photo
+            foreach($validated_data["other_photos"] as $other_photo) {
+                $filename = Str::uuid() . '.' . $other_photo->getClientOriginalExtension();
+                $other_photo->storeAs("gallery", $filename, "public");
+
+                ProductGallery::create([
+                    "image_path" => $filename,
+                    "product_id" => $product->id
+                ]);
+            }
+        });
         
         session()->flash('success', 'Product created successfully');
         return redirect()->route('admin.productManagement.index');
