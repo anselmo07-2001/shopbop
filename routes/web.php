@@ -152,6 +152,7 @@ Route::prefix("/admin/shop-setting/end-level-category")->name("admin.shopSetting
 Route::prefix("/admin/product-management")->name("admin.productManagement.")->group(function() {
     Route::get("/", [ProductManagementController::class, "index"])->name("index");
     Route::get("/create", [ProductManagementController::class, "create"])->name("create");
+    Route::delete("/{product}", [ProductManagementController::class, "destroy"])->name("destroy");
 });
 
 

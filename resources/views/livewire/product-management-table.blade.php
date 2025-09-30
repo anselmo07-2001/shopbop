@@ -88,7 +88,11 @@
                         </td>
                         <td>
                         <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        <x-delete-modal 
+                                id="{{ $product->id }}" 
+                                name="{{ $product->name}}" 
+                                action="{{ route('admin.productManagement.destroy' , $product->id )}}"
+                        /> 
                         </td>
                     </tr>   
                 @endforeach
