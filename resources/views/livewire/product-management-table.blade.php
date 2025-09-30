@@ -87,7 +87,7 @@
                             {{ $product->endCategory->name }}
                         </td>
                         <td>
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{{ route('admin.productManagement.edit', $product->id)}}" class="btn btn-sm btn-primary">Edit</a>
                         <x-delete-modal 
                                 id="{{ $product->id }}" 
                                 name="{{ $product->name}}" 

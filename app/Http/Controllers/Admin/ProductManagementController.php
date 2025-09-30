@@ -47,4 +47,10 @@ class ProductManagementController extends Controller
         $product->delete();
         return back()->with("success", "Product deleted succesfully");
     }
+
+    public function edit(Product $product) {
+        $top_categories = TopCategory::all();
+        $sizes = Size::all();
+        $colors = Color::all();
+    }
 }

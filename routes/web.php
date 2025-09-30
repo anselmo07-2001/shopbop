@@ -153,6 +153,7 @@ Route::prefix("/admin/product-management")->name("admin.productManagement.")->gr
     Route::get("/", [ProductManagementController::class, "index"])->name("index");
     Route::get("/create", [ProductManagementController::class, "create"])->name("create");
     Route::delete("/{product}", [ProductManagementController::class, "destroy"])->name("destroy");
+    Route::get("/{product}/edit", [ProductManagementController::class, "edit"])->name("edit");
 });
 
 
