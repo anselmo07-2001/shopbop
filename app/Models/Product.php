@@ -25,6 +25,9 @@ class Product extends Model
         "original_price",
         "current_price",
         "quantity",
+        "description",
+        "short_description",
+        "features",
         "featured_photo",
         "condition",
         "return_policy",
@@ -44,6 +47,14 @@ class Product extends Model
 
     public function ratings() {
         return $this->hasMany(Rating::class);
+    }
+
+    public function sizes() {
+        return $this->belongsToMany(Size::class, "product_sizes");
+    }
+
+    public function colors() {
+        return $this->belongsToMany(Color::class, "product_colors");
     }
 
     
