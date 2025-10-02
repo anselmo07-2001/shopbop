@@ -52,5 +52,12 @@ class ProductManagementController extends Controller
         $top_categories = TopCategory::all();
         $sizes = Size::all();
         $colors = Color::all();
+
+        return view("admin.panels.product-management.edit", [
+            "product" => $product,
+            "top_categories" => $top_categories,
+            "sizes" => $sizes,
+            "colors" => $colors
+        ]);
     }
 }
