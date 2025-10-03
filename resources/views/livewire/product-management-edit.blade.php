@@ -12,6 +12,7 @@
                         </option>       
                     @endforeach
                 </select>
+                <x-error-input-message field="selected_topCategory" />
             </div>
 
             <div class="col-12 col-sm-6 col-md-4">
@@ -25,6 +26,7 @@
                         </option>
                     @endforeach
                 </select>
+                <x-error-input-message field="selected_midCategory" />
             </div>
 
             <div class="col-12 col-sm-6 col-md-4">
@@ -38,6 +40,7 @@
                         </option>
                     @endforeach
                 </select>
+                <x-error-input-message field="selected_endCategory" />
             </div>
 
             <!-- Product Name -->
@@ -45,36 +48,40 @@
                 <label for="product_name" class="form-label">Product Name</label>
                 <input id="product_name" wire:model.defer="product_name" type="text" class="form-control" 
                        placeholder="Enter product name">
+                <x-error-input-message field="product_name" />
             </div>
 
             <!-- Prices -->
             <div class="col-6 col-md-3">
                 <label for="original_price" class="form-label">Original Price</label>
                 <input id="original_price" wire:model.defer="original_price" type="number" class="form-control">
+                <x-error-input-message field="original_price" />
             </div>
 
             <div class="cola-6 col-md-3">
                 <label for="current_price" class="form-label">Current Price</label>
                 <input id="current_price" wire:model.defer="current_price" type="number" class="form-control">
+                <x-error-input-message field="current_price" />
             </div>
 
             <!-- Quantity -->
             <div class="col-6 col-md-3">
                 <label for="quantity" class="form-label">Quantity</label>
                 <input id="quantity" wire:model.defer="quantity" type="number" class="form-control">
+                <x-error-input-message field="quantity" />
             </div>
 
             <!-- Size -->
             <div class="col-6 col-md-3">
-            <label class="form-label">Select Size</label>     
-            <div wire:ignore>
-                <select wire:model.defer="selected_sizes" data-tom-select multiple class="form-select">
-                    @foreach ($sizes as $size)
-                        <option value="{{ $size->id }}">{{ $size->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
+                <label class="form-label">Select Size</label>     
+                <div wire:ignore>
+                    <select wire:model.defer="selected_sizes" data-tom-select multiple class="form-select">
+                        @foreach ($sizes as $size)
+                            <option value="{{ $size->id }}">{{ $size->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <x-error-input-message field="selected_sizes" />
             </div>
 
             <!-- Color -->
@@ -88,6 +95,7 @@
                         @endforeach
                     </select>
                 </div>
+                <x-error-input-message field="selected_colors" />
             </div> 
 
             <!-- Feature Photo -->
@@ -110,6 +118,8 @@
                             style="width: 200px; height: 200px; object-fit: cover;">
                     </div>
                 @endif
+
+                <x-error-input-message field="feature_photo" />
             </div>
 
             <!-- Other Photos -->
@@ -163,6 +173,7 @@
                 <div wire:ignore>
                     <textarea class="form-control" data-editor id="description" wire:model.defer="description"></textarea>
                 </div>
+                <x-error-input-message field="description" />
             </div>
 
             <div class="col-12 col-md-6">
@@ -170,6 +181,7 @@
                 <div wire:ignore>
                     <textarea class="form-control" data-editor id="short_description" wire:model.defer="short_description"></textarea>
                 </div>
+                <x-error-input-message field="short_description" />
             </div>
 
             <div class="col-12 col-md-6">
@@ -177,6 +189,7 @@
                 <div wire:ignore>
                     <textarea class="form-control" data-editor id="feature" wire:model.defer="feature"></textarea>
                 </div>
+                <x-error-input-message field="feature" />
             </div>
 
             <div class="col-12 col-md-6">
@@ -184,6 +197,7 @@
                 <div wire:ignore>
                     <textarea class="form-control" data-editor id="condition" wire:model.defer="condition"></textarea>
                 </div>
+                <x-error-input-message field="condition" />
             </div>
 
             <div class="col-12 col-md-6">
@@ -191,6 +205,7 @@
                 <div wire:ignore>
                     <textarea class="form-control" data-editor id="return_policy" wire:model.defer="return_policy"></textarea>
                 </div>
+                <x-error-input-message field="return_policy" />
             </div>
 
            <div class="col-6 col-md-3">
