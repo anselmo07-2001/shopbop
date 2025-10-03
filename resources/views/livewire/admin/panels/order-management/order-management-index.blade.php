@@ -92,30 +92,48 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($orders as $orderNumber => $group)    
+                            @php
+                                $firstOrder = $group->first();
+                            @endphp      
+
                             <tr>
-                                <td>1</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <strong>Id:</strong> 11<br>
-                                    <strong>Name:</strong> Jun Rivera<br>
-                                    <strong>Email:</strong> jun@gmail.com<br>
+                                    <strong>Id:</strong> {{ $firstOrder->customer->id}}<br>
+                                    <strong>Name:</strong> {{ $firstOrder->customer->full_name}}<br>
+                                    <strong>Email:</strong> {{ $firstOrder->customer->email}}<br>
                                     <button class="btn btn-warning btn-sm mt-2">Send Message</button>
                                 </td>
                                 <td>
-                                    <p><strong>Product:</strong> WD 5TB Elements Portable External Hard Drive HDD<br>
-                                    <strong>Size:</strong> 5T, <strong>Color:</strong> Black<br>
-                                    <strong>Quantity:</strong> 2, <strong>Unit Price:</strong> 149</p>
+                                    @foreach ($group as $order)
+                                        <div>
+                                            <p><strong>Product: </strong>{{ $order->product->name }}<br>
+                                            <strong>Size:</strong> {{ $order->size }}, <strong>Color:</strong> {{ $order->color }}<br>
+                                            <strong>Quantity:</strong> {{ $order->quantity }}, <strong>Unit Price:</strong> ${{ $order->unit_price}}</p>
+                                        </div>                                                    
+                                    @endforeach
                                 </td>
                                 <td>
-                                    <strong>Payment Method:</strong> <span class="text-danger">Bank Deposit</span><br>
-                                    <strong>Payment Id:</strong> 1755371881<br>
-                                    <strong>Date:</strong> 2025-08-16 12:18:01<br>
-                                    <strong>Transaction Info:</strong> Bank Name: WestView Bank, Account Number: CA100270589600
+                                    @foreach ($firstOrder->payments as $payment)              
+                                        <div>
+                                            <strong>Payment Method:</strong> <span class="text-danger">{{ ucwords(str_replace("_", " ", $payment->payment_method)) }}</span><br>
+                                            <strong>Payment Id:</strong> {{ $payment->order_number }}<br>
+                                            <strong>Date:</strong> {{ $payment->created_at }}<br>
+                                            <strong>Transaction Info:</strong> {{ $payment->bank_transaction_info }}
+                                        </div> 
+                                    @endforeach
                                 </td>
-                                <td>$893</td>
-                                <td>Completed</td>
-                                <td>Completed</td>
+
+                                @foreach ($firstOrder->payments as $payment)    
+                                    <td>{{ $payment->paid_amount}}</td>
+                                    <td>{{ $payment->payment_status}}</td>
+                                    <td>{{ $payment->shipping_status}}</td>
+                                @endforeach
+
                                 <td><button class="btn btn-danger btn-sm">Delete</button></td>
                             </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
