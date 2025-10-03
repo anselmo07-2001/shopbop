@@ -86,8 +86,8 @@
 
 
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/order-management') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.orderManagement') }}">
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.orderManagement.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.orderManagement.index') }}">
                 <i class="fa fa-tags me-2"></i>Order Management
           </a>
         </li>

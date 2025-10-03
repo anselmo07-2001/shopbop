@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+
+class OrderManagementController extends Controller
+{
+    public function index() {
+        return view("admin.panels.order-management.index");
+    }
+}

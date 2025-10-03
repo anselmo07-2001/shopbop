@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\OrderManagementController;
 use App\Http\Controllers\Admin\ProductManagementController;
 use App\Http\Controllers\Admin\ShopSettings\ColorController;
 use App\Http\Controllers\Admin\ShopSettings\CountryController;
@@ -156,6 +157,10 @@ Route::prefix("/admin/product-management")->name("admin.productManagement.")->gr
     Route::get("/{product}/edit", [ProductManagementController::class, "edit"])->name("edit");
 });
 
+Route::prefix("/admin/order-management")->name("admin.orderManagement.")->group(function() {
+    Route::get("/", [OrderManagementController::class, "index"])->name("index");
+});
+
 
 
 
@@ -170,7 +175,7 @@ Route::prefix("/admin/product-management")->name("admin.productManagement.")->gr
 // Route::get("/admin/shop-setting/end-level-category", [AdminController::class, "endLevelCategory"])->name("admin.shopSetting.endLevelCategory");
 
 // Route::get("/admin/product-management", [AdminController::class, "productManagement"])->name("admin.productManagement");
-Route::get("/admin/order-management", [AdminController::class, "orderManagement"])->name("admin.orderManagement");
+// Route::get("/admin/order-management", [AdminController::class, "orderManagement"])->name("admin.orderManagement");
 Route::get("/admin/manage-sliders", [AdminController::class, "manageSliders"])->name("admin.manageSliders");
 Route::get("/admin/services", [AdminController::class, "services"])->name("admin.services");
 Route::get("/admin/faq", [AdminController::class, "faq"])->name("admin.faq");
