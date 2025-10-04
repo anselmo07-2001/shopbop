@@ -106,9 +106,9 @@
                                     @foreach ($firstOrder->payments as $payment) 
                                         <div class="mb-2">
                                             <strong>Payment Method:</strong> <span class="text-danger">{{ ucwords(str_replace("_", " ", $payment->payment_method)) }}</span><br>
-                                            <strong>Payment Id (Txn):</strong> {{ $payment->txn_id }}<br>
+                                            {{-- <strong>Payment Id (Txn):</strong> {{ $payment->txn_id }}<br> --}}
                                             <strong>Date:</strong> {{ optional($payment->created_at)->format('Y-m-d H:i') }}<br>
-                                            <strong>Transaction Info:</strong> {{ $payment->bank_transaction_infotext }}
+                                            <strong>Transaction Info:</strong> {{ $payment->bank_transaction_info }}
                                         </div> 
                                     @endforeach
                                 </td>
@@ -126,7 +126,18 @@
                                         </form>
                                     @endif
                                 </td>
-                                <td><span class="badge bg-{{ $shippingStatus === 'shipped' ? 'info' : 'secondary' }}">{{ ucwords($shippingStatus) }}</span></td>
+                                <td>
+                                    <span class="badge bg-{{ $shippingStatus === 'shipped' ? 'info' : 'secondary' }}">
+                                        {{ ucwords($shippingStatus) }}
+                                    </span>
+                                    @if ($shippingStatus === "pending" && $paymentStatus === "paid" )
+                                        <form action="{{ route('admin.orderManagement.updateShippingStatus', $firstOrder->order_number) }}" method="POST">
+                                            @csrf
+                                            @method("PUT")
+                                            <button type="submit" class="btn btn-sm btn-primary mt-2">Completed</button>
+                                        </form>
+                                    @endif
+                                </td>
 
                                 <td class="text-center"><button class="btn btn-danger btn-sm">Delete</button></td>
                             </tr>

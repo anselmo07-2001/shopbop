@@ -18,4 +18,12 @@ class OrderManagementController extends Controller
 
         return back()->with("success", "Updated payment status successfully.");
     }
+
+    public function updateShippingStatus($orderNumber) {
+        Payment::where("order_number", $orderNumber)->update([
+            "shipping_status" => "shipped"
+        ]);
+
+        return back()->with("success", "Updated payment status successfully.");
+    }
 }
