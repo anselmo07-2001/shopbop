@@ -79,6 +79,8 @@
 
                                 $paymentStatus = $firstOrder->payments->pluck('payment_status')->unique()->implode(', ');
                                 $shippingStatus = $firstOrder->payments->pluck('shipping_status')->unique()->implode(', ');
+
+                                // @dump($firstOrder)
                             @endphp
                             <tr>
                                 <td>{{ $orders->firstItem() + $loop->index }}</td> 
@@ -112,7 +114,18 @@
                                 </td>
 
                                 <td>${{ number_format($totalPaidAmount, 2) }}</td>
-                                <td><span class="badge bg-{{ $paymentStatus === 'paid' ? 'success' : 'warning' }}">{{ ucwords($paymentStatus) }}</span></td>
+                                <td>
+                                    <span class="badge bg-{{ $paymentStatus === 'paid' ? 'success' : 'warning' }}">
+                                        {{ ucwords($paymentStatus) }}
+                                    </span>
+                                    @if ($paymentStatus === "pending")
+                                        <form action="{{ route('admin.orderManagement.updatePaymentStatus', $firstOrder->order_number) }}" method="POST">
+                                            @csrf
+                                            @method("PUT")
+                                            <button type="submit" class="btn btn-sm btn-primary mt-2">Completed</button>
+                                        </form>
+                                    @endif
+                                </td>
                                 <td><span class="badge bg-{{ $shippingStatus === 'shipped' ? 'info' : 'secondary' }}">{{ ucwords($shippingStatus) }}</span></td>
 
                                 <td class="text-center"><button class="btn btn-danger btn-sm">Delete</button></td>

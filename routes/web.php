@@ -159,6 +159,7 @@ Route::prefix("/admin/product-management")->name("admin.productManagement.")->gr
 
 Route::prefix("/admin/order-management")->name("admin.orderManagement.")->group(function() {
     Route::get("/", [OrderManagementController::class, "index"])->name("index");
+    Route::put("/{orderNumber}/update-payment-status", [OrderManagementController::class, "updatePaymentStatus"])->name("updatePaymentStatus");
 });
 
 

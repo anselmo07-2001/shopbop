@@ -344,7 +344,7 @@
                                                     <td>{{ $payment->txn_id }}</td>
                                                     <td>${{ $payment->paid_amount }}</td>
                                                     <td>
-                                                        <span class="badge {{ $payment->payment_status == "completed" ? 'bg-success' : 'bg-warning' }} ">
+                                                        <span class="badge {{ $payment->payment_status == "paid" ? 'bg-success' : 'bg-warning' }} ">
                                                             {{ $payment->payment_status }}
                                                         </span>
                                                     </td>

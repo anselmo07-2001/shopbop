@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Panels\OrderManagement;
 
 use Livewire\Component;
 use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
