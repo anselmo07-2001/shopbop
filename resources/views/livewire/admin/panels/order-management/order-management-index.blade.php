@@ -80,7 +80,6 @@
                                 $paymentStatus = $firstOrder->payments->pluck('payment_status')->unique()->implode(', ');
                                 $shippingStatus = $firstOrder->payments->pluck('shipping_status')->unique()->implode(', ');
 
-                                // @dump($firstOrder)
                             @endphp
                             <tr>
                                 <td>{{ $orders->firstItem() + $loop->index }}</td> 
@@ -139,7 +138,13 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center"><button class="btn btn-danger btn-sm">Delete</button></td>
+                                <td class="text-center">
+                                    <x-delete-modal 
+                                        id="{{ $firstOrder->order_number }}" 
+                                        name="{{ $firstOrder->order_number }}" 
+                                        action="{{ route('admin.orderManagement.destroy', $firstOrder->order_number) }}"
+                                    /> 
+                                </td>
                             </tr>
                         @empty
                             <tr>

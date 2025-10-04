@@ -161,6 +161,7 @@ Route::prefix("/admin/order-management")->name("admin.orderManagement.")->group(
     Route::get("/", [OrderManagementController::class, "index"])->name("index");
     Route::put("/{orderNumber}/update-payment-status", [OrderManagementController::class, "updatePaymentStatus"])->name("updatePaymentStatus");
     Route::put("/{orderNumber}/update-shipping-status", [OrderManagementController::class, "updateShippingStatus"])->name("updateShippingStatus");
+    Route::delete("/{orderNumber}/delete", [OrderManagementController::class, "destroy"])->name("destroy");
 });
 
 
