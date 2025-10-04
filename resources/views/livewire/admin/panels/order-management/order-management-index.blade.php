@@ -3,21 +3,26 @@
         <h4 class="mb-0"><i class="fa-solid fa-boxes-packing me-2"></i>View Orders</h4>
     </div>
 
-    <!-- Table -->
     <div class="card shadow-sm border-0">
         <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label me-2">Show</label>
-                    <select class="form-select form-select-sm w-auto d-inline">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-6 d-flex align-items-center">
+                    <label class="form-label me-2 mb-0">Show</label>
+                    <select wire:model.live="limit" class="form-select form-select-sm w-auto d-inline">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="5">5</option>
                     </select>
                     <span class="ms-2">entries</span>
                 </div>
                 <div class="col-md-6 text-end">
-                    <input type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
+                    <input 
+                        type="text" 
+                        wire:model.live.debounce.300ms="search" 
+                        class="form-control form-control-sm w-auto d-inline" 
+                        placeholder="Search by Order #..."
+                    >
                 </div>
             </div>
 
@@ -28,7 +33,7 @@
                             <th scope="col">
                                 <div class="d-flex align-items-center">
                                     <span class="me-1">#</span>
-                                    <button class="btn btn-sm btn-link p-0 text-secondary">
+                                    <button wire:click="sortBy('id')" class="btn btn-sm btn-link p-0 text-secondary">
                                         <i class="bi bi-arrow-down-up"></i>
                                     </button>
                                 </div>
@@ -37,118 +42,102 @@
                             <th scope="col">
                                 <div class="d-flex align-items-center">
                                     <span class="me-1">Customer Details</span>
-                                    <button class="btn btn-sm btn-link p-0 text-secondary">
+                                    <button wire:click="sortBy('customer_id')" class="btn btn-sm btn-link p-0 text-secondary">
                                         <i class="bi bi-arrow-down-up"></i>
                                     </button>
                                 </div>
                             </th>
 
-                            <th scope="col">
-                                <div class="d-flex align-items-center">
-                                    <span class="me-1">Product Details</span>
-                                    <button class="btn btn-sm btn-link p-0 text-secondary">
-                                        <i class="bi bi-arrow-down-up"></i>
-                                    </button>
-                                </div>
-                            </th>
+                            <th scope="col">Product Details</th> 
 
                             <th scope="col">
                                 <div class="d-flex align-items-center">
                                     <span class="me-1">Payment Information</span>
-                                    <button class="btn btn-sm btn-link p-0 text-secondary">
+                                    <button wire:click="sortBy('order_number')" class="btn btn-sm btn-link p-0 text-secondary">
                                         <i class="bi bi-arrow-down-up"></i>
                                     </button>
                                 </div>
                             </th>
 
-                            <th scope="col">
-                                <div class="d-flex align-items-center">
-                                    <span class="me-1">Paid Amount</span>
-                                    <button class="btn btn-sm btn-link p-0 text-secondary">
-                                        <i class="bi bi-arrow-down-up"></i>
-                                    </button>
-                                </div>
-                            </th>
-
-                            <th scope="col">
-                                <div class="d-flex align-items-center">
-                                    <span class="me-1">Payment Status</span>
-                                    <button class="btn btn-sm btn-link p-0 text-secondary">
-                                        <i class="bi bi-arrow-down-up"></i>
-                                    </button>
-                                </div>
-                            </th>
-
-                            <th scope="col">
-                                <div class="d-flex align-items-center">
-                                    <span class="me-1">Shipping Status</span>
-                                    <button class="btn btn-sm btn-link p-0 text-secondary">
-                                        <i class="bi bi-arrow-down-up"></i>
-                                    </button>
-                                </div>
-                            </th>
+                            <th scope="col">Paid Amount</th>
+                            
+                            <th scope="col">Payment Status</th>
+                            
+                            <th scope="col">Shipping Status</th>
 
                             <th scope="col" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($orders as $orderNumber => $group)    
+                        @forelse ($orders as $orderNumber => $group)    
                             @php
                                 $firstOrder = $group->first();
-                            @endphp      
+                                
+                                $totalPaidAmount = $group->sum(function($order) { 
+                                    return $order->payments->sum('paid_amount'); 
+                                });
 
+                                $paymentStatus = $firstOrder->payments->pluck('payment_status')->unique()->implode(', ');
+                                $shippingStatus = $firstOrder->payments->pluck('shipping_status')->unique()->implode(', ');
+                            @endphp
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $orders->firstItem() + $loop->index }}</td> 
                                 <td>
-                                    <strong>Id:</strong> {{ $firstOrder->customer->id}}<br>
-                                    <strong>Name:</strong> {{ $firstOrder->customer->full_name}}<br>
-                                    <strong>Email:</strong> {{ $firstOrder->customer->email}}<br>
+                                    <strong>Order #:</strong> {{ $orderNumber }}<br>
+                                    <strong>Id:</strong> {{ optional($firstOrder->customer)->id }}<br>
+                                    <strong>Name:</strong> {{ optional($firstOrder->customer)->full_name }}<br>
+                                    <strong>Email:</strong> {{ optional($firstOrder->customer)->email }}<br>
                                     <button class="btn btn-warning btn-sm mt-2">Send Message</button>
                                 </td>
                                 <td>
                                     @foreach ($group as $order)
-                                        <div>
-                                            <p><strong>Product: </strong>{{ $order->product->name }}<br>
-                                            <strong>Size:</strong> {{ $order->size }}, <strong>Color:</strong> {{ $order->color }}<br>
-                                            <strong>Quantity:</strong> {{ $order->quantity }}, <strong>Unit Price:</strong> ${{ $order->unit_price}}</p>
-                                        </div>                                                    
+                                        <div class="mb-2 @if(!$loop->last) border-bottom pb-2 @endif">
+                                            <p class="mb-1">
+                                                <strong>Product: </strong>{{ optional($order->product)->name }}<br>
+                                                <strong>Size:</strong> {{ $order->size ?? 'N/A' }}, <strong>Color:</strong> {{ $order->color ?? 'N/A' }}<br>
+                                                <strong>Quantity:</strong> {{ $order->quantity ?? 0 }}, <strong>Unit Price:</strong> ${{ number_format($order->unit_price ?? 0, 2)}}
+                                            </p>
+                                        </div>
                                     @endforeach
                                 </td>
                                 <td>
-                                    @foreach ($firstOrder->payments as $payment)              
-                                        <div>
+                                    @foreach ($firstOrder->payments as $payment) 
+                                        <div class="mb-2">
                                             <strong>Payment Method:</strong> <span class="text-danger">{{ ucwords(str_replace("_", " ", $payment->payment_method)) }}</span><br>
-                                            <strong>Payment Id:</strong> {{ $payment->order_number }}<br>
-                                            <strong>Date:</strong> {{ $payment->created_at }}<br>
-                                            <strong>Transaction Info:</strong> {{ $payment->bank_transaction_info }}
+                                            <strong>Payment Id (Txn):</strong> {{ $payment->txn_id }}<br>
+                                            <strong>Date:</strong> {{ optional($payment->created_at)->format('Y-m-d H:i') }}<br>
+                                            <strong>Transaction Info:</strong> {{ $payment->bank_transaction_infotext }}
                                         </div> 
                                     @endforeach
                                 </td>
 
-                                @foreach ($firstOrder->payments as $payment)    
-                                    <td>{{ $payment->paid_amount}}</td>
-                                    <td>{{ $payment->payment_status}}</td>
-                                    <td>{{ $payment->shipping_status}}</td>
-                                @endforeach
+                                <td>${{ number_format($totalPaidAmount, 2) }}</td>
+                                <td><span class="badge bg-{{ $paymentStatus === 'paid' ? 'success' : 'warning' }}">{{ ucwords($paymentStatus) }}</span></td>
+                                <td><span class="badge bg-{{ $shippingStatus === 'shipped' ? 'info' : 'secondary' }}">{{ ucwords($shippingStatus) }}</span></td>
 
-                                <td><button class="btn btn-danger btn-sm">Delete</button></td>
+                                <td class="text-center"><button class="btn btn-danger btn-sm">Delete</button></td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center p-5 text-muted">
+                                    <i class="fa-solid fa-bell-slash me-2"></i> No orders found matching your criteria.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
-
-             <!-- Footer -->
-            <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">Showing 1 to 5 of 5 entries</small>
-                <nav>
-                <ul class="pagination pagination-sm mb-0">
-                    <li class="page-item disabled"><a class="page-link">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-                </nav>
-            </div>
         </div>
-    </div>    
+    </div> 
+
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <small class="text-muted">
+            Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} entries
+        </small>
+        
+        <nav>
+            {{ $orders->links("pagination::livewire-bootstrap") }}
+        </nav>
+    </div>
 </div>
