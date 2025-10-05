@@ -167,6 +167,8 @@ Route::prefix("/admin/order-management")->name("admin.orderManagement.")->group(
 
 Route::prefix("/admin/manage-sliders")->name("admin.manageSliders.")->group(function() {
     Route::get("/", [ManageSlidersController::class, "index"])->name("index");
+    Route::get("/create", [ManageSlidersController::class, "create"])->name("create");
+    Route::post("/", [ManageSlidersController::class, "store"])->name("store");
 });
 
 
