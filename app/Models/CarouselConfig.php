@@ -12,6 +12,6 @@ class CarouselConfig extends Model
         "subtitle",
         "button_text",
         "button_link",
-        "text-align",
+        "text_align",
     ];
 }
