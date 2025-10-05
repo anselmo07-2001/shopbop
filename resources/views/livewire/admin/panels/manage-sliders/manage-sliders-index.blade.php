@@ -47,23 +47,27 @@
                                 </div>
                             </th>
 
-                            <th scope="col">Heading</th> 
-
-                            <th scope="col">
+                           <th scope="col">
                                 <div class="d-flex align-items-center">
-                                    <span class="me-1">Content</span>
-                                    <button wire:click="sortBy('order_number')" class="btn btn-sm btn-link p-0 text-secondary">
+                                    <span class="me-1">Title</span>
+                                    <button wire:click="sortBy('title')" class="btn btn-sm btn-link p-0 text-secondary">
                                         <i class="bi bi-arrow-down-up"></i>
                                     </button>
                                 </div>
                             </th>
 
-                            <th scope="col">Button Text</th>
-                            
-                            <th scope="col">Button Url</th>
-                            
-                            <th scope="col">Position</th>
+                            <th scope="col">
+                                <div class="d-flex align-items-center">
+                                    <span class="me-1">Subtitle</span>
+                                    <button wire:click="sortBy('subtitle')" class="btn btn-sm btn-link p-0 text-secondary">
+                                        <i class="bi bi-arrow-down-up"></i>
+                                    </button>
+                                </div>
+                            </th>
 
+                            <th scope="col">Button Text</th>    
+                            <th scope="col">Button Url</th>                            
+                            <th scope="col">Position</th>
                             <th scope="col" class="text-center">Action</th>
                         </tr>
                     </thead>
