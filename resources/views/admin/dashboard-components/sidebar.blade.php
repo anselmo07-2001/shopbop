@@ -92,8 +92,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/manage-sliders') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.manageSliders') }}">
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.manageSliders.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.manageSliders.index') }}">
                 <i class="fa fa-star me-2"></i>Manage Sliders
           </a>
         </li>
