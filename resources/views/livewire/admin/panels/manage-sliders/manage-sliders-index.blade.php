@@ -87,7 +87,11 @@
                                 <td>{{ $slider->text_align }}</td>
                                 <td class="">
                                     <button class="btn btn-sm btn-warning mb-2"><i class="fa fa-edit"></i> Edit</button>
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                                    <x-delete-modal 
+                                        id="{{ $slider->id }}" 
+                                        name="{{ $slider->title }}" 
+                                        action="{{ route('admin.manageSliders.destroy', $slider->id) }}"
+                                    /> 
                                 </td>
                             </tr>               
                         @empty

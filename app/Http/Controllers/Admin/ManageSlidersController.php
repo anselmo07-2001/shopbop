@@ -44,4 +44,14 @@ class ManageSlidersController extends Controller
 
         return redirect()->route("admin.manageSliders.index")->with("success", "Slider added successfully!");
     }
+
+    public function destroy(CarouselConfig $slider) {
+        if ($slider->image_path && Storage::disk("public")->exists("carousel/" . $slider->image_path)) {
+            Storage::disk("public")->delete("carousel/" . $slider->image_path);
+        }
+
+        $slider->delete();
+
+        return redirect()->route('admin.manageSliders.index')->with('success', 'Slider deleted successfully!');
+    }
 }
