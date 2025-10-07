@@ -52,7 +52,11 @@
                         <td>{{ $faq->title }}</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-pencil me-1"></i> Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash me-1"></i> Delete</a>
+                            <x-delete-modal 
+                                id="{{ $faq->id }}" 
+                                name="{{ $faq->title }}" 
+                                action="{{ route('admin.faq.destroy', $faq->id) }}"
+                            /> 
                         </td>
                     </tr>    
                 @empty

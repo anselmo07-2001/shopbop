@@ -36,4 +36,9 @@ class FAQManagementController extends Controller
             ->with('success', 'FAQ created successfully!');
 
     }
+
+    public function destroy(Faq $faq) {
+        $faq->delete();
+        return back()->with('success', 'FAQ deleted successfully!');
+    }
 }

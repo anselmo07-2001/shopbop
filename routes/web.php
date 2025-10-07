@@ -190,6 +190,7 @@ Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
     Route::get("/", [FAQManagementController::class, "index"])->name("index");
     Route::get("/create", [FAQManagementController::class, "create"])->name("create");
     Route::post("/", [FAQManagementController::class, "store"])->name("store");
+    Route::delete("/{faq}/delete", [FAQManagementController::class, "destroy"])->name("destroy");
 });
 
 
