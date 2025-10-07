@@ -51,7 +51,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $faq->title }}</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-pencil me-1"></i> Edit</a>
+                            <a href="{{ route('admin.faq.edit', $faq->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil me-1"></i> Edit</a>
                             <x-delete-modal 
                                 id="{{ $faq->id }}" 
                                 name="{{ $faq->title }}" 

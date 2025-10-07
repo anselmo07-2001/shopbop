@@ -191,6 +191,8 @@ Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
     Route::get("/create", [FAQManagementController::class, "create"])->name("create");
     Route::post("/", [FAQManagementController::class, "store"])->name("store");
     Route::delete("/{faq}/delete", [FAQManagementController::class, "destroy"])->name("destroy");
+    Route::get("/{faq}/edit", [FAQManagementController::class, "edit"])->name("edit");
+    Route::put("/{faq}/update", [FAQManagementController::class, "update"])->name("update");
 });
 
 
