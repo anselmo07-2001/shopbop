@@ -114,8 +114,8 @@
 
         <!-- CMS -->
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/registered-customers') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.registeredCustomers') }}">
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.registeredCustomers.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.registeredCustomers.index') }}">
                 <i class="fa fa-sliders-h me-2"></i>Registered Customers
           </a>
         </li>

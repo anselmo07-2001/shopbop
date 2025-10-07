@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FAQManagementController;
 use App\Http\Controllers\Admin\ManageSlidersController;
 use App\Http\Controllers\Admin\OrderManagementController;
 use App\Http\Controllers\Admin\ProductManagementController;
+use App\Http\Controllers\Admin\RegisteredCustomerManagementController;
 use App\Http\Controllers\Admin\ServicesManagementController;
 use App\Http\Controllers\Admin\ShopSettings\ColorController;
 use App\Http\Controllers\Admin\ShopSettings\CountryController;
@@ -195,6 +196,10 @@ Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
     Route::put("/{faq}/update", [FAQManagementController::class, "update"])->name("update");
 });
 
+Route::prefix("/admin/registered-customers")->name("admin.registeredCustomers.")->group(function() {
+    Route::get("/", [RegisteredCustomerManagementController::class, "index"])->name("index");
+});
+
 
 
 
@@ -213,7 +218,7 @@ Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
 // Route::get("/admin/manage-sliders", [AdminController::class, "manageSliders"])->name("admin.manageSliders");
 // Route::get("/admin/services", [AdminController::class, "services"])->name("admin.services");
 // Route::get("/admin/faq", [AdminController::class, "faq"])->name("admin.faq");
-Route::get("/admin/registered-customers", [AdminController::class, "registeredCustomers"])->name("admin.registeredCustomers");
+// Route::get("/admin/registered-customers", [AdminController::class, "registeredCustomers"])->name("admin.registeredCustomers");
 Route::get("/admin/page-settings", [AdminController::class, "pageSettings"])->name("admin.pageSettings");
 Route::get("/admin/social-media", [AdminController::class, "socialMedia"])->name("admin.socialMedia");
 Route::get("/admin/subscriber", [AdminController::class, "subscriber"])->name("admin.subscriber");
