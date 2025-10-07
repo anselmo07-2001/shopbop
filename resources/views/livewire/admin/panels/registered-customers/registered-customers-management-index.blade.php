@@ -8,30 +8,81 @@
     <div class="row mb-3">
         <div class="col-md-6 d-flex align-items-center">
             <label class="form-label me-2 mb-0">Show</label>
-            <select class="form-select form-select-sm w-auto">
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
+            <select wire:model.live="perPage" class="form-select form-select-sm w-auto">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
             </select>
             <span class="ms-2">entries</span>
         </div>
         <div class="col-md-6 text-end">
-            <input type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
+            <input type="text" wire:model.live.debounce.300ms="search" 
+                   class="form-control form-control-sm w-auto d-inline" placeholder="Search customer">
         </div>
     </div>
 
     <!-- Table -->
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover align-middle">
+        <table class="table table-striped table-hover align-middle">
             <thead class="table-light">
                 <tr>
-                    <th># <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                    <th>Name <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                    <th>Email Address <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                    <th>Country <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                    <th>City <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                    <th>State <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                    <th>Status <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
+                    <th scope="col">
+                        <div class="d-flex align-items-center">
+                            <span class="me-1">#</span>
+                            <button wire:click="sortBy('id')" class="btn btn-sm btn-link p-0 text-secondary">
+                                <i class="bi bi-arrow-down-up"></i>
+                            </button>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="d-flex align-items-center">
+                            <span class="me-1">Name</span>
+                            <button wire:click="sortBy('name')" class="btn btn-sm btn-link p-0 text-secondary">
+                                <i class="bi bi-arrow-down-up"></i>
+                            </button>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="d-flex align-items-center">
+                            <span class="me-1">Email Address</span>
+                            <button wire:click="sortBy('email')" class="btn btn-sm btn-link p-0 text-secondary">
+                                <i class="bi bi-arrow-down-up"></i>
+                            </button>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="d-flex align-items-center">
+                            <span class="me-1">Country</span>
+                            <button wire:click="sortBy('country')" class="btn btn-sm btn-link p-0 text-secondary">
+                                <i class="bi bi-arrow-down-up"></i>
+                            </button>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="d-flex align-items-center">
+                            <span class="me-1">City</span>
+                            <button wire:click="sortBy('city')" class="btn btn-sm btn-link p-0 text-secondary">
+                                <i class="bi bi-arrow-down-up"></i>
+                            </button>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="d-flex align-items-center">
+                            <span class="me-1">State</span>
+                            <button wire:click="sortBy('state')" class="btn btn-sm btn-link p-0 text-secondary">
+                                <i class="bi bi-arrow-down-up"></i>
+                            </button>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="d-flex align-items-center">
+                            <span class="me-1">Status</span>
+                            <button wire:click="sortBy('status')" class="btn btn-sm btn-link p-0 text-secondary">
+                                <i class="bi bi-arrow-down-up"></i>
+                            </button>
+                        </div>
+                    </th>
+
                     <th>Change Status</th>
                     <th>Action</th>
                 </tr>
