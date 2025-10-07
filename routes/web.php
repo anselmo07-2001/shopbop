@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\FAQManagementController;
 use App\Http\Controllers\Admin\ManageSlidersController;
 use App\Http\Controllers\Admin\OrderManagementController;
 use App\Http\Controllers\Admin\ProductManagementController;
@@ -30,6 +31,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Models\Product;
+use App\Models\Service;
 use App\Models\ShippingCost;
 use App\Models\ShippingCostAll;
 use Illuminate\Support\Facades\Route;
@@ -184,6 +186,10 @@ Route::prefix("/admin/services")->name("admin.services.")->group(function() {
     Route::put("/{service}/update", [ServicesManagementController::class, "update"])->name("update");
 });
 
+Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
+    Route::get("/", [FAQManagementController::class, "index"])->name("index");
+});
+
 
 
 
@@ -201,7 +207,7 @@ Route::prefix("/admin/services")->name("admin.services.")->group(function() {
 // Route::get("/admin/order-management", [AdminController::class, "orderManagement"])->name("admin.orderManagement");
 // Route::get("/admin/manage-sliders", [AdminController::class, "manageSliders"])->name("admin.manageSliders");
 // Route::get("/admin/services", [AdminController::class, "services"])->name("admin.services");
-Route::get("/admin/faq", [AdminController::class, "faq"])->name("admin.faq");
+// Route::get("/admin/faq", [AdminController::class, "faq"])->name("admin.faq");
 Route::get("/admin/registered-customers", [AdminController::class, "registeredCustomers"])->name("admin.registeredCustomers");
 Route::get("/admin/page-settings", [AdminController::class, "pageSettings"])->name("admin.pageSettings");
 Route::get("/admin/social-media", [AdminController::class, "socialMedia"])->name("admin.socialMedia");

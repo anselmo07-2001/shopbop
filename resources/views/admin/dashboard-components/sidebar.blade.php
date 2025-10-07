@@ -106,8 +106,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/faq') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.faq') }}">
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.faq.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.faq.index') }}">
                 <i class="fa fa-truck me-2"></i>FAQ
           </a>
         </li>
