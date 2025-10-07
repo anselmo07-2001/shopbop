@@ -33,16 +33,26 @@
                </tr>
             </thead>
             <tbody>
-               <tr>
-                  <td>1</td>
-                  <td><img src="assets/uploads/slider-sample.jpg" alt="Slider" class="img-thumbnail" width="80"></td>
-                  <td>Easy Returns</td>
-                  <td>Return any item before 15 days!</td>
-                  <td>
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                  </td>
-               </tr>
+               @forelse ($services as $service)
+                  <tr>
+                     <td>{{ $loop->iteration }}</td>
+                     <td>
+                        <img src="{{ asset('services/' . $service->photo) }}" alt="Slider" class="img-thumbnail" width="80">
+                     </td>
+                     <td>{{ $service->title }}</td>
+                     <td>{{ $service->content }}</td>
+                     <td>
+                           <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                           <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                     </td>
+                  </tr>     
+               @empty
+                  <tr>
+                     <td colspan="8" class="text-center p-5 text-muted">
+                        <i class="fa-solid fa-bell-slash me-2"></i> No services found matching your criteria.
+                     </td>
+                  </tr>
+               @endforelse
             </tbody>
       </table>
    </div>
