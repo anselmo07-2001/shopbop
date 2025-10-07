@@ -69,7 +69,7 @@ class ManageSlidersController extends Controller
 
         if ($request->hasFile("photo") && Storage::disk("public")->exists("carousel/" . $slider->image_path) ) {
            // delete the previous slider image
-           Storage::disk("public")->delete("carousel/", $slider->image_path);
+           Storage::disk("public")->delete("carousel/" . $slider->image_path);
 
            // store the new slider image
            $path = $request->file("photo")->store("carousel", "public");
