@@ -1,0 +1,85 @@
+<x-layout-admin-panel>
+    <x-flash-message session_name="success" />
+    <x-flash-message session_name="error" />
+
+    <div class="container-fluid py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5><i class="fa fa-plus-square me-2"></i> Add Slide</h5>
+                <a href="{{ route('admin.manageSliders.index') }}" class="btn btn-dark btn-md">
+                    <i class="fa fa-arrow-left me-1"></i> View All
+                </a>
+        </div>
+
+        <!-- Form -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+            <form method="POST" action="{{ route("admin.manageSliders.update", $slider->id) }}" 
+                  enctype="multipart/form-data">
+                @csrf
+                @method("PUT")
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <p class="text-secondary">Preview</p>
+                        <img id="photoPreview" 
+                            src="{{ asset('carousel/' . $slider->image_path) }}" 
+                            alt="Image preview" 
+                            style="width: 150px; height: 150px; object-fit: cover;" >
+                    </div>
+                    
+                    <hr class="my-3"> 
+                    <label for="photo" class="form-label">Photo</label>
+                    <div class="input-group"> 
+                        <input id="photo" type="file" class="form-control" name="photo">
+                    </div>
+                    <x-error-input-message field="photo"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input id="title" name="title" type="text" class="form-control" 
+                           placeholder="Enter title" value="{{ old('title', $slider->title ?? '') }}">
+                    <x-error-input-message field="title"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="subtitle" class="form-label">Subtitle</label>
+                    <textarea id="subtitle" name="subtitle" class="form-control" rows="3" 
+                            placeholder="Enter subtitle">{{ old('subtitle', $slider->subtitle ?? '') }}</textarea>
+                    <x-error-input-message field="subtitle"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="button_text" class="form-label">Button Text</label>
+                    <input id="button_text" type="text" class="form-control" name="button_text" 
+                           placeholder="Enter button text" value="{{ old('button_text', $slider->button_text ?? '') }}">
+                    <x-error-input-message field="button_text"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="button_url" class="form-label">Button URL</label>
+                    <input id="button_url" type="text" class="form-control" name="button_url" 
+                           placeholder="Enter button URL" value="{{ old('button_url', $slider->button_link ?? '') }}">
+                    <x-error-input-message field="button_url" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="position" class="form-label">Position</label>
+                    <select class="form-select" name="position">
+                        <option value="">-- Select Position --</option>
+                        <option value="start" {{ old("position", $slider->text_align ?? "") == "start" ? "selected" : "" }}>Left</option>
+                        <option value="center" {{ old("position", $slider->text_align ?? "") == "center" ? "selected" : "" }}>Center</option>
+                        <option value="end" {{ old("position", $slider->text_align ?? "") == "end" ? "selected" : "" }}>Right</option>
+                    </select>
+                    <x-error-input-message field="position"/>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save me-1"></i> Update
+                    </button>
+                </div>
+            </form>
+            </div>
+        </div>   
+    </div>
+</x-layout-admin-panel>

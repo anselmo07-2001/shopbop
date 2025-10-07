@@ -86,7 +86,8 @@
                                 <td>{{ $slider->button_link }}</td>
                                 <td>{{ $slider->text_align }}</td>
                                 <td class="">
-                                    <button class="btn btn-sm btn-warning mb-2"><i class="fa fa-edit"></i> Edit</button>
+                                    <a href="{{ route('admin.manageSliders.edit', $slider->id ) }}" 
+                                       class="btn btn-sm btn-warning mb-2"><i class="fa fa-edit"></i> Edit</a>
                                     <x-delete-modal 
                                         id="{{ $slider->id }}" 
                                         name="{{ $slider->title }}" 

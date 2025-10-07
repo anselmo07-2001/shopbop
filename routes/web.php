@@ -170,6 +170,8 @@ Route::prefix("/admin/manage-sliders")->name("admin.manageSliders.")->group(func
     Route::get("/create", [ManageSlidersController::class, "create"])->name("create");
     Route::post("/", [ManageSlidersController::class, "store"])->name("store");
     Route::delete("/{slider}/delete", [ManageSlidersController::class, "destroy"])->name("destroy");
+    Route::get("/{slider}/edit", [ManageSlidersController::class, "edit"])->name("edit");
+    Route::put("/{slider}/update", [ManageSlidersController::class, "update"])->name("update");
 });
 
 
