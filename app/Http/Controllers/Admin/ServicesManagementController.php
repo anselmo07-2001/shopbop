@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServicesManagementController extends Controller
 {
@@ -34,5 +35,15 @@ class ServicesManagementController extends Controller
         ]);
 
         return redirect()->route("admin.services.index")->with("success", "Created service successfully.");
+    }
+
+    public function destroy(Service $service) {
+        if ($service->photo && Storage::disk("public")->exists("services/" . $service->photo)) {
+            Storage::disk("public")->delete("services/" . $service->photo);
+        }
+
+        $service->delete();
+
+        return back()->with("success", "Deleted service successfully.");
     }
 }

@@ -65,7 +65,11 @@
                      <td>{{ $service->content }}</td>
                      <td>
                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                           <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                           <x-delete-modal 
+                              id="{{ $service->id }}" 
+                              name="{{ $service->title }}" 
+                              action="{{ route('admin.services.destroy', $service->id) }}"
+                           /> 
                      </td>
                   </tr>     
                @empty
