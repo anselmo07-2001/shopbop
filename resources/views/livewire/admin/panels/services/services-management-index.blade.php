@@ -9,15 +9,17 @@
    <div class="row mb-3">
       <div class="col-md-6 d-flex align-items-center">
             <label class="form-label me-2 mb-0">Show</label>
-            <select class="form-select form-select-sm w-auto">
-               <option>10</option>
-               <option>25</option>
-               <option>50</option>
+            <select wire:model.live="perPage" class="form-select form-select-sm w-auto">
+               <option value="10">10</option>
+               <option value="25">25</option>
+               <option value="50">50</option>
+               <option value="2">2</option>
             </select>
             <span class="ms-2">entries</span>
       </div>
       <div class="col-md-6 text-end">
-            <input type="text" class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
+            <input type="text" wire:model.live.debounce.300ms="search" 
+                   class="form-control form-control-sm w-auto d-inline" placeholder="Search...">
       </div>
    </div>
 
@@ -25,10 +27,31 @@
       <table class="table table-striped table-hover align-middle">
             <thead class="table-light">
                <tr>
-                  <th># <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
+                  <th scope="col">
+                     <div class="d-flex align-items-center">
+                        <span class="me-1">#</span>
+                        <button wire:click="sortBy('id')" class="btn btn-sm btn-link p-0 text-secondary">
+                              <i class="bi bi-arrow-down-up"></i>
+                        </button>
+                     </div>
+                  </th>
                   <th>Photo</th>
-                  <th>Title <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
-                  <th>Content <i class="bi bi-arrow-down-up ms-1 text-muted"></i></th>
+                  <th scope="col">
+                     <div class="d-flex align-items-center">
+                        <span class="me-1">Title</span>
+                        <button wire:click="sortBy('title')" class="btn btn-sm btn-link p-0 text-secondary">
+                              <i class="bi bi-arrow-down-up"></i>
+                        </button>
+                     </div>
+                  </th>
+                  <th scope="col">
+                     <div class="d-flex align-items-center">
+                        <span class="me-1">Content</span>
+                        <button wire:click="sortBy('content')" class="btn btn-sm btn-link p-0 text-secondary">
+                              <i class="bi bi-arrow-down-up"></i>
+                        </button>
+                     </div>
+                  </th>
                   <th>Action</th>
                </tr>
             </thead>
@@ -57,15 +80,13 @@
       </table>
    </div>
  
-   <div class="d-flex justify-content-between align-items-center mt-2">
-      <small class="text-muted">Showing 1 to 10 of 20 entries</small>
-      <nav>
-            <ul class="pagination pagination-sm mb-0">
-               <li class="page-item disabled"><a class="page-link">Previous</a></li>
-               <li class="page-item active"><a class="page-link" href="#">1</a></li>
-               <li class="page-item"><a class="page-link" href="#">2</a></li>
-               <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-      </nav>
-   </div>
+   <div class="d-flex justify-content-between align-items-center mt-3">
+        <small class="text-muted">
+            Showing {{ $services->firstItem() }} to {{ $services->lastItem() }} of {{ $services->total() }} entries
+        </small>
+        
+        <nav>
+            {{ $services->links("pagination::livewire-bootstrap") }}
+        </nav>
+    </div>
 </div>
