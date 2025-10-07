@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
    <div class="d-flex justify-content-between align-items-center mb-3">
       <h4 class="mb-0"><i class="fa-solid fa-screwdriver-wrench"></i> Services</h4>
-      <a class="btn btn-dark" href="admin-service-add.html">
+      <a class="btn btn-dark" href="{{ route('admin.services.create') }}">
             <i class="bi bi-plus-circle me-1"></i> Add Service
       </a>
    </div>
@@ -13,7 +13,6 @@
                <option value="10">10</option>
                <option value="25">25</option>
                <option value="50">50</option>
-               <option value="2">2</option>
             </select>
             <span class="ms-2">entries</span>
       </div>

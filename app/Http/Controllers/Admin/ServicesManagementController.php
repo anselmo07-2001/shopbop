@@ -2,10 +2,37 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Service;
+use Illuminate\Http\Request;
 
 class ServicesManagementController extends Controller
 {
     public function index() {
         return view("admin.panels.services.index");
+    }
+
+    public function create() {
+        return view("admin.panels.services.create");
+    }
+
+    public function store(Request $request) {
+        $validated_data = $request->validate([
+            "photo" => "required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048",
+            "title" => "required|string|max:255",
+            "content" => "required|string|min:5"
+        ]);
+
+        if ($request->hasFile("photo")) {
+            $path = $request->file("photo")->store("services", "public");
+            $validated_data["photo"] = basename($path);
+        }
+
+        Service::create([
+            "photo" => $validated_data["photo"],
+            "title" => $validated_data["title"],
+            "content" => $validated_data["content"]
+        ]);
+
+        return redirect()->route("admin.services.index")->with("success", "Created service successfully.");
     }
 }
