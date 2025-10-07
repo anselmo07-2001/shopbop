@@ -100,8 +100,8 @@
 
         <!-- Orders -->
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/services') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.services') }}">
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.services.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.services.index') }}">
                 <i class="fa fa-shopping-cart me-2"></i>Services
           </a>
         </li>
