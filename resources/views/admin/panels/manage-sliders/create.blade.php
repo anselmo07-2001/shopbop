@@ -13,9 +13,19 @@
             <form method="POST" action="{{ route("admin.manageSliders.store") }}" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
+                    <div class="mb-2">
+                        <p class="text-secondary">Preview</p>
+                        <img id="photoPreview" 
+                            src="{{ asset('photo/empty-photo.png') }}" 
+                            alt="Image preview" 
+                            style="width: 150px; height: 150px; object-fit: cover;" >
+                    </div>
+                    
+                    <hr class="my-3"> 
                     <label for="photo" class="form-label">Photo</label>
-                    <input id="photo" name="photo" type="file" class="form-control" 
-                           name="photo">
+                    <div class="input-group"> 
+                        <input id="photo" type="file" class="form-control" name="photo">
+                    </div>
                     <x-error-input-message field="photo"/>
                 </div>
 
