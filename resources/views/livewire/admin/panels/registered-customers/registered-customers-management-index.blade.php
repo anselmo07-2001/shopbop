@@ -102,7 +102,15 @@
                             </span>
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-warning">Change Status</a>
+                            <form action="{{ route('admin.registeredCustomers.updateStatus', $customer->id) }}" 
+                                method="POST" 
+                                style="display:inline;">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-sm btn-warning">
+                                    Change Status
+                                </button>
+                            </form>
                         </td>
                         <td>
                             <a href="#" class="btn btn-sm btn-danger">Delete</a>
