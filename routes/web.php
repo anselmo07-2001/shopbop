@@ -188,6 +188,8 @@ Route::prefix("/admin/services")->name("admin.services.")->group(function() {
 
 Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
     Route::get("/", [FAQManagementController::class, "index"])->name("index");
+    Route::get("/create", [FAQManagementController::class, "create"])->name("create");
+    Route::post("/", [FAQManagementController::class, "store"])->name("store");
 });
 
 
