@@ -50,21 +50,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /****ADMIN MANAGE SLIDER PANEL LIVE PREVIEW CREATE/EDIT FORM */
-document.getElementById('photo').addEventListener('change', function(event) {
-    const preview = document.getElementById('photoPreview');
-    const file = event.target.files[0];
+document.addEventListener('DOMContentLoaded', function() {
+    const photoInput = document.getElementById('photo');
+    if (!photoInput) return; // prevent error if element doesn't exist
 
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-    } else {
-        preview.src = '';
-        preview.style.display = 'none';
-    }
+    photoInput.addEventListener('change', function(event) {
+        const preview = document.getElementById('photoPreview');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    });
 });
 
 

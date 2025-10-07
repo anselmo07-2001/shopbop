@@ -20,7 +20,7 @@
 
                     <div class="mb-3">
                         <label for="content" class="form-label">Content</label>
-                        <textarea id="content" class="form-control" name="content"
+                        <textarea data-editor id="content" class="form-control" name="content"
                                  rows="4" placeholder="Enter FAQ content">{{ old("content", "") }}</textarea>
                         <x-error-input-message field="content"/>
                     </div>
