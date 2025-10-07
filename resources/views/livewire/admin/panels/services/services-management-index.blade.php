@@ -64,7 +64,7 @@
                      <td>{{ $service->title }}</td>
                      <td>{{ $service->content }}</td>
                      <td>
-                           <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                           <a href="{{ route('admin.services.edit', $service->id) }}" class="btn btn-sm btn-primary">Edit</a>
                            <x-delete-modal 
                               id="{{ $service->id }}" 
                               name="{{ $service->title }}" 
