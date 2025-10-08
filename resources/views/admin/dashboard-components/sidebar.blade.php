@@ -126,8 +126,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/social-media') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.socialMedia') }}">
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.socialMedia.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.socialMedia.index') }}">
                 <i class="bi bi-share me-2"></i>Social Media
           </a>
         </li>

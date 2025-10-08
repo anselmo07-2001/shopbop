@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ShopSettings\ShippingCostController;
 use App\Http\Controllers\Admin\ShopSettings\ShippingCostsAllController;
 use App\Http\Controllers\Admin\ShopSettings\SizeController;
 use App\Http\Controllers\Admin\ShopSettings\TopLevelCategoryController;
+use App\Http\Controllers\Admin\SocialMediaManagementController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
@@ -202,7 +203,10 @@ Route::prefix("/admin/registered-customers")->name("admin.registeredCustomers.")
     Route::delete("/{customer}/delete", [RegisteredCustomerManagementController::class, "destroy"])->name("destroy");
 });
 
-
+Route::prefix("/admin/social-media")->name("admin.socialMedia.")->group(function() {
+    Route::get("/", [SocialMediaManagementController::class, "index"])->name("index");
+    Route::put("/update", [SocialMediaManagementController::class, "update"])->name("update");
+});
 
 
 
@@ -222,7 +226,7 @@ Route::prefix("/admin/registered-customers")->name("admin.registeredCustomers.")
 // Route::get("/admin/faq", [AdminController::class, "faq"])->name("admin.faq");
 // Route::get("/admin/registered-customers", [AdminController::class, "registeredCustomers"])->name("admin.registeredCustomers");
 Route::get("/admin/page-settings", [AdminController::class, "pageSettings"])->name("admin.pageSettings");
-Route::get("/admin/social-media", [AdminController::class, "socialMedia"])->name("admin.socialMedia");
+// Route::get("/admin/social-media", [AdminController::class, "socialMedia"])->name("admin.socialMedia");
 Route::get("/admin/subscriber", [AdminController::class, "subscriber"])->name("admin.subscriber");
 
 
