@@ -199,6 +199,7 @@ Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
 Route::prefix("/admin/registered-customers")->name("admin.registeredCustomers.")->group(function() {
     Route::get("/", [RegisteredCustomerManagementController::class, "index"])->name("index");
     Route::put("/{customer}/updateStatus", [RegisteredCustomerManagementController::class, "updateStatus"])->name("updateStatus");
+    Route::delete("/{customer}/delete", [RegisteredCustomerManagementController::class, "destroy"])->name("destroy");
 });
 
 

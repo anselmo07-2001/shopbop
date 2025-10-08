@@ -113,7 +113,11 @@
                             </form>
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                            <x-delete-modal 
+                                id="{{ $customer->id }}" 
+                                name="{{ $customer->full_name }}" 
+                                action="{{ route('admin.registeredCustomers.destroy', $customer->id ) }}"
+                            /> 
                         </td>
                     </tr>              
                 @empty

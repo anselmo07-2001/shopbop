@@ -20,4 +20,9 @@ class RegisteredCustomerManagementController extends Controller
         $customer->update(['status' => $newStatus]);
         return back()->with('success', "Customer status updated to {$newStatus}.");
     }
+
+    public function destroy(Customer $customer) {
+        $customer->delete();
+        return back()->with('success', "Customer deleted successfully.");
+    }
 }
