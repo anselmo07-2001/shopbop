@@ -12,7 +12,7 @@
             <ul class="list-inline mb-0">
                 @foreach ($socials as $social)
                     @if (in_array($social->name, ["Facebook", "X", "YouTube", "Instagram", "WhatsApp"] ))
-                        <li class="list-inline-item"><a href="{{ $social->url }}"><i class="fab {{ $social->icon }} text-white"></i></a></li>       
+                        <li class="list-inline-item"><a href="{{ $social->url }}"><i class="{{ $social->icon }} text-white"></i></a></li>       
                     @endif
                 @endforeach         
             </ul>
