@@ -38,7 +38,7 @@
                     <div class="mb-3">
                         <label for="about_us_content" class="form-label">Page Content</label>
                         <textarea id="about_us_content" name="about_us_content" 
-                                  data-editor class="form-control" rows="4" 
+                                  class="form-control" rows="7" 
                                   placeholder="Enter About Us content...">{{ old('about_us_content', $page_settings->about_us_content ?? '') }}</textarea>
                         <x-error-input-message field="about_us_content"/>
                     </div>
