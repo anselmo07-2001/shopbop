@@ -1,12 +1,13 @@
-<x-layout>
+<x-layout :metaTitle="$faq_settings->faq_meta_title" :metaKeywords="$faq_settings->faq_meta_keywords"
+          :metaDescription="$faq_settings->faq_meta_description">
+
   <section class="bg-light py-5">
         <div class="container">
                 <div class="row justify-content-center mb-4">
                     <div class="col-lg-8 text-center">
-                        <h2 class="fw-bold mb-3">Frequently Asked Questions</h2>
+                        <h2 class="fw-bold mb-3">{{ $faq_settings->faq_title }}</h2>
                         <p class="text-muted fs-6">
-                        Here are some of the most common questions our customers ask.  
-                        Click on a question to see the answer.
+                            {{ $faq_settings->faq_subtitle }}
                         </p>
                     </div>
                 </div>

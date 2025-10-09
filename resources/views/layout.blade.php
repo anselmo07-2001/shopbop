@@ -15,7 +15,6 @@
 
     <title>{{ $metaTitle ?? $global_page_settings->meta_title }}</title>
 
-
     <meta name="keywords" content="{{ $metaKeywords ?? $global_page_settings->meta_keywords }}">
     <meta name="description" content="{{ $metaDescription ?? $global_page_settings->meta_description }}">
 

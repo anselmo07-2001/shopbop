@@ -42,6 +42,11 @@ class PageSetting extends Model
         "meta_title", 
         "meta_keywords",
         "meta_description",
-        "business_email"
+        "business_email",
+        "faq_title",
+        "faq_subtitle",
+        "faq_meta_title",
+        "faq_meta_keywords",
+        "faq_meta_description",
     ];
 }

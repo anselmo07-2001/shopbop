@@ -18,7 +18,7 @@ class PageSettingsController extends Controller
     }
 
     public function updateAboutUs(Request $request) {
-        $validatedData = $request->validate([
+        $validated_data = $request->validate([
             "about_us_title" => "required|string|max:255",
             "about_us_content" => "required|string",
             "about_us_meta_title" => "required|string|max:255",
@@ -26,12 +26,30 @@ class PageSettingsController extends Controller
             "about_us_meta_description" => "required|string"
         ]);
 
-        $validatedData = array_map('trim', $validatedData);
+        $validated_data = array_map('trim', $validated_data);
 
-        $page = PageSetting::firstOrFail();
+        $page_settings = PageSetting::firstOrFail();
 
-        $page->update($validatedData);
+        $page_settings->update($validated_data);
 
         return back()->with("success", "Successfully updated the about us page.");
+    }
+
+    public function updateFAQ(Request $request){
+        $validated_data = $request->validate([
+            "faq_title" => "required|string|max:255",
+            "faq_subtitle" => "required|string|max:255",
+            "faq_meta_title" => "nullable|string|max:255",
+            "faq_meta_keywords" => "nullable|string",
+            "faq_meta_description" => "nullable|string",
+        ]);
+
+        $validated_data = array_map('trim', $validated_data);
+
+        $page_settings = PageSetting::firstOrFail();
+
+        $page_settings->update($validated_data);
+
+        return back()->with("success", "Successfully updated the FAQ page.");
     }
 }

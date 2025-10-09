@@ -71,27 +71,47 @@
 
             <!-- FAQ -->
             <div class="tab-pane fade {{ $tab == 'faq' ? 'show active' : '' }}" id="faq" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Page Title</label>
-                    <input type="text" class="form-control" placeholder="Enter FAQ title">
-                </div>
+                <form method="POST" action="{{ route("admin.pageSettings.updateFAQ") }}">
+                    @csrf
+                    @method("PUT")
+                    <div class="mb-3">
+                        <label for="faq_title" class="form-label">Page Title</label>
+                        <input id="faq_title" name="faq_title" type="text" class="form-control" 
+                            placeholder="Enter FAQ title" value="{{ old('faq_title', $page_settings->faq_title) }}">
+                        <x-error-input-message field="faq_title"/> 
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Meta Title</label>
-                    <input type="text" class="form-control" placeholder="Enter meta title">
-                </div>
+                    <div class="mb-3">
+                        <label for="faq_subtitle" class="form-label">Page Subtitle</label>
+                        <input id="faq_subtitle" name="faq_subtitle" type="text" 
+                            class="form-control" placeholder="Enter FAQ title" 
+                            value="{{ old('faq_title', $page_settings->faq_subtitle) }}">
+                        <x-error-input-message field="faq_subtitle"/>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Meta Keywords</label>
-                    <textarea class="form-control" rows="2" placeholder="Enter meta keywords"></textarea>
-                </div>
+                    <div class="mb-3">
+                        <label for="faq_meta_title" class="form-label">Meta Title</label>
+                        <input id="faq_meta_title" name="faq_meta_title" type="text" class="form-control" 
+                            placeholder="Enter meta title" value="{{ old('faq_meta_title', $page_settings->faq_meta_title) }}">
+                        <x-error-input-message field="faq_meta_title"/>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Meta Description</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter meta description"></textarea>
-                </div>
+                    <div class="mb-3">
+                        <label for="faq_meta_keywords" class="form-label">Meta Keywords</label>
+                        <textarea id="faq_meta_keywords" name="faq_meta_keywords" class="form-control" rows="2"  
+                            placeholder="Enter meta keywords">{{ old('faq_meta_keywords', $page_settings->faq_meta_keywords) }}</textarea>
+                        <x-error-input-message field="faq_meta_keywords"/>
+                    </div>
 
-                <button class="btn btn-primary">Update</button>
+                    <div class="mb-3">
+                        <label for="faq_meta_description" class="form-label">Meta Description</label>
+                        <textarea id="faq_meta_description" name="faq_meta_description" class="form-control" rows="3" 
+                            placeholder="Enter meta description">{{ old('faq_meta_description', $page_settings->faq_meta_description) }}</textarea>
+                        <x-error-input-message field="faq_meta_description"/>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                <form>        
             </div>
 
             <!-- Contact -->
