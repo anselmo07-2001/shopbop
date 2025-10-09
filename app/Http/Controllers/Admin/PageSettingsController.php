@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 class PageSettingsController extends Controller
 {
-    public function index() {
-        return view("admin.panels.page-settings.index");
+    public function index(Request $request) {
+        $tab = request("tab", "about_us");
+
+        return view("admin.panels.page-settings.index", compact("tab"));
     }
 }

@@ -3,21 +3,25 @@
         <h4 class="mb-3"><i class="bi bi-file-earmark-text me-2"></i>Page Setting</h4>
 
         <ul class="nav nav-tabs" id="pageSettingsTab" role="tablist">
+
             <li class="nav-item" role="presentation">
-                <button class="nav-link active text-dark" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab">About Us</button>
+                <a href="{{ route('admin.pageSettings.index', ['tab' => 'about_us']) }}" 
+                   class="nav-link text-dark {{ $tab == 'about_us' ? 'active' : '' }}" id="about-tab" role="tab">About Us</a>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="faq-tab" data-bs-toggle="tab" data-bs-target="#faq" type="button" role="tab">FAQ</button>
+                <a href="{{ route('admin.pageSettings.index', ['tab' => 'faq']) }}" 
+                   class="nav-link text-dark {{ $tab == 'faq' ? 'active' : '' }}" id="faq-tab" role="tab">FAQ</a>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab">Contact</button>
+                <a href="{{ route('admin.pageSettings.index', ['tab' => 'contact']) }}" 
+                   class="nav-link text-dark {{ $tab == 'contact' ? 'active' : '' }}" id="contact-tab" role="tab">Contact</a>
             </li>
-            </ul>
+        </ul>
 
         <!-- Tab Content -->
         <div class="tab-content border border-top-0 p-4 bg-white" id="pageSettingsTabContent">
 
-            <div class="tab-pane fade show active" id="about" role="tabpanel">
+            <div class="tab-pane fade {{ $tab == 'about_us' ? 'show active' : '' }}" id="about" role="tabpanel">
                 <div class="mb-3">
                     <label class="form-label">Page Title</label>
                     <input type="text" class="form-control" placeholder="Enter About Us title">
@@ -47,7 +51,7 @@
             </div>
 
             <!-- FAQ -->
-            <div class="tab-pane fade" id="faq" role="tabpanel">
+            <div class="tab-pane fade {{ $tab == 'faq' ? 'show active' : '' }}" id="faq" role="tabpanel">
                 <div class="mb-3">
                     <label class="form-label">Page Title</label>
                     <input type="text" class="form-control" placeholder="Enter FAQ title">
@@ -72,7 +76,7 @@
             </div>
 
             <!-- Contact -->
-            <div class="tab-pane fade" id="contact" role="tabpanel">
+            <div class="tab-pane fade {{ $tab == 'contact' ? 'show active' : '' }}" id="contact" role="tabpanel">
                 <div class="mb-3">
                     <label class="form-label">Page Title</label>
                     <input type="text" class="form-control" placeholder="Enter Contact page title">
