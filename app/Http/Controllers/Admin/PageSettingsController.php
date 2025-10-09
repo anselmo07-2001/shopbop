@@ -65,4 +65,22 @@ class PageSettingsController extends Controller
 
         return back()->with("success", "Successfully updated the FAQ page.");
     }
+
+    public function updateContact(Request $request) {
+        $validated_data = $request->validate([
+            "contact_title" => "required|string|max:255",
+            "contact_subtitle" => "required|string|max:255",
+            "contact_meta_title" => "nullable|string|max:255",
+            "contact_meta_keywords" => "nullable|string",
+            "contact_meta_description" => "nullable|string",
+        ]);
+
+        $validated_data = $this->nullify($validated_data);
+
+        $page_settings = PageSetting::firstOrFail();
+
+        $page_settings->update($validated_data);
+
+        return back()->with("success", "Successfully updated the Contact page.");
+    }
 }

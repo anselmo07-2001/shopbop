@@ -111,32 +111,54 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>
-                <form>        
+                </form>        
             </div>
 
             <!-- Contact -->
             <div class="tab-pane fade {{ $tab == 'contact' ? 'show active' : '' }}" id="contact" role="tabpanel">
-                <div class="mb-3">
-                    <label class="form-label">Page Title</label>
-                    <input type="text" class="form-control" placeholder="Enter Contact page title">
-                </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Meta Title</label>
-                    <input type="text" class="form-control" placeholder="Enter meta title">
-                </div>
+                <form method="POST" action="{{ route('admin.pageSettings.updateContact') }}">
+                    @csrf
+                    @method("PUT")
+                    <div class="mb-3">
+                        <label for="contact_title" class="form-label">Page Title</label>
+                        <input id="contact_title" name="contact_title" type="text" class="form-control" 
+                            placeholder="Enter Contact page title" value="{{ old('contact_title', $page_settings->contact_title) }}">
+                        <x-error-input-message field="contact_title"/>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Meta Keywords</label>
-                    <input type="text" class="form-control" placeholder="Enter meta keywords">
-                </div>
+                    <div class="mb-3">
+                        <label for="contact_subtitle" class="form-label">Page Subtitle</label>
+                        <input id="contact_subsubtitle" name="contact_subtitle" type="text" class="form-control" 
+                            placeholder="Enter Contact page title" value="{{ old('contact_subtitle', $page_settings->contact_subtitle) }}">
+                        <x-error-input-message field="contact_subtitle"/>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Meta Description</label>
-                    <input type="text" class="form-control" placeholder="Enter meta description">
-                </div>
 
-                <button class="btn btn-primary">Update</button>
+                    <div class="mb-3">
+                        <label for="contact_meta_title" class="form-label">Meta Title</label>
+                        <input id="contact_meta_title" name="contact_meta_title" type="text" class="form-control" 
+                            placeholder="Enter meta title" value="{{ old('contact_meta_title', $page_settings->contact_meta_title) }}">
+                        <x-error-input-message field="contact_meta_title"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contact_meta_keywords" class="form-label">Meta Keywords</label>
+                        <input id="contact_meta_keywords" name="contact_meta_keywords" type="text" class="form-control" 
+                            placeholder="Enter meta keywords" value="{{ old('contact_meta_keywords', $page_settings->contact_meta_keywords) }}">
+                        <x-error-input-message field="contact_meta_keywords"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contact_meta_description" class="form-label">Meta Description</label>
+                        <input name="contact_meta_description" id="contact_meta_description" type="text" class="form-control" 
+                            placeholder="Enter meta description" 
+                            value="{{ old('contact_meta_description', $page_settings->contact_meta_description) }}">
+                        <x-error-input-message field="contact_meta_description"/>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
             </div>
 
         </div>

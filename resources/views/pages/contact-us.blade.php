@@ -1,13 +1,14 @@
-<x-layout>
+<x-layout :metaTitle="$contact_settings->contact_meta_title" :metaKeywords="$contact_settings->contact_meta_keywords"
+          :metaDescription="$contact_settings->contact_meta_description">
+
     <section class="bg-light py-5">
         <div class="container">
             <!-- Title -->
             <div class="row justify-content-center mb-4">
             <div class="col-lg-8 text-center">
-                <h2 class="fw-bold mb-3">Contact Us</h2>
+                <h2 class="fw-bold mb-3">{{ $contact_settings->contact_title }}</h2>
                 <p class="text-muted fs-6">
-                Have questions? We’d love to hear from you!  
-                Fill out the form below or reach us through our office details.
+                    {{ $contact_settings->contact_subtitle }}
                 </p>
             </div>
             </div>
@@ -46,9 +47,9 @@
                 <!-- Office Info -->
                 <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
                 <h4 class="fw-bold mb-3">Our Office</h4>
-                <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger me-2"></i>{{ $page_settings->contact_address }}</p>
-                <p class="mb-2"><i class="bi bi-telephone-fill text-danger me-2"></i>{{ $page_settings->contact_phone }}</p>
-                <p class="mb-0"><i class="bi bi-envelope-fill text-danger me-2"></i>{{ $page_settings->contact_email }}</p>
+                <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger me-2"></i>{{ $contact_settings->contact_address }}</p>
+                <p class="mb-2"><i class="bi bi-telephone-fill text-danger me-2"></i>{{ $contact_settings->contact_phone }}</p>
+                <p class="mb-0"><i class="bi bi-envelope-fill text-danger me-2"></i>{{ $contact_settings->contact_email }}</p>
                 </div>
 
                 <!-- Map Placeholder -->
@@ -56,7 +57,7 @@
                     <h4 class="fw-bold mb-3">Find Us on Map</h4>
                    <div class="bg-light d-flex align-items-center justify-content-center rounded-3" 
                         style="height: 250px; overflow: hidden;">     
-                            {!! $page_settings->contact_map_iframe !!}
+                            {!! $contact_settings->contact_map_iframe !!}
                     </div>
                 </div>
             </div>

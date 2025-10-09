@@ -213,6 +213,7 @@ Route::prefix("/admin/page-setting")->name("admin.pageSettings.")->group(functio
     Route::get("/", [PageSettingsController::class, "index"])->name("index");
     Route::put("/update-about-us", [PageSettingsController::class, "updateAboutUs"])->name("updateAboutUs");
     Route::put("/update-faq", [PageSettingsController::class, "updateFAQ"])->name("updateFAQ");
+    Route::put("/update-contactus", [PageSettingsController::class, "updateContact"])->name("updateContact");
 });
 
 
