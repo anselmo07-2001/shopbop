@@ -9,8 +9,15 @@ use Illuminate\View\View;
 class AboutUsController extends Controller
 {
     public function aboutUs(): View {
-        $pageSetting = PageSetting::first();
+        $about_us_settings = PageSetting::select([
+            "about_us_title",
+            "about_us_content",
+            "about_us_meta_title",
+            "about_us_meta_keywords",
+            "about_us_meta_description",
+        ])->firstOrFail();
 
-        return view("pages.about-us", compact("pageSetting"));
+    
+        return view("pages.about-us", compact("about_us_settings"));
     }
 }

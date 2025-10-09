@@ -7,6 +7,19 @@ use Illuminate\Http\Request;
 
 class PageSettingsController extends Controller
 {
+    /**
+     * Trim all string values and convert empty strings to null.
+     *
+     * @param  array  $items
+     * @return array
+     */
+    private function nullify($items) {
+        return array_map(function($value) {
+            $value = is_string($value) ? trim($value) : $value;
+            return $value === "" ? null : $value;
+        }, $items);
+    }
+
     public function index(Request $request) {
         $tab = request("tab", "about_us");
         $page_settings = PageSetting::first();
@@ -21,12 +34,12 @@ class PageSettingsController extends Controller
         $validated_data = $request->validate([
             "about_us_title" => "required|string|max:255",
             "about_us_content" => "required|string",
-            "about_us_meta_title" => "required|string|max:255",
-            "about_us_meta_keywords" => "required|string",
-            "about_us_meta_description" => "required|string"
+            "about_us_meta_title" => "nullable|string|max:255",
+            "about_us_meta_keywords" => "nullable|string",
+            "about_us_meta_description" => "nullable|string"
         ]);
 
-        $validated_data = array_map('trim', $validated_data);
+        $validated_data = $this->nullify($validated_data);
 
         $page_settings = PageSetting::firstOrFail();
 
@@ -44,7 +57,7 @@ class PageSettingsController extends Controller
             "faq_meta_description" => "nullable|string",
         ]);
 
-        $validated_data = array_map('trim', $validated_data);
+        $validated_data = $this->nullify($validated_data);
 
         $page_settings = PageSetting::firstOrFail();
 
