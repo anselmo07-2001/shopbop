@@ -120,8 +120,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/page-settings') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.pageSettings') }}">
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.pageSettings.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.pageSettings.index') }}">
                 <i class="fa fa-file-alt me-2"></i>Page Settings
           </a>
         </li>

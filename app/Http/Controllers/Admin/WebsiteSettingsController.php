@@ -18,7 +18,7 @@ class WebsiteSettingsController extends Controller
         return view("admin.panels.website-setting", [
             "page_settings" => $page_settings,
             "active_tab" => $active_tab
-        ]);
+        ]); 
     }
 
     public function updateBranding(Request $request) {

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\FAQManagementController;
 use App\Http\Controllers\Admin\ManageSlidersController;
 use App\Http\Controllers\Admin\OrderManagementController;
+use App\Http\Controllers\Admin\PageSettingsController;
 use App\Http\Controllers\Admin\ProductManagementController;
 use App\Http\Controllers\Admin\RegisteredCustomerManagementController;
 use App\Http\Controllers\Admin\ServicesManagementController;
@@ -208,6 +209,10 @@ Route::prefix("/admin/social-media")->name("admin.socialMedia.")->group(function
     Route::put("/update", [SocialMediaManagementController::class, "update"])->name("update");
 });
 
+Route::prefix("/admin/page-setting")->name("admin.pageSettings.")->group(function() {
+    Route::get("/", [PageSettingsController::class, "index"])->name("index");
+});
+
 
 
 
@@ -225,7 +230,7 @@ Route::prefix("/admin/social-media")->name("admin.socialMedia.")->group(function
 // Route::get("/admin/services", [AdminController::class, "services"])->name("admin.services");
 // Route::get("/admin/faq", [AdminController::class, "faq"])->name("admin.faq");
 // Route::get("/admin/registered-customers", [AdminController::class, "registeredCustomers"])->name("admin.registeredCustomers");
-Route::get("/admin/page-settings", [AdminController::class, "pageSettings"])->name("admin.pageSettings");
+// Route::get("/admin/page-settings", [AdminController::class, "pageSettings"])->name("admin.pageSettings");
 // Route::get("/admin/social-media", [AdminController::class, "socialMedia"])->name("admin.socialMedia");
 Route::get("/admin/subscriber", [AdminController::class, "subscriber"])->name("admin.subscriber");
 
