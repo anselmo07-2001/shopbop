@@ -316,7 +316,8 @@
                                     <th>Payment Date</th>
                                     <th>Transaction ID</th>
                                     <th>Paid Amount</th>
-                                    <th>Status</th>
+                                    <th>Payment Status</th>
+                                    <th>Shipping Status</th>
                                     <th>Method</th>
                                     <th>Order Number</th>
                                     </tr>
@@ -346,6 +347,11 @@
                                                     <td>
                                                         <span class="badge {{ $payment->payment_status == "paid" ? 'bg-success' : 'bg-warning' }} ">
                                                             {{ $payment->payment_status }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge {{ $payment->shipping_status == "shipped" ? 'bg-success' : 'bg-warning' }} ">
+                                                            {{ $payment->shipping_status }}
                                                         </span>
                                                     </td>
                                                     <td>
