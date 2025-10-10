@@ -98,6 +98,7 @@ Route::middleware("auth:admin")->group(function() {
     Route::prefix("/admin/manage-profile")->name("admin.manageProfile.")->group(function () {
         Route::get("/", [AdminController::class, "editProfile"])->name("editProfile");
         Route::put("/updateProfile", [AdminController::class, "updateProfile"])->name("updateProfile");
+        Route::put("/updatePassword", [AdminController::class, "updatePassword"])->name("updatePassword");
     });
 });
 

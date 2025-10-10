@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Product;
 use App\Models\TopCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -33,6 +34,23 @@ class AdminController extends Controller
         ]);
 
         return back()->with("success", "Successfully update profile information");
+    }
+
+    public function updatePassword(Request $request) {
+        $validated_data = $request->validate([
+            'current_password' => 'required',
+            "new_password" => 'required|min:8|confirmed',
+        ]);
+
+        if (!Hash::check($validated_data['current_password'], auth()->user()->password)) {
+            return back()->with("error", "Your current password is incorrect");
+        }
+
+        auth()->user()->update([
+            "password" => Hash::make($validated_data['new_password']),
+        ]);
+
+        return back()->with('success', 'Password updated successfully.');
     }
 
     

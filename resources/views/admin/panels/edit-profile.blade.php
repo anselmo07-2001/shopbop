@@ -49,18 +49,23 @@
                         Update Password
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form method="POST" action="{{ route('admin.manageProfile.updatePassword') }}" >
+                            @csrf
+                            @method("PUT")
                             <div class="mb-3">
-                                <label class="form-label">Current Password</label>
-                                <input type="password" class="form-control">
+                                <label for="current_password" class="form-label">Current Password</label>
+                                <input id="current_password" name="current_password" type="password" class="form-control">
+                                <x-error-input-message field="current_password"/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">New Password</label>
-                                <input type="password" class="form-control">
+                                <label for="new_password" class="form-label">New Password</label>
+                                <input id="new_password" name="new_password" type="password" class="form-control">
+                                <x-error-input-message field="new_password"/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control">
+                                <label for="new_password_confirmation" class="form-label">Confirm Password</label>
+                                <input id="new_password_confirmation" name="new_password_confirmation" type="password" class="form-control">
+                                <x-error-input-message field="new_password_confirmation"/>
                             </div>
                             <button type="submit" class="btn btn-warning w-100">Update Password</button>
                         </form>
