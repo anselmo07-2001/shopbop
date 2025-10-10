@@ -15,11 +15,11 @@ class AdminDashboardController extends Controller
     public function dashboard() {
         $total_products = Product::all()->count();
         $total_pending_orders = Payment::where("payment_status", "pending")->count();
-        $total_completed_orders = Payment::where("payment_status", "completed")->count();
-        $total_completed_shipping = Payment::where("shipping_status", "completed")->count();
+        $total_completed_orders = Payment::where("payment_status", "paid")->count();
+        $total_completed_shipping = Payment::where("shipping_status", "shipped")->count();
         $total_pending_shipping = Payment::where("shipping_status", "pending")->count();
         $total_active_customers = Customer::where("status", "active")->count();
-        $total_available_shippings = Payment::where("payment_status", "completed")
+        $total_available_shippings = Payment::where("payment_status", "paid")
                                     ->where("shipping_status", "pending")->count();
         $total_top_categories = TopCategory::count();
         $total_mid_categories = MidCategory::count();
