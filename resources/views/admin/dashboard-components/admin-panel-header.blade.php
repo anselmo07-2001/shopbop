@@ -11,7 +11,14 @@
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="{{ route('admin.editProfile') }}"><i class="fa fa-user-edit me-2"></i> Edit Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#"><i class="fa fa-sign-out-alt me-2"></i> Logout</a></li>
+                <li>
+                    <form method="POST" action="{{ route("logout.admin") }}">
+                      @csrf
+                      <button class="dropdown-item text-danger">
+                        <i class="fa fa-sign-out-alt me-2"></i> Logout
+                      </button>
+                    </form>
+                </li>
               </ul>
             </li>
           </ul>

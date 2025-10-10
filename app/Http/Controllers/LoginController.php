@@ -8,8 +8,27 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
-    public function handleLoginAdmin() {
-        
+    public function hadnleLogoutAdmin(Request $request) {
+        Auth::guard("admin")->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login.admin')->with("success", "You have been logged out!");
+    }
+
+
+    public function handleLoginAdmin(Request $request) {
+        $cred = $request->validate([
+            "email" => "required|email",
+            "password" => "required"
+        ]);
+
+        if (Auth::guard("admin")->attempt($cred)) {
+            $request->session()->regenerate();
+            return redirect()->route("admin.dashboard")->with("success", "You have been logged in!");
+        }
+
+        return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
     }
 
 

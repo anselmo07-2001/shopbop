@@ -11,8 +11,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(function($request) {
+            // If the path starts with 'admin/', redirect to the admin login route.
+            if ($request->is("admin/*")) {
+                return route("login.admin");
+            }
+    
+            // Otherwise, use the default 'customer' login route.
+            return route("login");
+        });
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->create();

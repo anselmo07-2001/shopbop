@@ -1,6 +1,11 @@
 <x-layout-admin-panel>
 
+  <!-- THIS FLASH MESSAGE USE FOR SUCCESSFUL LOGIN -->
+  <x-flash-message session_name="success" />
+  <x-flash-message session_name="error" />  
+
   <h2 class="mb-4">Dashboard</h2>
+
   <div class="row g-4">
       
       <!-- Card Example -->

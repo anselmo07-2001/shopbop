@@ -7,7 +7,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <title>{{ $metaTitle ?? 'ShopBop - Home' }}</title>
+        <title>{{ $metaTitle ?? 'ShopBop - Login' }}</title>
         <meta name="keywords" content="{{ $metaKeywords ?? 'content' }}">
         <meta name="description" content="{{ $metaDescription ?? 'online ecommerce' }}">
     </head>
@@ -27,7 +27,7 @@
                     @foreach ($socials as $social)
                         @if (in_array($social->name, ["Facebook", "X", "YouTube", "Instagram", "WhatsApp"] ))
                         <li class="list-inline-item">
-                            <a href="{{ $social->url }}"><i class="fab {{ $social->icon }} text-white"></i></a>
+                            <a href="{{ $social->url }}"><i class="{{ $social->icon }} text-white"></i></a>
                         </li>
                         @endif
                     @endforeach
@@ -36,6 +36,9 @@
                 </div>
             </div>
         </div>
+
+        <x-flash-message session_name="success" />
+        <x-flash-message session_name="error" />  
 
   
     <section class="flex-grow-1 d-flex align-items-start justify-content-center pt-5 position-relative"
@@ -50,47 +53,44 @@
             <div class="col-md-5 col-lg-4">
                 <div class="card shadow border-0 rounded-4 mt-5"
                     style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px);">
-                <div class="card-body p-4">
-                    <h4 class="text-center mb-4 fw-semibold">Admin Panel</h4>
+                    <div class="card-body p-4">
+                        <h4 class="text-center mb-4 fw-semibold">Admin Panel</h4>
 
-                    <!-- Login Form -->
-                    <form method="POST" action="{{ route('login.admin')}}">
-                    @if($errors->any())
-                        <div class="alert alert-danger mb-3">
-                        {{ $errors->first() }}
-                        </div>
-                    @endif
-                    @csrf
+                        <!-- Login Form -->
+                        <form method="POST" action="{{ route('login.admin')}}">
+                            @if($errors->any())
+                                <div class="alert alert-danger mb-3">
+                                {{ $errors->first() }}
+                                </div>
+                            @endif
+                            @csrf
 
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input style="font-size: 14px;" name="email" type="email" 
-                        class="form-control form-control-lg" id="email" 
-                        placeholder="Enter your email" value="{{ old('email') }}">
-                        @error('email')
-                        <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input style="font-size: 14px;" name="email" type="email" 
+                                    class="form-control form-control-lg" id="email" 
+                                    placeholder="Enter your email" value="{{ old('email') }}">
+                                @error('email')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input style="font-size: 14px;" name="password" type="password" 
+                                    class="form-control form-control-lg" id="password" 
+                                    placeholder="Enter your password">
+                                @error('password')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-dark btn-lg">Login</button>
+                            </div>
+                        </form>
+
                     </div>
-
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input style="font-size: 14px;" name="password" type="password" 
-                        class="form-control form-control-lg" id="password" 
-                        placeholder="Enter your password">
-                        @error('password')
-                        <div class="text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    
-                    <!-- Submit button -->
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-dark btn-lg">Login</button>
-                    </div>
-                    </form>
-
-                </div>
                 </div>
             </div>
             </div>

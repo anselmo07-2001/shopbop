@@ -79,10 +79,18 @@ Route::middleware("auth:customer")->group(function() {
 
 
 
-Route::get("/admin", [LoginController::class, "loginAdmin"])->name("login.admin");
-Route::post("/admin", [LoginController::class, "handleLoginAdmin"])->name("handle.login.admin");
+Route::get("/admin/login", [LoginController::class, "loginAdmin"])->name("login.admin");
+Route::post("/admin/login", [LoginController::class, "handleLoginAdmin"])->name("handle.login.admin");
 
-Route::get("/admin/dashboard", [AdminDashboardController::class, "dashboard"])->name("admin.dashboard");
+Route::middleware("auth:admin")->group(function() {
+    Route::post("/admin/logout", [LoginController::class, "hadnleLogoutAdmin"])->name("logout.admin");
+
+    Route::get("/admin/dashboard", [AdminDashboardController::class, "dashboard"])->name("admin.dashboard");
+});
+
+
+
+
 Route::get("/admin/edit-profile", [AdminController::class, "editProfile"])->name("admin.editProfile");
 
 
