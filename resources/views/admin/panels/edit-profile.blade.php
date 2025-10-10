@@ -1,6 +1,9 @@
 <x-layout-admin-panel>
     <div class="container-fluid">
-        <h2 class="mb-4">Edit Profile</h2>
+        <x-flash-message session_name="success" />
+        <x-flash-message session_name="error" />
+
+        <h4 class="mb-4"><i class="fa-solid fa-user-pen"></i> Edit Profile</h4>
 
         <div class="row g-4">
             <div class="col-lg-6">
@@ -9,27 +12,30 @@
                         Update Information
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form method="POST" action="{{ route('admin.manageProfile.updateProfile') }}">
+                            @csrf
+                            @method("PUT")
                             <div class="mb-3">
-                            <label class="form-label">Name</label>
-                            <input type="text" class="form-control" value="Administrator">
+                                <label for="name" class="form-label">Name</label>
+                                <input id="name" name="name" type="text" class="form-control" 
+                                       value="{{ old('name', auth()->user()->full_name ?? '') }}">
+                                <x-error-input-message field="name"/>
                             </div>
-                            <div class="mb-3 text-center">
-                            <img src="https://via.placeholder.com/100" class="rounded-circle mb-2" alt="Avatar">
-                            <p class="small text-muted">Current Avatar</p>
-                            </div>
+
                             <div class="mb-3">
-                            <label class="form-label">Email address</label>
-                            <input type="email" class="form-control" placeholder="admin@example.com">
+                                <label for="email" class="form-label">Email address</label>
+                                <input id="email" name="email" type="email" class="form-control" placeholder="admin@example.com"
+                                       value="{{ old('email', auth()->user()->email ?? '') }}" >
+                                <x-error-input-message field="email"/>
                             </div>
+
                             <div class="mb-3">
-                            <label class="form-label">Phone</label>
-                            <input type="text" class="form-control" placeholder="+1234567890">
+                                <label for="phone_number" class="form-label">Phone</label>
+                                <input id="phone_number" name="phone_number" type="text" class="form-control" placeholder="+1234567890"
+                                       value="{{ old('phone_number', auth()->user()->phone_number ?? '') }}" >
+                                <x-error-input-message field="phone_number"/>
                             </div>
-                            <div class="mb-3">
-                            <label class="form-label">Role</label>
-                            <input type="text" class="form-control" value="Admin" readonly>
-                            </div>
+
                             <button type="submit" class="btn btn-primary w-100">Update Information</button>
                         </form>
                     </div>
@@ -38,24 +44,6 @@
 
             <!-- Right Column -->
             <div class="col-lg-6 d-flex flex-column gap-4">
-
-                <!-- Top: Update Photo -->
-                <div class="card shadow-sm">
-                    <div class="card-header bg-secondary text-white">
-                    Update Photo
-                    </div>
-                    <div class="card-body">
-                    <form>
-                        <div class="mb-3">
-                        <label class="form-label">Upload New Avatar</label>
-                        <input type="file" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-secondary w-100">Update Photo</button>
-                    </form>
-                    </div>
-                </div>
-
-                <!-- Bottom: Update Password -->
                 <div class="card shadow-sm">
                     <div class="card-header bg-warning text-dark">
                         Update Password

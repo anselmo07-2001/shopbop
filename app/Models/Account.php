@@ -11,7 +11,7 @@ class Account extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillablen = [
+    protected $fillable = [
         "full_name",
         "email",
         "phone_number",

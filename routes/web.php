@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\FAQManagementController;
 use App\Http\Controllers\Admin\ManageSlidersController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\Admin\ShopSettings\SizeController;
 use App\Http\Controllers\Admin\ShopSettings\TopLevelCategoryController;
 use App\Http\Controllers\Admin\SocialMediaManagementController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -95,7 +95,10 @@ Route::middleware("auth:admin")->group(function() {
 });
 
 Route::middleware("auth:admin")->group(function() {
-    Route::get("/admin/edit-profile", [AdminController::class, "editProfile"])->name("admin.editProfile");
+    Route::prefix("/admin/manage-profile")->name("admin.manageProfile.")->group(function () {
+        Route::get("/", [AdminController::class, "editProfile"])->name("editProfile");
+        Route::put("/updateProfile", [AdminController::class, "updateProfile"])->name("updateProfile");
+    });
 });
 
 Route::middleware("auth:admin")->group(function() {
