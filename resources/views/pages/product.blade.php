@@ -128,10 +128,14 @@
                     </div>
     
                     <!-- Quantity & Add to Cart -->
-                    <div class="mb-3 d-flex gap-2">
+                    <span class="pb-2 d-block">Stocks: {{ $product->quantity }} </span>
+                    <div class="mb-1 d-flex gap-2">
                         <input name="quantity" type="number" class="form-control w-auto" value="{{ old('quantity', 1) }}" min="1">
                         <button type="submit" class="btn btn-warning"><i class="bi bi-cart-plus"></i> Add to Cart</button>
                     </div>
+                    @error("quantity")
+                            <div class="text-danger" style="font-size: 13px">{{ $message }}</div>
+                    @enderror
                 </form>
 
                 <!-- Social Share -->

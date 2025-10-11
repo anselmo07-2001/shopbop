@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,10 +14,22 @@ class OrderManagementController extends Controller
         return view("admin.panels.order-management.index");
     }
 
-    public function updatePaymentStatus($orderNumber) {
-        Payment::where("order_number", $orderNumber)->update([
-            "payment_status" => "paid"
-        ]);
+    public function updatePaymentStatus($orderNumber) {   
+        DB::transaction(function() use($orderNumber) {
+            Payment::where("order_number", $orderNumber)->update([
+                "payment_status" => "paid"
+            ]);
+               
+            $orders = Order::with("product")->where("order_number", $orderNumber)->get();
+    
+            foreach ($orders as $order) {
+                if ($order->product->quantity >= $order->quantity) {
+                    $order->product()->lockForUpdate()->decrement('quantity', $order->quantity);
+                } else {
+                    throw new \Exception("Insufficient stock for {$order->product->name}");
+                }
+            }
+        });
 
         return back()->with("success", "Updated payment status successfully.");
     }

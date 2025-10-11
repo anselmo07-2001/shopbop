@@ -80,7 +80,16 @@ class CartController extends Controller
         $validator = Validator::make($request->all(), [
             "size" => "required",
             "color" => "required",
-            "quantity" => "required"
+            "quantity" => [
+                "required",
+                "integer",
+                "min:1",
+                function ($attribute, $value, $fail) use ($product) {
+                    if ($value > $product->quantity) {
+                       $fail("The quantity cannot exceed available stock ({$product->quantity}).");
+                    }
+                }
+            ]
         ]);
 
         if ($validator->fails()) {
