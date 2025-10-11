@@ -29,6 +29,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RatingsController;
 use App\Http\Controllers\RegisterController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -59,6 +60,11 @@ Route::post("/logout", [LoginController::class, "logoutCustomer"])->name("logout
 Route::get("/level/{level}/category/{id}/value/{value}", [CategoryController::class, "index"])->name("category.index");
 
 Route::get("/products/{id}", [ProductController::class, "show"])->name("product.show");
+
+Route::post("/store", [RatingsController::class, "store"])->name("ratings.store");
+Route::put("/{rating}/update", [RatingsController::class, "update"])->name("ratings.update");
+
+
 Route::get("/search", [ProductController::class, "search"])->name("product.search");
 
 Route::get("/cart", [CartController::class, "index"])->name("cart.index");

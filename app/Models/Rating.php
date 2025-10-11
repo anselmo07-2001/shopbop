@@ -8,7 +8,9 @@ class Rating extends Model
 {
     protected $fillable = [
         "comment",
-        "rating"
+        "rating",
+        "product_id",
+        "customer_id"
     ];
 
     public function product() {

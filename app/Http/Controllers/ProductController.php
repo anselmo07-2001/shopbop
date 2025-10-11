@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductSize;
 use App\Models\ProductColor;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -42,6 +44,23 @@ class ProductController extends Controller
         $relatedProducts = Product::where("end_category_id", $product->end_category_id)
                             ->where("id", "!=" ,$product->id) ->get();
 
+        // Comment Section
+        $has_purchased = Order::where("customer_id", auth("customer")->id())
+                            ->where("product_id", $product->id)
+                            ->whereHas("payments", function($query) {
+                                $query->where("shipping_status", "shipped"); 
+                            })
+                            ->exists();
+
+        // $has_reviewed = Rating::where("customer_id", auth("customer")->id())
+        //                     ->where("product_id", $product->id)
+        //                     ->exists();
+
+        $reviewed = Rating::where("customer_id", auth("customer")->id())
+                        ->where("product_id", $product->id)->first();
+
+        
+
         return view("pages.product", [
             "product" => $product,
             "product_galleries" => $product_galleries,
@@ -50,6 +69,8 @@ class ProductController extends Controller
             "breadcrumbs" => $breadcrumbs,
             "relatedProducts" => $relatedProducts,
             "ratings" => $ratings,
+            "has_purchased" => $has_purchased,
+            "reviewed" => $reviewed
         ]);
     }
 }

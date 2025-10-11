@@ -199,7 +199,9 @@
 
         <x-customer-review :ratings="$ratings" :product="$product"/>
    
-        <x-add-review/> 
+        @if (auth("customer")->check() && $has_purchased )
+            <x-add-review :reviewed="$reviewed" :product_id="$product->id"/>      
+        @endif
 
         <x-related-products :relatedProducts="$relatedProducts" :endCategory="$breadcrumbs->endCategory"/>
 
