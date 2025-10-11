@@ -77,6 +77,10 @@ class CartController extends Controller
     public function add(Request $request) {
         $product = Product::findOrFail($request->id);
 
+        if ($product->quantity <= 0) {
+            return redirect()->back()->with("failed", "No available stock for this product");
+        }
+
         $validator = Validator::make($request->all(), [
             "size" => "required",
             "color" => "required",
