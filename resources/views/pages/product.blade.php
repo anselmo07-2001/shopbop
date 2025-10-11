@@ -141,12 +141,20 @@
                 </form>
 
                 <!-- Social Share -->
-                <div>
-                    <span>Share: </span>
-                    <a href="#" class="text-primary me-2"><i class="bi bi-facebook fs-4"></i></a>
-                    <a href="#" class="text-info me-2"><i class="bi bi-twitter fs-4"></i></a>
-                    <a href="#" class="text-danger me-2"><i class="bi bi-pinterest fs-4"></i></a>
-                    <a href="#" class="text-secondary"><i class="bi bi-envelope fs-4"></i></a>
+                <div class="mt-3">
+                    <span class="pe-2">Share: </span>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('product.show', $product->id)) }}" 
+                       class="btn btn-primary">
+                            <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text={{ urlencode('Check out this product!') }}&url={{ urlencode(route('product.show', $product->id)) }}"
+                       class="btn btn-info">
+                        <i class="fa-brands fa-x-twitter text-dark"></i>
+                    </a>
+                    <a href="mailto:?subject={{ urlencode('Check out this product!') }}&body={{ urlencode('Take a look at this product: ' . route('product.show', $product->id)) }}" 
+                       class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                    </a>
                 </div>
             </div>
         </div>
