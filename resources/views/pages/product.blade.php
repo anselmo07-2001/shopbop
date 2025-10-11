@@ -98,13 +98,15 @@
                     <div class="mb-3">
                         <label for="sizeSelect" class="form-label">Size</label>
                         <select name="size" class="form-select w-50" id="sizeSelect">
-                            <option selected value="">Choose Size</option>
-                                @foreach ($product_sizes as $item)
-                                    <option value={{ $item->size->name }} 
-                                            {{ old('size') == $item->size->name ? "selected" : ""  }}
-                                        >{{ $item->size->name }}
-                                    </option>
-                                @endforeach
+                            <option value="" {{ old('size') == '' ? 'selected' : '' }}>
+                                    Choose Size
+                            </option>
+                            @foreach ($product_sizes as $item)
+                                <option value="{{ $item->size->name }}"
+                                        {{ old('size') == $item->size->name ? "selected" : ""  }}
+                                    >{{ $item->size->name }}
+                                </option>
+                            @endforeach
                         </select>
                         @error("size")
                             <div class="text-danger mt-1" style="font-size: 13px">{{ $message }}</div>
@@ -116,7 +118,7 @@
                         <select name="color" class="form-select w-50" id="colorSelect">
                             <option selected value="">Choose Color</option>
                                 @foreach ($product_colors as $item)
-                                    <option value={{ $item->color->name }} 
+                                    <option value="{{ $item->color->name }}"
                                             {{ old('color') == $item->color->name ? "selected" : "" }}>
                                         {{ $item->color->name }}
                                     </option>
