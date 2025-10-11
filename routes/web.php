@@ -52,8 +52,9 @@ Route::middleware("guest:customer")->group(function () {
     Route::post("/login", [LoginController::class, "loginCustomer"])->name("login.customer");
 
     Route::get("/register", [RegisterController::class, "register"])->name("register");
-    Route::post("/store", [RegisterController::class, "store"])->name("register.store");
+    Route::post("/register/store", [RegisterController::class, "store"])->name("register.store");
 });
+
 
 Route::post("/logout", [LoginController::class, "logoutCustomer"])->name("logout.customer");
 

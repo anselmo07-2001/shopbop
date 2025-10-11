@@ -7,6 +7,7 @@ use App\Models\PageSetting;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ShippingCost;
+use App\Models\ShippingCostAll;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +18,9 @@ class CheckoutController extends Controller
 {
     public function placeOrder(Request $request) {
         $user = auth()->user();
-        //$100 is the default if user country is not on the list
-    
-        $shipping_cost = ShippingCost::where("country_id", $user->country_id)->value("amount") ?? 100;
+        
+        $shipping_cost = ShippingCost::where("country_id", $user->country_id)->value("amount") ?? ShippingCostAll::firstOrFail()->amount;
+
         $payment_method = $request->input("payment_method");
         $transaction_info = $request->input("transactionInfo");
         $order_number = (string) Str::uuid();
@@ -92,9 +93,10 @@ class CheckoutController extends Controller
 
     public function checkout() {
         $user = auth()->user();
-        $shipping_cost = ShippingCost::where("country_id", $user->country_id)->value("amount");
+        $shipping_cost = ShippingCost::where("country_id", $user->country_id)->value("amount") ?? ShippingCostAll::firstOrFail()->amount;
+
         $bank_detail = PageSetting::where('id', 1)->value('bank_detail');
-        
+              
         $cart = json_decode(request()->cookie("cart", "[]"), true);
         
         $ids = collect($cart)->pluck("id")->all();
