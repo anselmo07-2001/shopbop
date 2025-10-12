@@ -13,6 +13,11 @@ class ManageSubscribers extends Controller
 
     public function destroy(Subscriber $subscriber) {
         $subscriber->delete();
-        return redirect()->route('admin.subscribers.index')->with('success', 'Subsriber deleted successfully!');
+        return redirect()->route('admin.subscribers.index')->with('success', 'Subscriber deleted successfully!');
+    }
+
+    public function destroyPendingSubscribers() {
+        $deletedCount = Subscriber::where("is_verified", false)->delete();
+        return redirect()->route('admin.subscribers.index')->with('success', "$deletedCount pending subscribers deleted successfully!");
     }
 }

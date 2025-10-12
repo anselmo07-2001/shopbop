@@ -1,13 +1,21 @@
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="mb-0"><i class="bi bi-envelope-check me-2"></i>Subscribers</h4>
-            <div>
-                <a href="#" class="btn btn-danger btn-sm me-2">
-                    <i class="bi bi-x-circle me-1"></i> Remove Pending Subscribers
-                </a>
-                <a href="#" class="btn btn-success btn-sm">
-                    <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export as CSV
-                </a>
+            <div class="d-flex align-items-center">
+                <div>
+                    <form method="POST" action="{{ route('admin.subscribers.destroyPendingSubscribers') }}">
+                        @csrf
+                        @method("DELETE")
+                        <button class="btn btn-danger btn-sm me-2">
+                            <i class="bi bi-x-circle me-1"></i> Remove Pending Subscribers
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    <a href="#" class="btn btn-success btn-sm">
+                        <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export as CSV
+                    </a>
+                </div>
             </div>
     </div>
 
