@@ -6,11 +6,12 @@
       <div class="row justify-content-center">
         <div class="col-12 col-md-6">
           <div class="text-center">
-            <form action="#" method="post">
+            <form action="{{ route('newsletter.subscribe') }}" method="post">
+              @csrf
               <h2 class="mb-4 text-white">{{ $global_page_settings->newsletter_title }}</h2>
               <div class="input-group">
-                <input type="email" class="form-control" placeholder="Enter your email" required>
-                <button class="btn btn-warning" type="submit">Subscribe</button>
+                <input name="email" type="email" class="form-control" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-warning" type="submit">Subscribe</button>
               </div>
             </form>
           </div>

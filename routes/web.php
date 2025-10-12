@@ -31,6 +31,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RatingsController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SubscriberController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -83,6 +84,9 @@ Route::middleware("auth:customer")->group(function() {
     Route::post("/dashboard/update-address", [Dashboard::class, "updateAddress"])->name("dashboard.update-address");
     Route::post("/dashboard/update-password", [Dashboard::class, "updatePassword"])->name("dashboard.update-password");
 });
+
+Route::post("/subscriber", [SubscriberController::class, "store"])->name("newsletter.subscribe");
+Route::get("/verify-subscriber/{hash}", [SubscriberController::class, "verify"])->name("newsletter.verify-subscription");
 
 
 
