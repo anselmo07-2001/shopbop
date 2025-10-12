@@ -90,9 +90,6 @@ Route::post("/subscriber", [SubscriberController::class, "store"])->name("newsle
 Route::get("/verify-subscriber/{hash}", [SubscriberController::class, "verify"])->name("newsletter.verify-subscription");
 
 
-
-
-
 /************ Admin Panel **************/
 
 Route::get("/admin/login", [LoginController::class, "loginAdmin"])->name("login.admin");
@@ -281,6 +278,7 @@ Route::middleware("auth:admin")->group(function() {
 Route::middleware("auth:admin")->group(function() {
     Route::prefix("/admin/subscribers")->name("admin.subscribers.")->group(function() {
          Route::get("/", [ManageSubscribers::class, "index"])->name("index");
+         Route::delete("/{subscriber}/destroy", [ManageSubscribers::class, "destroy"])->name("destroy");
     });
 });
 

@@ -70,9 +70,11 @@
                             </span>
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-danger">
-                                <i class="bi bi-trash me-1"></i> Delete
-                            </a>
+                            <x-delete-modal 
+                                id="{{ $subscriber->id }}" 
+                                name="{{ $subscriber->email }}" 
+                                action="{{ route('admin.subscribers.destroy', $subscriber->id ) }}"
+                            /> 
                         </td>
                     </tr>         
                 @empty
