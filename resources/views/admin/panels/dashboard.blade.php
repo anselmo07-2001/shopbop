@@ -74,7 +74,7 @@
         <div class="card text-bg-warning text-center">
           <div class="card-body">
             <i class="fa fa-user-plus fa-2x mb-2"></i>
-            <h4 class="fw-bold">6</h4>
+            <h4 class="fw-bold">{{ $total_subscribers }}</h4>
             <p class="mb-0">Subscribers</p>
           </div>
         </div>

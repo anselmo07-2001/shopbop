@@ -7,6 +7,7 @@ use App\Models\EndCategory;
 use App\Models\MidCategory;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Subscriber;
 use App\Models\TopCategory;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,7 @@ class AdminDashboardController extends Controller
         $total_completed_shipping = Payment::where("shipping_status", "shipped")->count();
         $total_pending_shipping = Payment::where("shipping_status", "pending")->count();
         $total_active_customers = Customer::where("status", "active")->count();
+        $total_subscribers = Subscriber::count();
         $total_available_shippings = Payment::where("payment_status", "paid")
                                     ->where("shipping_status", "pending")->count();
         $total_top_categories = TopCategory::count();
@@ -32,6 +34,7 @@ class AdminDashboardController extends Controller
             "total_completed_shipping" => $total_completed_shipping,
             "total_pending_shipping" => $total_pending_shipping,
             "total_active_customers" => $total_active_customers,
+            "total_subscribers" => $total_subscribers,
             "total_available_shippings" => $total_available_shippings,
             "total_top_categories" => $total_top_categories,
             "total_mid_categories" => $total_mid_categories,
