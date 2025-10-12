@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\FAQManagementController;
 use App\Http\Controllers\Admin\ManageSlidersController;
+use App\Http\Controllers\Admin\ManageSubscribers;
 use App\Http\Controllers\Admin\OrderManagementController;
 use App\Http\Controllers\Admin\PageSettingsController;
 use App\Http\Controllers\Admin\ProductManagementController;
@@ -277,6 +278,12 @@ Route::middleware("auth:admin")->group(function() {
     });
 });
 
+Route::middleware("auth:admin")->group(function() {
+    Route::prefix("/admin/subscribers")->name("admin.subscribers.")->group(function() {
+         Route::get("/", [ManageSubscribers::class, "index"])->name("index");
+    });
+});
+
 
 
 
@@ -297,6 +304,6 @@ Route::middleware("auth:admin")->group(function() {
 // Route::get("/admin/registered-customers", [AdminController::class, "registeredCustomers"])->name("admin.registeredCustomers");
 // Route::get("/admin/page-settings", [AdminController::class, "pageSettings"])->name("admin.pageSettings");
 // Route::get("/admin/social-media", [AdminController::class, "socialMedia"])->name("admin.socialMedia");
-Route::get("/admin/subscriber", [AdminController::class, "subscriber"])->name("admin.subscriber");
+// Route::get("/admin/subscriber", [AdminController::class, "subscriber"])->name("admin.subscriber");
 
 

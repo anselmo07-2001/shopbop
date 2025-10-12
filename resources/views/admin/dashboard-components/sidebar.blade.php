@@ -134,9 +134,9 @@
 
         <!-- Users -->
         <li class="nav-item">
-          <a class="nav-link text-white mb-2 {{ request()->is('admin/subscriber') ? 'active bg-primary rounded' : '' }} hover-primary" 
-             href="{{ route('admin.subscriber') }}">
-               <i class="fa fa-users me-2"></i>Subscriber
+          <a class="nav-link text-white mb-2 {{ request()->routeIs('admin.subscribers.*') ? 'active bg-primary rounded' : '' }} hover-primary" 
+             href="{{ route('admin.subscribers.index') }}">
+               <i class="fa fa-users me-2"></i>Subscribers
           </a>
         </li>
 
