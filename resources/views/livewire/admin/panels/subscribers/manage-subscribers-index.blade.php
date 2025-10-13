@@ -12,7 +12,7 @@
                     </form>
                 </div>
                 <div>
-                    <a href="#" class="btn btn-success btn-sm">
+                    <a href="{{ route('admin.subscribers.export') }}" class="btn btn-success btn-sm">
                         <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export as CSV
                     </a>
                 </div>

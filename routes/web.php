@@ -280,8 +280,11 @@ Route::middleware("auth:admin")->group(function() {
         Route::get("/", [ManageSubscribers::class, "index"])->name("index");
         Route::delete("/{subscriber}/destroy", [ManageSubscribers::class, "destroy"])->name("destroy");
         Route::delete("/destroy-pending-subscribers", [ManageSubscribers::class, "destroyPendingSubscribers"])->name("destroyPendingSubscribers");
+        Route::get("/export", [ManageSubscribers::class, "exportCsv"])->name("export");
     });
 });
+
+
 
 
 
