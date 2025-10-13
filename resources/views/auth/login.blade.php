@@ -1,5 +1,13 @@
 <x-layout>
+    <!-- FOR SUCCESSFUL PASSWORD RESET -->
+    @if (session('status'))
+        <div class="alert alert-success text-center">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <section class="d-flex align-items-center justify-content-center bg-light py-4 mb-5">
+
         <div class="container">
             <div class="row justify-content-center">
             <div class="col-md-5 col-lg-4">
@@ -45,7 +53,7 @@
 
                         <!-- Forgot password -->
                         <div class="mb-3 text-end">
-                            <a href="#" class="text-decoration-none small">Forgot Password?</a>
+                            <a href="{{ route('password.request') }}" class="text-decoration-none small">Forgot Password?</a>
                         </div>
 
                         <!-- Submit button -->

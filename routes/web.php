@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\ShopSettings\SizeController;
 use App\Http\Controllers\Admin\ShopSettings\TopLevelCategoryController;
 use App\Http\Controllers\Admin\SocialMediaManagementController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -55,6 +57,13 @@ Route::middleware("guest:customer")->group(function () {
 
     Route::get("/register", [RegisterController::class, "register"])->name("register");
     Route::post("/register/store", [RegisterController::class, "store"])->name("register.store");
+
+    /* Reset password has a route naming convention */
+    Route::get("/forgot-password", [ForgotPasswordController::class, "showLinkRequestForm"])->name("password.request");
+    Route::post("/forgot-password", [ForgotPasswordController::class, "sendResetLinkEmail"])->name("password.email");
+
+    Route::get("/reset-password/{token}", [ResetPasswordController::class, "showResetForm"])->name("password.reset");
+    Route::post("/reset-password", [ResetPasswordController::class, "reset"])->name("password.update");
 });
 
 
