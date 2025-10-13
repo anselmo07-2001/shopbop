@@ -3,13 +3,35 @@
             <h4 class="mb-0"><i class="bi bi-envelope-check me-2"></i>Subscribers</h4>
             <div class="d-flex align-items-center">
                 <div>
-                    <form method="POST" action="{{ route('admin.subscribers.destroyPendingSubscribers') }}">
-                        @csrf
-                        @method("DELETE")
-                        <button class="btn btn-danger btn-sm me-2">
-                            <i class="bi bi-x-circle me-1"></i> Remove Pending Subscribers
-                        </button>
-                    </form>
+
+                    <!-- Delete All Pending Subscribers Modal -->
+                    <div class="modal fade" id="confirmDeleteAllModal" tabindex="-1" aria-labelledby="confirmDeleteAllLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteAllLabel">Confirm Deletion</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to remove <strong>all pending subscribers</strong>?<br>
+                                    This action cannot be undone.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <form method="POST" action="{{ route('admin.subscribers.destroyPendingSubscribers') }}" class="d-inline">
+                                        @csrf
+                                        @method("DELETE")
+                                        <button type="submit" class="btn btn-danger">Yes, Delete All</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <button class="btn btn-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#confirmDeleteAllModal">
+                        <i class="bi bi-x-circle me-1"></i> Remove Pending Subscribers
+                    </button>   
+
                 </div>
                 <div>
                     <a href="{{ route('admin.subscribers.export') }}" class="btn btn-success btn-sm">
