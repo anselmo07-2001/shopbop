@@ -33,12 +33,13 @@ class ContactUsController extends Controller
             "full_name" => "required|string|max:255",
             "email" => "required|email",
             "phone_number" => "required|regex:/^\+?[0-9\s\-\(\)]{10,20}$/",
-            "message" => "required|string"
+            "message" => "required|string",
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         $data = $request->only("full_name", "email", "phone_number", "message");
 
-        Mail::to($contact_email)->queue(new ContactMail($data));
+        Mail::to($contact_email)->send(new ContactMail($data));
 
         return back()->with("success", "Message sent successfully");
     }

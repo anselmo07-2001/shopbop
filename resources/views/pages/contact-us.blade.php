@@ -2,11 +2,11 @@
           :metaDescription="$contact_settings->contact_meta_description">
 
     <section class="bg-light py-5">
+        
         <div class="container">
-            
             <x-flash-message session_name="success" />
             <x-flash-message session_name="error" />  
-
+            
             <!-- Title -->
             <div class="row justify-content-center mb-4">
             <div class="col-lg-8 text-center">
@@ -23,6 +23,12 @@
                 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
                 <h4 class="fw-bold mb-3">Send us a Message</h4>
                 <form method="POST" action="{{ route('sendMessage') }}">
+                    <div class="mb-3">
+                        <div class="g-recaptcha mb-3" data-sitekey="{{ env('NOCAPTCHA_SITEKEY') }}"></div>
+                            <x-error-input-message field="g-recaptcha-response"/>
+                            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                        </div>
+
                     @csrf
                     <div class="mb-3">
                         <label for="full_name" class="form-label fw-semibold">Full Name</label>
@@ -52,7 +58,7 @@
                         <x-error-input-message field="message"/>
                     </div>
 
-                    <button type="submit" class="btn btn-danger btn-lg w-100 rounded-3 fw-bold">
+                    <button type="submit" class="btn btn-danger w-100 rounded-3 fw-bold">
                         Send Message
                     </button>
                 </form>
