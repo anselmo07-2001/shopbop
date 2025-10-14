@@ -6,9 +6,15 @@ use App\Models\EndCategory;
 use App\Models\MidCategory;
 use App\Models\TopCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class EndLevelCategoryController extends Controller
 {
+    private function clearCache() {
+        Cache::forget('subMenu');
+        Cache::forget('sideMenu');
+    }
+
     public function index() {
         return view("admin.panels.shop-settings.end-level-category");
     }
@@ -19,6 +25,7 @@ class EndLevelCategoryController extends Controller
 
     public function destroy(EndCategory $endLevelCategory) {
         $endLevelCategory->delete();
+        $this->clearCache();
         return back()->with("success", "End Level Category deleted succesfully");
     }
 

@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Cache;
 
 class TopLevelCategoryController extends Controller
 {
+    private function clearCache() {
+        Cache::forget('subMenu');
+        Cache::forget('sideMenu');
+    }
+
     public function index() {
         return view("admin.panels.shop-settings.top-level-category");
     }
@@ -23,6 +28,7 @@ class TopLevelCategoryController extends Controller
         ]);
 
         TopCategory::create($validatedData);
+        $this->clearCache();
 
         return redirect()->route('admin.shopSetting.topLevelCategory.index')
             ->with("success", "New Top Level Category created successfully");
@@ -30,6 +36,7 @@ class TopLevelCategoryController extends Controller
 
     public function destroy(TopCategory $topLevelCategory) {
         $topLevelCategory->delete();
+        $this->clearCache();
         return back()->with("success", "Top level category deleted succesfully");
     }
 
@@ -44,8 +51,7 @@ class TopLevelCategoryController extends Controller
         ]);
 
         $topLevelCategory->update($validatedData);
-        Cache::forget('subMenu');
-        Cache::forget('sideMenu');
+        $this->clearCache();
 
         return back()->with("success", "Top level category updated succesfully");
     }

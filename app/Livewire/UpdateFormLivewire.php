@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\EndCategory;
 use App\Models\MidCategory;
 use App\Models\TopCategory;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -124,6 +125,9 @@ class UpdateFormLivewire extends Component
             "mid_category_id" => $this->midCategoryId,
             "name" => $this->end_level_category_name
         ]);
+        
+        Cache::forget('subMenu');
+        Cache::forget('sideMenu');
 
         session()->flash('success', 'End Level Category created successfully');
         return redirect()->route('admin.shopSetting.endLevelCategory.index');
@@ -148,7 +152,10 @@ class UpdateFormLivewire extends Component
                 "mid_category_id" => $this->midCategoryId
             ]);       
         });
-
+        
+        Cache::forget('subMenu');
+        Cache::forget('sideMenu');
+    
         session()->flash('success', 'End Level Category updated successfully');
         return redirect()->route('admin.shopSetting.endLevelCategory.edit', $this->endCategoryId);
     }

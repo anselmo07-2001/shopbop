@@ -5,9 +5,15 @@ use App\Http\Controllers\Controller;
 use App\Models\MidCategory;
 use App\Models\TopCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class MidLevelCategoryController extends Controller
 {
+    private function clearCache() {
+        Cache::forget('subMenu');
+        Cache::forget('sideMenu');
+    }
+
     public function index() {
        return view("admin.panels.shop-settings.mid-level-category");
     }
@@ -28,12 +34,15 @@ class MidLevelCategoryController extends Controller
             "top_category_id" => $validatedData["top_level_category_name"],
         ]);
 
+        $this->clearCache();
+
         return redirect()->route("admin.shopSetting.midLevelCategory.index")
                     ->with("success", "Created Mid Level Category successfully");
     }
 
     public function destroy(MidCategory $midLevelCategory) {
         $midLevelCategory->delete();
+        $this->clearCache();
         return back()->with("success", "Mid Level Category deleted succesfully");
     }
 
@@ -56,6 +65,7 @@ class MidLevelCategoryController extends Controller
             "name" => $validatedData["mid_level_category_name"],
             "top_category_id" => $validatedData["top_level_category_name"],
         ]);
+        $this->clearCache();
 
         return back()->with("success", "Mid Level Category updated succesfully");
     }
