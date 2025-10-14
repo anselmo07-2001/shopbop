@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\ShopSettings;
 use App\Http\Controllers\Controller;
 use App\Models\TopCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TopLevelCategoryController extends Controller
 {
@@ -43,6 +44,8 @@ class TopLevelCategoryController extends Controller
         ]);
 
         $topLevelCategory->update($validatedData);
+        Cache::forget('subMenu');
+        Cache::forget('sideMenu');
 
         return back()->with("success", "Top level category updated succesfully");
     }
