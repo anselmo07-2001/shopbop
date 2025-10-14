@@ -306,63 +306,80 @@
 
                     <!-- Orders History -->
                     <div class="tab-pane fade {{ $activeTab === 'v-pills-orders' ? 'show active' : ""  }}" id="v-pills-orders" role="tabpanel">
-                        <h4 class="mb-3">Orders History</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered align-middle">
-                                <thead class="table-dark">
-                                    <tr>
-                                    <th>#</th>
-                                    <th>Product Details</th>
-                                    <th>Payment Date</th>
-                                    <th>Transaction ID</th>
-                                    <th>Paid Amount</th>
-                                    <th>Payment Status</th>
-                                    <th>Shipping Status</th>
-                                    <th>Method</th>
-                                    <th>Order Number</th>
-                                    </tr>
-                                </thead>
+                        
 
-                                <tbody>
-                                    @foreach ($orders as $order)
+                            @if (count($orders) !== 0) 
+                                <h4 class="mb-3">Orders History</h4>
+                                <div class="table-responsive">
+
+                                <table class="table table-bordered align-middle">
+                                    <thead class="table-dark">
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-
-                                            <td>
-                                                @foreach ($order as $item)
-                                                    <div class="mb-3">
-                                                        Product Name: {{ $item->product->name }}
-                                                        Size: {{ $item->size }}
-                                                        Color: {{ $item->color }}
-                                                        Quantity:  {{ $item->quantity }}
-                                                        Unit Price:  {{ $item->unit_price }}
-                                                    </div>
-                                                @endforeach
-                                            </td>
-
-                                            @foreach ($order->first()->payments as $payment)
-                                                    <td>{{ $payment->payment_date }}</td>   
-                                                    <td>{{ $payment->txn_id }}</td>
-                                                    <td>${{ $payment->paid_amount }}</td>
-                                                    <td>
-                                                        <span class="badge {{ $payment->payment_status == "paid" ? 'bg-success' : 'bg-warning' }} ">
-                                                            {{ $payment->payment_status }}
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge {{ $payment->shipping_status == "shipped" ? 'bg-success' : 'bg-warning' }} ">
-                                                            {{ $payment->shipping_status }}
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        {{ ucfirst(str_replace('_', ' ', $payment->payment_method)) }}
-                                                    </td>
-                                                    <td>{{ $payment->order_number }}</td>     
-                                            @endforeach          
+                                        <th>#</th>
+                                        <th>Product Details</th>
+                                        <th>Payment Date</th>
+                                        <th>Transaction ID</th>
+                                        <th>Paid Amount</th>
+                                        <th>Payment Status</th>
+                                        <th>Shipping Status</th>
+                                        <th>Method</th>
+                                        <th>Order Number</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+    
+                                    <tbody>
+                                        @foreach ($orders as $order)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+    
+                                                <td>
+                                                    @foreach ($order as $item)
+                                                        <div class="mb-3">
+                                                            Product Name: {{ $item->product->name }}
+                                                            Size: {{ $item->size }}
+                                                            Color: {{ $item->color }}
+                                                            Quantity:  {{ $item->quantity }}
+                                                            Unit Price:  {{ $item->unit_price }}
+                                                        </div>
+                                                    @endforeach
+                                                </td>
+    
+                                                @foreach ($order->first()->payments as $payment)
+                                                        <td>{{ $payment->payment_date }}</td>   
+                                                        <td>{{ $payment->txn_id }}</td>
+                                                        <td>${{ $payment->paid_amount }}</td>
+                                                        <td>
+                                                            <span class="badge {{ $payment->payment_status == "paid" ? 'bg-success' : 'bg-warning' }} ">
+                                                                {{ $payment->payment_status }}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge {{ $payment->shipping_status == "shipped" ? 'bg-success' : 'bg-warning' }} ">
+                                                                {{ $payment->shipping_status }}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            {{ ucfirst(str_replace('_', ' ', $payment->payment_method)) }}
+                                                        </td>
+                                                        <td>{{ $payment->order_number }}</td>     
+                                                @endforeach          
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="col-md-9">
+                                    <div class="text-center py-5 my-4 border rounded bg-light">
+                                        <div class="mb-3">
+                                            <i class="bi bi-box-seam text-muted" style="font-size: 3rem;"></i>
+                                        </div>
+                                        <h5 class="fw-bold text-muted">No Orders Found</h5>
+                                        <p class="text-muted mb-0">
+                                            You haven’t made any orders yet. Explore our products and find something interesting to shop!
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
 
                         <nav aria-label="Page navigation" class="mt-4">

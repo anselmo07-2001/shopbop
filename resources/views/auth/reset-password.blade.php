@@ -12,13 +12,13 @@
             <div class="mb-3">
                 <label>New Password</label>
                 <input type="password" name="password" 
-                      class="form-control" required style="font-size: 14px;">
+                      class="form-control mt-2" required style="font-size: 14px;">
             </div>
 
             <div class="mb-3">
                 <label>Confirm Password</label>
                 <input type="password" name="password_confirmation"
-                       class="form-control" required style="font-size: 14px;">
+                       class="form-control mt-2" required style="font-size: 14px;">
 
                 <x-error-input-message field="email"/>
                 <x-error-input-message field="password"/>
