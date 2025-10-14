@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -37,6 +38,16 @@ class LoginController extends Controller
             "email" => "required|email",
             "password" => "required"
         ]);
+
+        $customer = Customer::where("email", $cred["email"])->first();
+
+        if ($customer && $customer->status == "inactive") {
+            return back()->withErrors([
+                "email" => "Your account has been disabled by the admin. Please contact support for assistance." 
+            ])->withInput();
+        }
+
+        $cred = array_merge($cred, ["status" => 1]);
 
         if (Auth::guard("customer")->attempt($cred, $request->filled("remember"))) {
             $request->session()->regenerate();
