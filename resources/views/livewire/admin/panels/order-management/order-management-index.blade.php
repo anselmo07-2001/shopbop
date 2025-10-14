@@ -88,7 +88,53 @@
                                     <strong>Id:</strong> {{ optional($firstOrder->customer)->id }}<br>
                                     <strong>Name:</strong> {{ optional($firstOrder->customer)->full_name }}<br>
                                     <strong>Email:</strong> {{ optional($firstOrder->customer)->email }}<br>
-                                    <button class="btn btn-warning btn-sm mt-2">Send Message</button>
+
+
+                                <!-- Modal Send Message -->    
+                                    @php
+                                        $modalId = "messageModal" . $firstOrder->id;
+                                    @endphp
+
+                                    <div class="modal fade" id="{{ $modalId }}" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="{{ route('admin.orderManagement.sendMessage') }}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="messageModalLabel">Send Message</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    
+                                                    <div class="modal-body">
+                                                        <input type="hidden" id="email" name="email" value="{{ optional($firstOrder->customer)->email }}">
+                                                        
+                                                        <div class="mb-3">
+                                                            <label for="subject" class="form-label">Subject</label>
+                                                            <input type="text" class="form-control" id="subject" name="subject" required value="{{ old('subject') }}">
+                                                             <x-error-input-message field="subject"/>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="message" class="form-label">Message</label>
+                                                            <textarea class="form-control" id="message" name="message" rows="4" required>{{ old('message') }}</textarea>
+                                                            <x-error-input-message field="message"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Send</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+              
+                                    <button class="btn btn-warning btn-sm mt-2"
+                                            data-bs-toggle="modal" data-bs-target="#{{ $modalId }}">
+                                        Send Message
+                                    </button>
+
                                 </td>
                                 <td>
                                     @foreach ($group as $order)

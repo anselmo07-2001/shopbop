@@ -226,6 +226,7 @@ Route::middleware("auth:admin")->group(function() {
         Route::put("/{orderNumber}/update-payment-status", [OrderManagementController::class, "updatePaymentStatus"])->name("updatePaymentStatus");
         Route::put("/{orderNumber}/update-shipping-status", [OrderManagementController::class, "updateShippingStatus"])->name("updateShippingStatus");
         Route::delete("/{orderNumber}/delete", [OrderManagementController::class, "destroy"])->name("destroy");
+        Route::post("/send-message", [OrderManagementController::class, "sendMessage"])->name("sendMessage");
     });
 });
 
