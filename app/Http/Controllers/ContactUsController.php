@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
 use App\Models\PageSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class ContactUsController extends Controller
@@ -22,5 +24,22 @@ class ContactUsController extends Controller
         ])->firstOrFail();
 
         return view("pages.contact-us", compact("contact_settings"));
+    }
+
+    public function sendMessage(Request $request) {
+        $contact_email = PageSetting::firstOrFail()->contact_email;
+    
+        $request->validate([
+            "full_name" => "required|string|max:255",
+            "email" => "required|email",
+            "phone_number" => "required|regex:/^\+?[0-9\s\-\(\)]{10,20}$/",
+            "message" => "required|string"
+        ]);
+
+        $data = $request->only("full_name", "email", "phone_number", "message");
+
+        Mail::to($contact_email)->queue(new ContactMail($data));
+
+        return back()->with("success", "Message sent successfully");
     }
 }

@@ -47,9 +47,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", [PageController::class, "index"])->name("home");
 Route::get("/faq", [FaqController::class, "faq"])->name("faq");
-Route::get("/contactUs", [ContactUsController::class, "contactUs"])->name("contactUs");
 Route::get("/aboutUs", [AboutUsController::class, "aboutUs"])->name("aboutUs");
 Route::get("/cart", [CartController::class, "cart"])->name("cart");
+
+Route::get("/contactUs", [ContactUsController::class, "contactUs"])->name("contactUs");
+Route::post("/send-message", [ContactUsController::class, "sendMessage"])->name("sendMessage");
+
 
 Route::middleware("guest:customer")->group(function () {
     Route::get("/login", [LoginController::class, "login"])->name("login");

@@ -3,6 +3,10 @@
 
     <section class="bg-light py-5">
         <div class="container">
+            
+            <x-flash-message session_name="success" />
+            <x-flash-message session_name="error" />  
+
             <!-- Title -->
             <div class="row justify-content-center mb-4">
             <div class="col-lg-8 text-center">
@@ -18,25 +22,38 @@
             <div class="col-lg-6">
                 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
                 <h4 class="fw-bold mb-3">Send us a Message</h4>
-                <form>
+                <form method="POST" action="{{ route('sendMessage') }}">
+                    @csrf
                     <div class="mb-3">
-                    <label class="form-label fw-semibold">Full Name</label>
-                    <input type="text" class="form-control form-control-lg rounded-3" placeholder="Enter your name">
+                        <label for="full_name" class="form-label fw-semibold">Full Name</label>
+                        <input name="full_name" id="full_name" type="text" value="{{ old('full_name') }}" 
+                               class="form-control form-control-md rounded-3" placeholder="Enter your name">
+                        <x-error-input-message field="full_name"/>
                     </div>
+
                     <div class="mb-3">
-                    <label class="form-label fw-semibold">Email Address</label>
-                    <input type="email" class="form-control form-control-lg rounded-3" placeholder="Enter your email">
+                        <label for="email" class="form-label fw-semibold">Email Address</label>
+                        <input id="email" name="email" type="email" value="{{ old('email') }}" 
+                               class="form-control form-control-md rounded-3" placeholder="Enter your email">
+                        <x-error-input-message field="email"/>
                     </div>
+
                     <div class="mb-3">
-                    <label class="form-label fw-semibold">Phone Number</label>
-                    <input type="tel" class="form-control form-control-lg rounded-3" placeholder="Enter your phone number">
+                        <label for="phone_number" class="form-label fw-semibold">Phone Number</label>
+                        <input id="phone_number" name="phone_number" type="tel" value="{{ old('phone_number') }}" 
+                               class="form-control form-control-md rounded-3" placeholder="Enter your phone number">
+                        <x-error-input-message field="phone_number"/>
                     </div>
+
                     <div class="mb-3">
-                    <label class="form-label fw-semibold">Message</label>
-                    <textarea class="form-control form-control-lg rounded-3" rows="5" placeholder="Write your message"></textarea>
+                        <label for="message" class="form-label fw-semibold">Message</label>
+                        <textarea id="message" name="message" class="form-control form-control-md rounded-3" rows="5" 
+                                placeholder="Write your message">{{  old('message') }}</textarea>
+                        <x-error-input-message field="message"/>
                     </div>
+
                     <button type="submit" class="btn btn-danger btn-lg w-100 rounded-3 fw-bold">
-                    Send Message
+                        Send Message
                     </button>
                 </form>
                 </div>
