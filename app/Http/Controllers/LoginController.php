@@ -47,8 +47,8 @@ class LoginController extends Controller
             ])->withInput();
         }
 
-        $cred = array_merge($cred, ["status" => 1]);
-
+        $cred = array_merge($cred, ["status" => 1]);  
+           
         if (Auth::guard("customer")->attempt($cred, $request->filled("remember"))) {
             $request->session()->regenerate();
             return redirect()->intended(route('home'))->with('success', 'Customer logged in!');

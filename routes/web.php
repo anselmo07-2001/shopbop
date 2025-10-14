@@ -105,7 +105,9 @@ Route::get("/verify-subscriber/{hash}", [SubscriberController::class, "verify"])
 /************ Admin Panel **************/
 
 Route::get("/admin/login", [LoginController::class, "loginAdmin"])->name("login.admin");
-Route::post("/admin/login", [LoginController::class, "handleLoginAdmin"])->name("handle.login.admin");
+Route::post("/admin/login", [LoginController::class, "handleLoginAdmin"])->name("handle.login.admin");  
+
+
 
 Route::middleware("auth:admin")->group(function() {
     Route::post("/admin/logout", [LoginController::class, "hadnleLogoutAdmin"])->name("logout.admin");
