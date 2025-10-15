@@ -21,8 +21,6 @@ return Application::configure(basePath: dirname(__DIR__))
             // Otherwise, use the default 'customer' login route.
             return route("login");
         });
-
-        $middleware->append(SetGuardSessionCookie::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

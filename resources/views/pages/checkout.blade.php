@@ -158,7 +158,7 @@
 
 <script>
 window.addEventListener("load", function() {
-    console.log("✅ Stripe script running after page load");
+    // console.log("✅ Stripe script running after page load");
 
     // DOM elements
     const paymentMethod = document.getElementById("paymentMethod");
@@ -169,7 +169,7 @@ window.addEventListener("load", function() {
     const stripePaymentInput = document.getElementById("stripePaymentMethod");
     const cardErrors = document.getElementById("card-errors");
 
-    console.log("📋 Form found?", form);
+    // console.log("📋 Form found?", form);
 
     // Hide all sections initially
     transactionInfoSection.style.display = "none";
@@ -185,7 +185,7 @@ window.addEventListener("load", function() {
     // Handle payment method change
     paymentMethod.addEventListener("change", function() {
         const selected = paymentMethod.value;
-        console.log("🔁 Payment method changed:", selected);
+        // console.log("🔁 Payment method changed:", selected);
 
         if (selected === "stripe") {
             stripeCardSection.style.display = "block";
@@ -205,24 +205,24 @@ window.addEventListener("load", function() {
     // Handle Stripe payment method creation
     form.addEventListener("submit", async function(e) {
         console.log("🚀 Form submit triggered!");
-        
+
         if (paymentMethod.value === "stripe") {
             e.preventDefault();
-            console.log("🟡 Submitting with Stripe...");
+            // console.log("🟡 Submitting with Stripe...");
 
             const { paymentMethod: stripePM, error } = await stripe.createPaymentMethod({
                 type: "card",
                 card: cardElement,
             });
 
-            console.log("🧩 Stripe response:", { stripePM, error });
+            // console.log("🧩 Stripe response:", { stripePM, error });
 
             if (error) {
-                console.error("❌ Stripe error:", error);
+                // console.error("❌ Stripe error:", error);
                 cardErrors.textContent = error.message;
             } else {
                 stripePaymentInput.value = stripePM.id;
-                console.log("✅ Stripe Payment Method ID:", stripePM.id);
+                // console.log("✅ Stripe Payment Method ID:", stripePM.id);
                 form.submit(); // Proceed to Laravel controller
             }
         }

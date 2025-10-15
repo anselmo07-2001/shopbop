@@ -35,6 +35,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RatingsController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SubscriberController;
+use App\Http\Middleware\SetGuardSessionCookie;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -108,196 +109,199 @@ Route::get("/admin/login", [LoginController::class, "loginAdmin"])->name("login.
 Route::post("/admin/login", [LoginController::class, "handleLoginAdmin"])->name("handle.login.admin");  
 
 
+Route::middleware(['web', SetGuardSessionCookie::class])->group(function() {
 
-Route::middleware("auth:admin")->group(function() {
-    Route::post("/admin/logout", [LoginController::class, "hadnleLogoutAdmin"])->name("logout.admin");
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::get("/admin/dashboard", [AdminDashboardController::class, "dashboard"])->name("admin.dashboard");
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/manage-profile")->name("admin.manageProfile.")->group(function () {
-        Route::get("/", [AdminController::class, "editProfile"])->name("editProfile");
-        Route::put("/updateProfile", [AdminController::class, "updateProfile"])->name("updateProfile");
-        Route::put("/updatePassword", [AdminController::class, "updatePassword"])->name("updatePassword");
+    Route::middleware("auth:admin")->group(function() {
+        Route::post("/admin/logout", [LoginController::class, "hadnleLogoutAdmin"])->name("logout.admin");
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::get("/admin/dashboard", [AdminDashboardController::class, "dashboard"])->name("admin.dashboard");
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/manage-profile")->name("admin.manageProfile.")->group(function () {
+            Route::get("/", [AdminController::class, "editProfile"])->name("editProfile");
+            Route::put("/updateProfile", [AdminController::class, "updateProfile"])->name("updateProfile");
+            Route::put("/updatePassword", [AdminController::class, "updatePassword"])->name("updatePassword");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::get("/admin/website-setting", [WebsiteSettingsController::class, "websiteSetting"])->name("admin.websiteSetting");
+        Route::post("/admin/website-setting/branding-update", [WebsiteSettingsController::class, "updateBranding"])->name("admin.branding.update");
+        Route::post("/admin/website-setting/footer-update", [WebsiteSettingsController::class, "updateFooter"])->name("admin.footer.update");
+        Route::post("/admin/website-setting/message-settings-update", [WebsiteSettingsController::class, "updateMessageSettings"])->name("admin.messageSettings.update");
+        Route::post("/admin/website-setting/products-display-limit", [WebsiteSettingsController::class, "updateProductsDisplayLimit"])->name("admin.productsDisplayLimit.update");
+        Route::post("/admin/website-setting/home-settings", [WebsiteSettingsController::class, "updateHomeSettings"])->name("admin.homeSettings.update");
+        Route::post("/admin/website-setting/payment", [WebsiteSettingsController::class, "updatePayment"])->name("admin.payment.update");
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/shop-setting/size")->name("admin.shopSetting.size.")->group(function () {
+            Route::get("/", [SizeController::class, "index"])->name("index");
+            Route::get("/create", [SizeController::class, "create"])->name("create");
+            Route::post("/", [SizeController::class, "store"])->name("store");
+            Route::get("/{size}/edit", [SizeController::class, "edit"])->name("edit");
+            Route::put("/{size}", [SizeController::class, "update"])->name("update");
+            Route::delete("/{size}", [SizeController::class, "destroy"])->name("destroy");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/shop-setting/color")->name("admin.shopSetting.color.")->group(function() {
+            Route::get("/", [ColorController::class, "index"])->name("index");
+            Route::get("/create", [ColorController::class, "create"])->name("create");
+            Route::post("/", [ColorController::class, "store"])->name("store");
+            Route::delete("/{color}", [ColorController::class, "destroy"])->name("destroy");
+            Route::get("/{color}/edit", [ColorController::class, "edit"])->name("edit");
+            Route::put("/{color}", [ColorController::class, "update"])->name("update");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/shop-setting/country")->name("admin.shopSetting.country.")->group(function() {
+            Route::get("/", [CountryController::class, "index"])->name("index");
+            Route::get("/create", [CountryController::class, "create"])->name("create");
+            Route::post("/", [CountryController::class, "store"])->name("store");
+            Route::delete("/{country}", [CountryController::class, "destroy"])->name("destroy");
+            Route::get("/{country}/edit", [CountryController::class, "edit"])->name("edit");
+            Route::put("/{country}", [CountryController::class, "update"])->name("update");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/shop-setting/shipping-cost")->name("admin.shopSetting.shippingCost.")->group(function() {
+            Route::get("/", [ShippingCostController::class, "index"])->name("index");
+            Route::post("/", [ShippingCostController::class, "store"])->name("store");
+            Route::delete("/{country}", [ShippingCostController::class, "destroy"])->name("destroy");
+            Route::get("/{shippingCost}/edit", [ShippingCostController::class, "edit"])->name("edit");
+            Route::put("/{shippingCost}", [ShippingCostController::class, "update"])->name("update");
+        });
+    
+        Route::put("/admin/shop-setting/shipping-costs-all", [ShippingCostsAllController::class, "update"])
+            ->name("admin.shopSetting.shippingCostsAll.update");
+    });
+    
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting.topLevelCategory.")->group(function() {
+            Route::get("/", [TopLevelCategoryController::class, "index"])->name("index");
+            Route::get("/create", [TopLevelCategoryController::class, "create"])->name("create");
+            Route::post("/", [TopLevelCategoryController::class, "store"])->name("store");
+            Route::delete("/{topLevelCategory}", [TopLevelCategoryController::class, "destroy"])->name("destroy");
+            Route::get("/{topLevelCategory}/edit", [TopLevelCategoryController::class, "edit"])->name("edit");
+            Route::put("/{topLevelCategory}", [TopLevelCategoryController::class, "update"])->name("update");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/shop-setting/mid-level-category")->name("admin.shopSetting.midLevelCategory.")->group(function() {
+            Route::get("/", [MidLevelCategoryController::class, "index"])->name("index");
+            Route::get("/create", [MidLevelCategoryController::class, "create"])->name("create");
+            Route::post("/", [MidLevelCategoryController::class, "store"])->name("store");
+            Route::delete("/{midLevelCategory}", [MidLevelCategoryController::class, "destroy"])->name("destroy");
+            Route::get("/{midLevelCategory}/edit", [MidLevelCategoryController::class, "edit"])->name("edit");
+            Route::put("/{midLevelCategory}", [MidLevelCategoryController::class, "update"])->name("update");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/shop-setting/end-level-category")->name("admin.shopSetting.endLevelCategory.")->group(function() {
+            Route::get("/", [EndLevelCategoryController::class, "index"])->name("index");
+            Route::get("/create", [EndLevelCategoryController::class, "create"])->name("create");
+            Route::delete("/{endLevelCategory}", [EndLevelCategoryController::class, "destroy"])->name("destroy");
+            Route::get("/{endLevelCategory}/edit", [EndLevelCategoryController::class, "edit"])->name("edit");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/product-management")->name("admin.productManagement.")->group(function() {
+            Route::get("/", [ProductManagementController::class, "index"])->name("index");
+            Route::get("/create", [ProductManagementController::class, "create"])->name("create");
+            Route::delete("/{product}", [ProductManagementController::class, "destroy"])->name("destroy");
+            Route::get("/{product}/edit", [ProductManagementController::class, "edit"])->name("edit");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/order-management")->name("admin.orderManagement.")->group(function() {
+            Route::get("/", [OrderManagementController::class, "index"])->name("index");
+            Route::put("/{orderNumber}/update-payment-status", [OrderManagementController::class, "updatePaymentStatus"])->name("updatePaymentStatus");
+            Route::put("/{orderNumber}/update-shipping-status", [OrderManagementController::class, "updateShippingStatus"])->name("updateShippingStatus");
+            Route::delete("/{orderNumber}/delete", [OrderManagementController::class, "destroy"])->name("destroy");
+            Route::post("/send-message", [OrderManagementController::class, "sendMessage"])->name("sendMessage");
+        });
+    });
+    
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/manage-sliders")->name("admin.manageSliders.")->group(function() {
+            Route::get("/", [ManageSlidersController::class, "index"])->name("index");
+            Route::get("/create", [ManageSlidersController::class, "create"])->name("create");
+            Route::post("/", [ManageSlidersController::class, "store"])->name("store");
+            Route::delete("/{slider}/delete", [ManageSlidersController::class, "destroy"])->name("destroy");
+            Route::get("/{slider}/edit", [ManageSlidersController::class, "edit"])->name("edit");
+            Route::put("/{slider}/update", [ManageSlidersController::class, "update"])->name("update");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/services")->name("admin.services.")->group(function() {
+            Route::get("/", [ServicesManagementController::class, "index"])->name("index");
+            Route::get("/create", [ServicesManagementController::class, "create"])->name("create");
+            Route::post("/", [ServicesManagementController::class, "store"])->name("store");
+            Route::delete("/{service}/delete", [ServicesManagementController::class, "destroy"])->name("destroy");
+            Route::get("/{service}/edit", [ServicesManagementController::class, "edit"])->name("edit");
+            Route::put("/{service}/update", [ServicesManagementController::class, "update"])->name("update");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
+            Route::get("/", [FAQManagementController::class, "index"])->name("index");
+            Route::get("/create", [FAQManagementController::class, "create"])->name("create");
+            Route::post("/", [FAQManagementController::class, "store"])->name("store");
+            Route::delete("/{faq}/delete", [FAQManagementController::class, "destroy"])->name("destroy");
+            Route::get("/{faq}/edit", [FAQManagementController::class, "edit"])->name("edit");
+            Route::put("/{faq}/update", [FAQManagementController::class, "update"])->name("update");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/registered-customers")->name("admin.registeredCustomers.")->group(function() {
+            Route::get("/", [RegisteredCustomerManagementController::class, "index"])->name("index");
+            Route::put("/{customer}/updateStatus", [RegisteredCustomerManagementController::class, "updateStatus"])->name("updateStatus");
+            Route::delete("/{customer}/delete", [RegisteredCustomerManagementController::class, "destroy"])->name("destroy");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/social-media")->name("admin.socialMedia.")->group(function() {
+            Route::get("/", [SocialMediaManagementController::class, "index"])->name("index");
+            Route::put("/update", [SocialMediaManagementController::class, "update"])->name("update");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/page-setting")->name("admin.pageSettings.")->group(function() {
+            Route::get("/", [PageSettingsController::class, "index"])->name("index");
+            Route::put("/update-about-us", [PageSettingsController::class, "updateAboutUs"])->name("updateAboutUs");
+            Route::put("/update-faq", [PageSettingsController::class, "updateFAQ"])->name("updateFAQ");
+            Route::put("/update-contactus", [PageSettingsController::class, "updateContact"])->name("updateContact");
+        });
+    });
+    
+    Route::middleware("auth:admin")->group(function() {
+        Route::prefix("/admin/subscribers")->name("admin.subscribers.")->group(function() {
+            Route::get("/", [ManageSubscribers::class, "index"])->name("index");
+            Route::delete("/{subscriber}/destroy", [ManageSubscribers::class, "destroy"])->name("destroy");
+            Route::delete("/destroy-pending-subscribers", [ManageSubscribers::class, "destroyPendingSubscribers"])->name("destroyPendingSubscribers");
+            Route::get("/export", [ManageSubscribers::class, "exportCsv"])->name("export");
+        });
     });
 });
 
-Route::middleware("auth:admin")->group(function() {
-    Route::get("/admin/website-setting", [WebsiteSettingsController::class, "websiteSetting"])->name("admin.websiteSetting");
-    Route::post("/admin/website-setting/branding-update", [WebsiteSettingsController::class, "updateBranding"])->name("admin.branding.update");
-    Route::post("/admin/website-setting/footer-update", [WebsiteSettingsController::class, "updateFooter"])->name("admin.footer.update");
-    Route::post("/admin/website-setting/message-settings-update", [WebsiteSettingsController::class, "updateMessageSettings"])->name("admin.messageSettings.update");
-    Route::post("/admin/website-setting/products-display-limit", [WebsiteSettingsController::class, "updateProductsDisplayLimit"])->name("admin.productsDisplayLimit.update");
-    Route::post("/admin/website-setting/home-settings", [WebsiteSettingsController::class, "updateHomeSettings"])->name("admin.homeSettings.update");
-    Route::post("/admin/website-setting/payment", [WebsiteSettingsController::class, "updatePayment"])->name("admin.payment.update");
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/shop-setting/size")->name("admin.shopSetting.size.")->group(function () {
-        Route::get("/", [SizeController::class, "index"])->name("index");
-        Route::get("/create", [SizeController::class, "create"])->name("create");
-        Route::post("/", [SizeController::class, "store"])->name("store");
-        Route::get("/{size}/edit", [SizeController::class, "edit"])->name("edit");
-        Route::put("/{size}", [SizeController::class, "update"])->name("update");
-        Route::delete("/{size}", [SizeController::class, "destroy"])->name("destroy");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/shop-setting/color")->name("admin.shopSetting.color.")->group(function() {
-        Route::get("/", [ColorController::class, "index"])->name("index");
-        Route::get("/create", [ColorController::class, "create"])->name("create");
-        Route::post("/", [ColorController::class, "store"])->name("store");
-        Route::delete("/{color}", [ColorController::class, "destroy"])->name("destroy");
-        Route::get("/{color}/edit", [ColorController::class, "edit"])->name("edit");
-        Route::put("/{color}", [ColorController::class, "update"])->name("update");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/shop-setting/country")->name("admin.shopSetting.country.")->group(function() {
-        Route::get("/", [CountryController::class, "index"])->name("index");
-        Route::get("/create", [CountryController::class, "create"])->name("create");
-        Route::post("/", [CountryController::class, "store"])->name("store");
-        Route::delete("/{country}", [CountryController::class, "destroy"])->name("destroy");
-        Route::get("/{country}/edit", [CountryController::class, "edit"])->name("edit");
-        Route::put("/{country}", [CountryController::class, "update"])->name("update");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/shop-setting/shipping-cost")->name("admin.shopSetting.shippingCost.")->group(function() {
-        Route::get("/", [ShippingCostController::class, "index"])->name("index");
-        Route::post("/", [ShippingCostController::class, "store"])->name("store");
-        Route::delete("/{country}", [ShippingCostController::class, "destroy"])->name("destroy");
-        Route::get("/{shippingCost}/edit", [ShippingCostController::class, "edit"])->name("edit");
-        Route::put("/{shippingCost}", [ShippingCostController::class, "update"])->name("update");
-    });
-
-    Route::put("/admin/shop-setting/shipping-costs-all", [ShippingCostsAllController::class, "update"])
-        ->name("admin.shopSetting.shippingCostsAll.update");
-});
-
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/shop-setting/top-level-category")->name("admin.shopSetting.topLevelCategory.")->group(function() {
-        Route::get("/", [TopLevelCategoryController::class, "index"])->name("index");
-        Route::get("/create", [TopLevelCategoryController::class, "create"])->name("create");
-        Route::post("/", [TopLevelCategoryController::class, "store"])->name("store");
-        Route::delete("/{topLevelCategory}", [TopLevelCategoryController::class, "destroy"])->name("destroy");
-        Route::get("/{topLevelCategory}/edit", [TopLevelCategoryController::class, "edit"])->name("edit");
-        Route::put("/{topLevelCategory}", [TopLevelCategoryController::class, "update"])->name("update");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/shop-setting/mid-level-category")->name("admin.shopSetting.midLevelCategory.")->group(function() {
-        Route::get("/", [MidLevelCategoryController::class, "index"])->name("index");
-        Route::get("/create", [MidLevelCategoryController::class, "create"])->name("create");
-        Route::post("/", [MidLevelCategoryController::class, "store"])->name("store");
-        Route::delete("/{midLevelCategory}", [MidLevelCategoryController::class, "destroy"])->name("destroy");
-        Route::get("/{midLevelCategory}/edit", [MidLevelCategoryController::class, "edit"])->name("edit");
-        Route::put("/{midLevelCategory}", [MidLevelCategoryController::class, "update"])->name("update");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/shop-setting/end-level-category")->name("admin.shopSetting.endLevelCategory.")->group(function() {
-        Route::get("/", [EndLevelCategoryController::class, "index"])->name("index");
-        Route::get("/create", [EndLevelCategoryController::class, "create"])->name("create");
-        Route::delete("/{endLevelCategory}", [EndLevelCategoryController::class, "destroy"])->name("destroy");
-        Route::get("/{endLevelCategory}/edit", [EndLevelCategoryController::class, "edit"])->name("edit");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/product-management")->name("admin.productManagement.")->group(function() {
-        Route::get("/", [ProductManagementController::class, "index"])->name("index");
-        Route::get("/create", [ProductManagementController::class, "create"])->name("create");
-        Route::delete("/{product}", [ProductManagementController::class, "destroy"])->name("destroy");
-        Route::get("/{product}/edit", [ProductManagementController::class, "edit"])->name("edit");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/order-management")->name("admin.orderManagement.")->group(function() {
-        Route::get("/", [OrderManagementController::class, "index"])->name("index");
-        Route::put("/{orderNumber}/update-payment-status", [OrderManagementController::class, "updatePaymentStatus"])->name("updatePaymentStatus");
-        Route::put("/{orderNumber}/update-shipping-status", [OrderManagementController::class, "updateShippingStatus"])->name("updateShippingStatus");
-        Route::delete("/{orderNumber}/delete", [OrderManagementController::class, "destroy"])->name("destroy");
-        Route::post("/send-message", [OrderManagementController::class, "sendMessage"])->name("sendMessage");
-    });
-});
-
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/manage-sliders")->name("admin.manageSliders.")->group(function() {
-        Route::get("/", [ManageSlidersController::class, "index"])->name("index");
-        Route::get("/create", [ManageSlidersController::class, "create"])->name("create");
-        Route::post("/", [ManageSlidersController::class, "store"])->name("store");
-        Route::delete("/{slider}/delete", [ManageSlidersController::class, "destroy"])->name("destroy");
-        Route::get("/{slider}/edit", [ManageSlidersController::class, "edit"])->name("edit");
-        Route::put("/{slider}/update", [ManageSlidersController::class, "update"])->name("update");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/services")->name("admin.services.")->group(function() {
-        Route::get("/", [ServicesManagementController::class, "index"])->name("index");
-        Route::get("/create", [ServicesManagementController::class, "create"])->name("create");
-        Route::post("/", [ServicesManagementController::class, "store"])->name("store");
-        Route::delete("/{service}/delete", [ServicesManagementController::class, "destroy"])->name("destroy");
-        Route::get("/{service}/edit", [ServicesManagementController::class, "edit"])->name("edit");
-        Route::put("/{service}/update", [ServicesManagementController::class, "update"])->name("update");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/faq")->name("admin.faq.")->group(function() {
-        Route::get("/", [FAQManagementController::class, "index"])->name("index");
-        Route::get("/create", [FAQManagementController::class, "create"])->name("create");
-        Route::post("/", [FAQManagementController::class, "store"])->name("store");
-        Route::delete("/{faq}/delete", [FAQManagementController::class, "destroy"])->name("destroy");
-        Route::get("/{faq}/edit", [FAQManagementController::class, "edit"])->name("edit");
-        Route::put("/{faq}/update", [FAQManagementController::class, "update"])->name("update");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/registered-customers")->name("admin.registeredCustomers.")->group(function() {
-        Route::get("/", [RegisteredCustomerManagementController::class, "index"])->name("index");
-        Route::put("/{customer}/updateStatus", [RegisteredCustomerManagementController::class, "updateStatus"])->name("updateStatus");
-        Route::delete("/{customer}/delete", [RegisteredCustomerManagementController::class, "destroy"])->name("destroy");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/social-media")->name("admin.socialMedia.")->group(function() {
-        Route::get("/", [SocialMediaManagementController::class, "index"])->name("index");
-        Route::put("/update", [SocialMediaManagementController::class, "update"])->name("update");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/page-setting")->name("admin.pageSettings.")->group(function() {
-        Route::get("/", [PageSettingsController::class, "index"])->name("index");
-        Route::put("/update-about-us", [PageSettingsController::class, "updateAboutUs"])->name("updateAboutUs");
-        Route::put("/update-faq", [PageSettingsController::class, "updateFAQ"])->name("updateFAQ");
-        Route::put("/update-contactus", [PageSettingsController::class, "updateContact"])->name("updateContact");
-    });
-});
-
-Route::middleware("auth:admin")->group(function() {
-    Route::prefix("/admin/subscribers")->name("admin.subscribers.")->group(function() {
-        Route::get("/", [ManageSubscribers::class, "index"])->name("index");
-        Route::delete("/{subscriber}/destroy", [ManageSubscribers::class, "destroy"])->name("destroy");
-        Route::delete("/destroy-pending-subscribers", [ManageSubscribers::class, "destroyPendingSubscribers"])->name("destroyPendingSubscribers");
-        Route::get("/export", [ManageSubscribers::class, "exportCsv"])->name("export");
-    });
-});
 
 
 
