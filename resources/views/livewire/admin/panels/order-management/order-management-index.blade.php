@@ -158,7 +158,7 @@
                                     @endforeach
                                 </td>
 
-                                <td>${{ number_format($totalPaidAmount, 2) }}</td>
+                                <td>${{ number_format($order->payments->sum('paid_amount'), 2) }}</td>
                                 <td>
                                     <span class="badge bg-{{ $paymentStatus === 'paid' ? 'success' : 'warning' }}">
                                         {{ ucwords($paymentStatus) }}

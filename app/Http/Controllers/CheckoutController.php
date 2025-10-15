@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Stripe\PaymentIntent;
+use Stripe\Stripe;
 
 class CheckoutController extends Controller
 {
@@ -65,6 +66,47 @@ class CheckoutController extends Controller
                 "order_number" => $order_number,
                 "customer_id" => auth()->id()
             ];
+        }
+        elseif ($payment_method === "stripe") {
+            Stripe::setApiKey(config('services.stripe.secret'));
+             // Get payment method ID from form
+            $paymentMethodId = $request->input('stripe_payment_method');
+
+            if (!$paymentMethodId) {
+                return back()->with('error', 'Stripe payment failed: missing payment method ID.');
+            }
+
+            try {
+                $paymentIntent = PaymentIntent::create([
+                    'amount' => intval(($total_amount + $shipping_cost) * 100), // Stripe uses cents
+                    'currency' => 'usd',
+                    'payment_method' => $paymentMethodId,
+                    'confirm' => true,
+                    'automatic_payment_methods' => [
+                        'enabled' => true,
+                        'allow_redirects' => 'never',
+                    ],
+                ]);
+
+                $charges = $paymentIntent->charges->data[0] ?? null;
+                $card = $charges?->payment_method_details?->card;
+
+                $payment_detail = [
+                    "payment_date" => now(),
+                    "txn_id" => $charges?->id,
+                    "card_brand" => $card?->brand,
+                    "card_number_last_4" => $card?->last4,
+                    "paid_amount" => $total_amount,
+                    "bank_transaction_info" => null,
+                    "payment_method" => "stripe",
+                    "payment_status" => "paid",
+                    "shipping_status" => "pending",
+                    "order_number" => $order_number,
+                    "customer_id" => auth()->id()
+                ];
+            } catch (\Exception $e) {
+                return back()->with('error', 'Stripe payment failed: ' . $e->getMessage());
+            }
         }
 
         

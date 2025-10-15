@@ -112,7 +112,7 @@
     </div>
 
     <!-- Payment Section -->
-    <form method="POST" action="{{ route('checkout.placeOrder') }}">
+    <form id="checkoutForm" method="POST" action="{{ route('checkout.placeOrder') }}">
         @csrf
         <div class="card shadow-sm">
             <div class="card-header bg-secondary text-white">Payment Section</div>
@@ -122,21 +122,110 @@
                 <select name="payment_method" id="paymentMethod" class="form-select">
                     <option selected></option>
                     <option value="bank_deposit">Bank Deposit</option>
+                    <option value="stripe">Credit/Debit Card</option>
                 </select>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3" id="bankDetailsSection">
                 <p><strong>Send to this Details</strong></p>
                 <div>{!! nl2br(e($bank_detail)) !!}</div>
             </div>
- 
-            <div class="mb-3">       
-                    <label for="transactionInfo" class="form-label">Transaction Information</label>
-                    <textarea name="transactionInfo" id="transactionInfo" class="form-control" rows="3" 
-                        placeholder="Include transaction ID and other information correctly"></textarea> 
+
+            <!-- Transaction Info Textarea (hidden unless bank deposit) -->
+            <div class="mb-3" id="transactionSection" style="display: none;">       
+                <label for="transactionInfo" class="form-label">Transaction Information</label>
+                <textarea name="transactionInfo" id="transactionInfo" class="form-control" rows="3" 
+                    placeholder="Include transaction ID and other information correctly"></textarea> 
             </div>
+
+            <!-- Stripe Card Input (hidden by default) -->
+            <div id="card-section" style="display: none;">
+                <label for="card-element" class="form-label">Credit/Debit Card Details</label>
+                <div id="card-element" class="form-control"></div>
+                <div id="card-errors" class="text-danger mt-2"></div>
+            </div>
+
+            <input type="hidden" name="stripe_payment_method" id="stripePaymentMethod">
+
 
             <button class="btn btn-primary">Pay Now</button>   
         </div>
     </form> 
 </x-layout>
+
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+window.addEventListener("load", function() {
+    console.log("✅ Stripe script running after page load");
+
+    // DOM elements
+    const paymentMethod = document.getElementById("paymentMethod");
+    const transactionInfoSection = document.getElementById("transactionSection");
+    const bankDetailsSection = document.getElementById("bankDetailsSection");
+    const stripeCardSection = document.getElementById("card-section");
+    const form = document.getElementById("checkoutForm");
+    const stripePaymentInput = document.getElementById("stripePaymentMethod");
+    const cardErrors = document.getElementById("card-errors");
+
+    console.log("📋 Form found?", form);
+
+    // Hide all sections initially
+    transactionInfoSection.style.display = "none";
+    bankDetailsSection.style.display = "none";
+    stripeCardSection.style.display = "none";
+
+    // Initialize Stripe
+    const stripe = Stripe("{{ config('services.stripe.key') }}");
+    const elements = stripe.elements();
+    const cardElement = elements.create("card");
+    cardElement.mount("#card-element");
+
+    // Handle payment method change
+    paymentMethod.addEventListener("change", function() {
+        const selected = paymentMethod.value;
+        console.log("🔁 Payment method changed:", selected);
+
+        if (selected === "stripe") {
+            stripeCardSection.style.display = "block";
+            transactionInfoSection.style.display = "none";
+            bankDetailsSection.style.display = "none";
+        } else if (selected === "bank_deposit") {
+            stripeCardSection.style.display = "none";
+            transactionInfoSection.style.display = "block";
+            bankDetailsSection.style.display = "block";
+        } else {
+            stripeCardSection.style.display = "none";
+            transactionInfoSection.style.display = "none";
+            bankDetailsSection.style.display = "none";
+        }
+    });
+
+    // Handle Stripe payment method creation
+    form.addEventListener("submit", async function(e) {
+        console.log("🚀 Form submit triggered!");
+        
+        if (paymentMethod.value === "stripe") {
+            e.preventDefault();
+            console.log("🟡 Submitting with Stripe...");
+
+            const { paymentMethod: stripePM, error } = await stripe.createPaymentMethod({
+                type: "card",
+                card: cardElement,
+            });
+
+            console.log("🧩 Stripe response:", { stripePM, error });
+
+            if (error) {
+                console.error("❌ Stripe error:", error);
+                cardErrors.textContent = error.message;
+            } else {
+                stripePaymentInput.value = stripePM.id;
+                console.log("✅ Stripe Payment Method ID:", stripePM.id);
+                form.submit(); // Proceed to Laravel controller
+            }
+        }
+    });
+});
+</script>
