@@ -110,8 +110,24 @@ class CheckoutController extends Controller
         }
 
         
-        DB::transaction(function () use($order_items, $payment_detail) {
+        DB::transaction(function () use($order_items, $payment_detail, $payment_method) {
             Order::insert($order_items);
+
+            // Reduce stock for Stripe payments
+            if ($payment_method === "stripe") {
+                foreach($order_items as $order_item) {
+                    $product = Product::where('id', $order_item['product_id'])
+                                ->lockForUpdate()
+                                ->first();
+
+                    if ($product && $product->quantity >= $order_item['quantity']) {
+                        $product->decrement('quantity', $order_item['quantity']);
+                    } else {
+                        throw new \Exception("Not enough stock for product ID: ".$order_item['product_id']);
+                    }
+                }
+            }
+
             Payment::create($payment_detail);
         });
 
