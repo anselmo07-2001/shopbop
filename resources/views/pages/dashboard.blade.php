@@ -319,7 +319,9 @@
                                         <th>Product Details</th>
                                         <th>Payment Date</th>
                                         <th>Transaction ID</th>
-                                        <th>Paid Amount</th>
+                                        <th>Order Cost</th>
+                                        <th>Shipping Cost</th>
+                                        <th>Total Payment</th>
                                         <th>Payment Status</th>
                                         <th>Shipping Status</th>
                                         <th>Method</th>
@@ -328,6 +330,12 @@
                                     </thead>
     
                                     <tbody>
+                                        @php 
+                                            $order_cost = $orders->getCollection()
+                                                ->flatMap(fn($group) => $group)
+                                                ->sum(fn($order) => $order->quantity * $order->unit_price)
+                                        @endphp
+
                                         @foreach ($orders as $order)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
@@ -347,7 +355,9 @@
                                                 @foreach ($order->first()->payments as $payment)
                                                         <td>{{ $payment->payment_date }}</td>   
                                                         <td>{{ $payment->txn_id }}</td>
-                                                        <td>${{ $payment->paid_amount }}</td>
+                                                        <td>${{ number_format($order_cost,2) }}</td>
+                                                        <td>${{ number_format($payment->shipping_cost, 2) }}</td>
+                                                        <td>${{ number_format($payment->paid_amount, 2) }}</td>
                                                         <td>
                                                             <span class="badge {{ $payment->payment_status == "paid" ? 'bg-success' : 'bg-warning' }} ">
                                                                 {{ $payment->payment_status }}

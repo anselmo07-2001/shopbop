@@ -17,7 +17,8 @@ class Payment extends Model
         "payment_status",
         "shipping_status",
         "customer_id",
-        "order_number"
+        "order_number",
+        "shipping_cost"
     ];
 
     public function order() {

@@ -59,7 +59,7 @@
                                 </div>
                             </th>
 
-                            <th scope="col">Paid Amount</th>
+                            <th scope="col">Total Payment</th>
                             
                             <th scope="col">Payment Status</th>
                             
@@ -148,12 +148,20 @@
                                     @endforeach
                                 </td>
                                 <td>
+                                    @php
+                                        $order_cost =  $orders->getCollection()
+                                                ->flatMap(fn($group) => $group)
+                                                ->sum(fn($order) => $order->quantity * $order->unit_price)
+                                    @endphp
+
                                     @foreach ($firstOrder->payments as $payment) 
                                         <div class="mb-2">
                                             <strong>Payment Method:</strong> <span class="text-danger">{{ ucwords(str_replace("_", " ", $payment->payment_method)) }}</span><br>
                                             {{-- <strong>Payment Id (Txn):</strong> {{ $payment->txn_id }}<br> --}}
                                             <strong>Date:</strong> {{ optional($payment->created_at)->format('Y-m-d H:i') }}<br>
-                                            <strong>Transaction Info:</strong> {{ $payment->bank_transaction_info }}
+                                            <strong>Transaction Info:</strong> {{ $payment->bank_transaction_info }}<br>
+                                            <strong>Shipping Cost:</strong> ${{ number_format($payment->shipping_cost,2) }}<br>
+                                            <strong>Order Cost:</strong> ${{ number_format($order_cost,2) }}
                                         </div> 
                                     @endforeach
                                 </td>

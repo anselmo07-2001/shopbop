@@ -63,9 +63,11 @@ class CheckoutController extends Controller
                 "payment_method" => "bank_deposit",
                 "payment_status" => "pending",
                 "shipping_status" => "pending",
+                "shipping_cost" => $shipping_cost,
                 "order_number" => $order_number,
                 "customer_id" => auth()->id()
             ];
+
         }
         elseif ($payment_method === "stripe") {
             Stripe::setApiKey(config('services.stripe.secret'));
@@ -101,6 +103,7 @@ class CheckoutController extends Controller
                     "payment_method" => "stripe",
                     "payment_status" => "paid",
                     "shipping_status" => "pending",
+                    "shipping_cost" => $shipping_cost,
                     "order_number" => $order_number,
                     "customer_id" => auth()->id()
                 ];
