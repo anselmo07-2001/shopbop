@@ -76,7 +76,8 @@
                 </div>
                 <div class="d-flex gap-2">
                     @foreach ($product_galleries as $photo)
-                        <img src="{{ asset('storage/gallery/' . $photo->image_path) }}" class="img-thumbnail" style="width: 80px;" onclick="document.getElementById('mainProductImg').src=this.src">       
+                        <img src="{{ asset('storage/gallery/' . $photo->image_path) }}" class="img-thumbnail" 
+                            style="width: 80px; cursor: pointer;" onclick="document.getElementById('mainProductImg').src=this.src">       
                     @endforeach
                 </div>
             </div>
