@@ -330,13 +330,8 @@
                                     </thead>
     
                                     <tbody>
-                                        @php 
-                                            $order_cost = $orders->getCollection()
-                                                ->flatMap(fn($group) => $group)
-                                                ->sum(fn($order) => $order->quantity * $order->unit_price)
-                                        @endphp
-
                                         @foreach ($orders as $order)
+
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
     
@@ -355,7 +350,13 @@
                                                 @foreach ($order->first()->payments as $payment)
                                                         <td>{{ $payment->payment_date }}</td>   
                                                         <td>{{ $payment->txn_id }}</td>
-                                                        <td>${{ number_format($order_cost,2) }}</td>
+                                                        <td>
+                                                            @php
+                                                                $order_cost = $order->sum(
+                                                                    fn($order) => $order->quantity * $order->unit_price)
+                                                            @endphp
+                                                            ${{ number_format($order_cost, 2) }}
+                                                        </td>
                                                         <td>${{ number_format($payment->shipping_cost, 2) }}</td>
                                                         <td>${{ number_format($payment->paid_amount, 2) }}</td>
                                                         <td>
@@ -369,7 +370,13 @@
                                                             </span>
                                                         </td>
                                                         <td>
-                                                            {{ ucfirst(str_replace('_', ' ', $payment->payment_method)) }}
+                                                            @php
+                                                                $display_method = $payment->payment_method === 'stripe'
+                                                                    ? 'Credit / Debit Card'
+                                                                    : ucfirst(str_replace('_', ' ', $payment->payment_method));
+                                                            @endphp
+
+                                                            {{ $display_method }}
                                                         </td>
                                                         <td>{{ $payment->order_number }}</td>     
                                                 @endforeach          

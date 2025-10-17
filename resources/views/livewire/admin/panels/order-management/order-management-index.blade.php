@@ -149,14 +149,23 @@
                                 </td>
                                 <td>
                                     @php
-                                        $order_cost =  $orders->getCollection()
-                                                ->flatMap(fn($group) => $group)
-                                                ->sum(fn($order) => $order->quantity * $order->unit_price)
+                                       $order_cost = $group->sum(fn($group) => $group->quantity * $group->unit_price);
                                     @endphp
 
                                     @foreach ($firstOrder->payments as $payment) 
                                         <div class="mb-2">
-                                            <strong>Payment Method:</strong> <span class="text-danger">{{ ucwords(str_replace("_", " ", $payment->payment_method)) }}</span><br>
+
+
+                                            <strong>Payment Method:</strong> 
+                                                @php
+                                                    $display_method = $payment->payment_method === 'stripe'
+                                                        ? 'Credit / Debit Card'
+                                                        : ucfirst(str_replace('_', ' ', $payment->payment_method));
+                                                @endphp
+
+                                                <span class="text-danger">
+                                                    {{ $display_method }}
+                                                </span><br>
                                             {{-- <strong>Payment Id (Txn):</strong> {{ $payment->txn_id }}<br> --}}
                                             <strong>Date:</strong> {{ optional($payment->created_at)->format('Y-m-d H:i') }}<br>
                                             <strong>Transaction Info:</strong> {{ $payment->bank_transaction_info }}<br>
